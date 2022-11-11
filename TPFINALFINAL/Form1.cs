@@ -141,21 +141,23 @@ namespace TPFINALFINAL
                 }
 
                 
-                listView1.Columns.Add(" ");
-                listView1.Items.Add(" \n ");
-                foreach (var pedidos in pedido_a_entregar)
-                {
-                    
-                    listView1.Items.Add(new ListViewItem(pedidos.nombre));
+               
+                TreeNode Nodo_padre = new TreeNode(camion.ToString());
+
+                foreach (var pedidos in pedido_a_entregar) {
+
+                    Nodo_padre.Nodes.Add(new TreeNode(pedidos.nombre.ToString()));
+ 
                 }
-                
-                listView2.Columns.Add(" ");
-                listView1.Items.Add(" \n ");
+                treeView1.Nodes.Add(Nodo_padre);
+
+                TreeNode Nodo_padre2 = new TreeNode(camion.ToString());
+
                 foreach (var camino in caminomascorto)
                 {
-                    listView2.Items.Add(new ListViewItem(camino.ToString()));
+                    Nodo_padre2.Nodes.Add(new TreeNode(camino.ToString()));
                 }
-
+                treeView2.Nodes.Add(Nodo_padre2);
                 
                 pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
 
@@ -175,6 +177,16 @@ namespace TPFINALFINAL
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
