@@ -22,17 +22,24 @@ namespace TPFINALFINAL
         
 
         cElectrodomesticos licuadora ;
+        cElectrodomesticos licuadora2;
+        cElectrodomesticos licuadora3;
         cElectrodomesticos rallador ;
         cElectrodomesticos exprimidor ;
+        cElectrodomesticos exprimidor2;
         cElectrodomesticos cafetera ;
         cElectrodomesticos tostadora ;
         cElectrodomesticos cocina ;
         cElectrodomesticos calefon ;
         cElectrodomesticos termotanque ;
+        cElectrodomesticos termotanque2;
+        cElectrodomesticos termotanque3;
         cElectrodomesticos lavarropas;
         cElectrodomesticos secarropas;
         cElectrodomesticos comptadora ;
         cElectrodomesticos impresora ;
+        cElectrodomesticos impresora2;
+        cElectrodomesticos impresora3;
         cElectrodomesticos accesorios ;
         cElectrodomesticos televisor;
 
@@ -47,7 +54,7 @@ namespace TPFINALFINAL
         cPedido_por_Cliente pedido3;
         cPedido_por_Cliente pedido4;
         cPedido_por_Cliente pedido5;
-     
+       
         List<cPedido_por_Cliente> lista_pedidos;
 
         cCosiMundo cosimundo ;
@@ -66,18 +73,25 @@ namespace TPFINALFINAL
              lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
              licuadora = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
-           rallador = new cPequeños_electrodomesticos(10, 1, 2, objetos.rallador);
+            licuadora2 = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
+            licuadora3 = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
+            rallador = new cPequeños_electrodomesticos(10, 1, 2, objetos.rallador);
              exprimidor = new cPequeños_electrodomesticos(10, 3, 2, objetos.exprimidor);
+            exprimidor2 = new cPequeños_electrodomesticos(10, 3, 2, objetos.exprimidor);
             cafetera = new cPequeños_electrodomesticos(50, 4, 2, objetos.cafetera);
              tostadora = new cPequeños_electrodomesticos(60, 5, 2, objetos.tostadora);
              cocina = new cLineaBlanca(70, 40, 4, objetos.cocinas);
              calefon = new cLineaBlanca(90, 30, 2, objetos.calefon);
              termotanque = new cLineaBlanca(80, 20, 3, objetos.termotanque);
-             lavarropas = new cLineaBlanca(40, 60, 1, objetos.lavarropas);
+            termotanque2 = new cLineaBlanca(80, 20, 3, objetos.termotanque);
+            termotanque3 = new cLineaBlanca(80, 20, 3, objetos.termotanque);
+            lavarropas = new cLineaBlanca(40, 60, 1, objetos.lavarropas);
              secarropas = new cLineaBlanca(30, 60, 2, objetos.lavarropas);
              comptadora = new cElectronicos(10, 10, 2, objetos.computadoras);
              impresora = new cElectronicos(20, 20, 3, objetos.impresoras);
-             accesorios = new cElectronicos(10, 5, 1, objetos.accesorios);
+            impresora2 = new cElectronicos(20, 20, 3, objetos.impresoras);
+            impresora3 = new cElectronicos(20, 20, 3, objetos.impresoras);
+            accesorios = new cElectronicos(10, 5, 1, objetos.accesorios);
              televisor = new cTelevisores(10, 30, 2, objetos.telvisores);
 
              lista_taylor = new List<cElectrodomesticos>();
@@ -111,7 +125,7 @@ namespace TPFINALFINAL
             lista_pedidos.Add(pedido3);
             lista_pedidos.Add(pedido4);
             lista_pedidos.Add(pedido5);
-
+            
              cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
             InitializeComponent();
         }
@@ -119,6 +133,7 @@ namespace TPFINALFINAL
         private void button1_Click(object sender, EventArgs e)
         {
             fecha = dia.Value;
+            
             cosimundo.camiones_disponibles(fecha); List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
 
 
@@ -163,7 +178,7 @@ namespace TPFINALFINAL
 
             }
 
-
+            
         }
 
         private void dia_ValueChanged(object sender, EventArgs e)
@@ -187,6 +202,11 @@ namespace TPFINALFINAL
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

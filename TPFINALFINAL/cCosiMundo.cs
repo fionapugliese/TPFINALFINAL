@@ -1118,6 +1118,13 @@ namespace TPFINALFINAL
             return aux;
         }
 
+        public void modificarPedidos()
+        {
+            for(int i = 0; i < this.listaPedidos.Count; i++)
+            {
+
+            }
+        }
 
     }
 }
