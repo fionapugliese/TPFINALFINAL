@@ -51,15 +51,18 @@ namespace TPFINALFINAL
         List<cPedido_por_Cliente> lista_pedidos;
 
         cCosiMundo cosimundo ;
-
-       
+        int cont_camiones;
+        cVehiculo camion;
+        List<eLocalidad> caminomascorto;
 
         public Form1()
         {
+           
              camioneta = new cCamioneta(2, 80, 5770000);
              furgon = new cFurgon(4, 90, 3950000);
              furgoneta = new cFurgoneta(9, 60, 2800000);
 
+            
              lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
              licuadora = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
@@ -116,8 +119,48 @@ namespace TPFINALFINAL
         private void button1_Click(object sender, EventArgs e)
         {
             fecha = dia.Value;
-            cosimundo.camiones_disponibles(fecha);
-            cosimundo.preparo_y_desapacho_de_productos();
+            cosimundo.camiones_disponibles(fecha); List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
+
+
+            camion = this.lista_camiones.ElementAt(0); //siempre empezamos con la camioneta
+             cont_camiones = 0;
+            int max_viajes = cosimundo.max_viajes_por_dia();
+            while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
+            {//hasta que no haya mas camiones o haya despachado todos los productos
+                caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
+                cont_camiones++;//se lleno el camion anterior, uso el siguiente
+                if (cont_camiones == 4) //seguimos con el furgon
+                {
+                    camion = this.lista_camiones.ElementAt(1);
+                    cosimundo.CambiarVolumenTelevisoresFurgon();
+                }
+                if (cont_camiones == 5)//seguimos con la furgoneta
+                {
+                    camion = this.lista_camiones.ElementAt(2);
+                    cosimundo.CambiarVolumenTelevisoresFurgoneta();
+                }
+
+                
+                listView1.Columns.Add(" ");
+                listView1.Items.Add(" \n ");
+                foreach (var pedidos in pedido_a_entregar)
+                {
+                    
+                    listView1.Items.Add(new ListViewItem(pedidos.nombre));
+                }
+                
+                listView2.Columns.Add(" ");
+                listView1.Items.Add(" \n ");
+                foreach (var camino in caminomascorto)
+                {
+                    listView2.Items.Add(new ListViewItem(camino.ToString()));
+                }
+
+                
+                pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
+
+            }
+
 
         }
 
@@ -129,6 +172,11 @@ namespace TPFINALFINAL
             {
                 cosimundo.sumar_mes_camiones();
             }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

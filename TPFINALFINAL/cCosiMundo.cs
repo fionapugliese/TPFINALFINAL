@@ -31,31 +31,7 @@ namespace TPFINALFINAL
         public void preparo_y_desapacho_de_productos()
         {
 
-            List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
-
-
-            cVehiculo camion = this.lista_camiones.ElementAt(0); //siempre empezamos con la camioneta
-            int cont_camiones = 0;
-            int max_viajes = max_viajes_por_dia();
-            while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
-            {//hasta que no haya mas camiones o haya despachado todos los productos
-                despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
-                cont_camiones++;//se lleno el camion anterior, uso el siguiente
-                if (cont_camiones == 4) //seguimos con el furgon
-                {
-                    camion = this.lista_camiones.ElementAt(1);
-                    CambiarVolumenTelevisoresFurgon();
-                }
-                if (cont_camiones == 5)//seguimos con la furgoneta
-                {
-                    camion = this.lista_camiones.ElementAt(2);
-                    CambiarVolumenTelevisoresFurgoneta();
-                }
-
-                pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
-
-            }
-
+            
         }
 
         public int max_viajes_por_dia()
@@ -249,7 +225,7 @@ namespace TPFINALFINAL
             return min;
         }
 
-        public void despacho_de_productos(List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar, cVehiculo camion)
+        public List<eLocalidad> despacho_de_productos(List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar, cVehiculo camion)
         {//las listas de localidades estan ordenadas por orden de menor distancia a liniers a mayor
 
 
@@ -271,7 +247,7 @@ namespace TPFINALFINAL
 
             llenado_despacho_productos(camion, pedido_a_entregar); //esta funcion me va a llenar el camión que yo le pase por parámetro, con los pedidos de las localidades seleccionadas
 
-
+            return camino_mas_corto;
 
         }
 
@@ -823,6 +799,9 @@ namespace TPFINALFINAL
                     valores[i] = valores[i] = lista[i].volumen / lista[i].peso_pedido;
                 else
                     valores[i] = lista[i].volumen / lista[i].peso_pedido;
+
+                if (valores[i] == 0)
+                    valores[i] = 1;
             }
             return valores;
         }
@@ -876,6 +855,7 @@ namespace TPFINALFINAL
             }
         }
 
+
         public void LlenadoCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             List<cPedido_por_Cliente> listaexpress = Filtrar_por_pedido(pedidos_del_dia, entrega.express);
@@ -888,8 +868,18 @@ namespace TPFINALFINAL
                 else
                 {
                     listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
+                    EliminarLineaBlanca(listanormal);
+
                     if (listanormal.Count == 0)
+                    {
                         listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
+                        EliminarLineaBlanca(listanormal);
+                    }
+
+
+                    if (listanormal.Count == 0)
+                        return;
+
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
                 }
 
@@ -988,14 +978,14 @@ namespace TPFINALFINAL
                 if (listanormal.Count == 0)
                     return;
 
-                RellenadoDinamico(camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, listanormal, pedido_a_entregar);
+                RellenadoDinamico(camion.peso_max - acum_peso, camion.volumen_max - acum_volumen,pedidos_del_dia_completa, listanormal, pedido_a_entregar);
             }
         }
 
 
 
 
-        public void RellenadoDinamico(int peso, int volumen, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
+        public void RellenadoDinamico(int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             int[] valor = ValorDeCadaPedido(pedido);
             List<cPedido_por_Cliente> pedidonormal = Filtrar_por_pedido(pedido, entrega.normal);
@@ -1045,7 +1035,7 @@ namespace TPFINALFINAL
                 {
                     pedido_a_entregar.Add(pedidonormal[i - 1]);
                     j = j - pedidonormal[i - 1].peso_pedido;
-                    Eliminarpedido(pedido, pedidonormal[i - 1]);
+                    Eliminarpedido(pedidostotal, pedidonormal[i - 1]);
                     i--;
                 }
             }
