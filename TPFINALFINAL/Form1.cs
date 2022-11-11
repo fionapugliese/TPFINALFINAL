@@ -17,12 +17,9 @@ namespace TPFINALFINAL
         cVehiculo furgoneta ;
 
         List<cVehiculo> lista_camiones;
+        DateTime fecha;
 
-        //List<cVehiculo> lista_de_camiones_diaria = new List<cVehiculo>();
-        //DateTime dia_hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-        //// zonaDias = new DateTime(DateTime.Now.AddDays(1).Year, DateTime.Now.AddDays(1).Month, DateTime.Now.AddDays(1).Day, 0, 0, 1);
-        //lista_de_camiones_diaria = camiones_disponibles(dia_hoy, lista_camiones_definitiva);
-
+        
 
         cElectrodomesticos licuadora ;
         cElectrodomesticos rallador ;
@@ -118,7 +115,20 @@ namespace TPFINALFINAL
 
         private void button1_Click(object sender, EventArgs e)
         {
+            fecha = dia.Value;
+            cosimundo.camiones_disponibles(fecha);
             cosimundo.preparo_y_desapacho_de_productos();
+
+        }
+
+        private void dia_ValueChanged(object sender, EventArgs e)
+        {
+            fecha = dia.Value;
+
+            if(fecha.Day==1)
+            {
+                cosimundo.sumar_mes_camiones();
+            }
         }
     }
 }

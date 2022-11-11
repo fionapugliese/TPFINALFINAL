@@ -268,6 +268,7 @@ namespace TPFINALFINAL
             //primero ordena por barrio, poniendo primero a los del primer barrio a recorrer y después los del último barrio. 
             pedido_a_entregar = Ordenar_por_pedidio(camino_mas_corto, pedido_a_entregar);
 
+
             llenado_despacho_productos(camion, pedido_a_entregar); //esta funcion me va a llenar el camión que yo le pase por parámetro, con los pedidos de las localidades seleccionadas
 
 
@@ -1071,46 +1072,46 @@ namespace TPFINALFINAL
             }
         }
 
-        public List<cVehiculo> camiones_disponibles(DateTime dia_hoy, List<cVehiculo> camiones_empresa)
+        public void camiones_disponibles(DateTime dia_hoy)
         {
             List<cVehiculo> vector_camiones = new List<cVehiculo>();
             byte dia = (byte)dia_hoy.DayOfWeek;
             switch (dia)
             {
                 case 1: //lunes
-                    vector_camiones.Add(camiones_empresa.ElementAt(0)); //la camioneta
-                    vector_camiones.Add(camiones_empresa.ElementAt(1)); //el furgon
-                    vector_camiones.Add(camiones_empresa.ElementAt(2)); //la furgoneta
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0)); //la camioneta
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1)); //el furgon
+                    vector_camiones.Add(this.listaCamiones.ElementAt(2)); //la furgoneta
                     break;
                 case 2: //martes
-                    vector_camiones.Add(camiones_empresa.ElementAt(0));
-                    vector_camiones.Add(camiones_empresa.ElementAt(1));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     break;
                 case 3: //miercoles
-                    vector_camiones.Add(camiones_empresa.ElementAt(0));
-                    vector_camiones.Add(camiones_empresa.ElementAt(2));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
                 case 4: //jueves
-                    vector_camiones.Add(camiones_empresa.ElementAt(0));
-                    vector_camiones.Add(camiones_empresa.ElementAt(1));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     break;
                 case 5: //viernes
-                    vector_camiones.Add(camiones_empresa.ElementAt(0));
-                    vector_camiones.Add(camiones_empresa.ElementAt(1));
-                    vector_camiones.Add(camiones_empresa.ElementAt(2));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
                 case 6: //sabado
-                    vector_camiones.Add(camiones_empresa.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     break;
             }
-            return vector_camiones;
+            this.listaCamiones= vector_camiones;
         }
 
-        public void sumar_mes_camiones(List<cVehiculo> lista_camiones)
+        public void sumar_mes_camiones()
         {
             for (int i = 0; i < 3; i++)
             {
-                listaCamiones[i].sumarmesdeuso();
+                this.listaCamiones[i].sumarmesdeuso();
             }
             verificar_devaluacion_camiones();
         }

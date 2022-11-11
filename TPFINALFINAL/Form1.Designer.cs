@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dia = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // dia
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(27, 13);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 0;
+            this.dia.Location = new System.Drawing.Point(27, 13);
+            this.dia.Name = "dia";
+            this.dia.Size = new System.Drawing.Size(200, 20);
+            this.dia.TabIndex = 0;
+            this.dia.ValueChanged += new System.EventHandler(this.dia_ValueChanged);
             // 
             // button1
             // 
@@ -55,7 +56,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dia);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -64,7 +65,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dia;
         private System.Windows.Forms.Button button1;
     }
 }
