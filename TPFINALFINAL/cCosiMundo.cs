@@ -1122,6 +1122,11 @@ namespace TPFINALFINAL
         {
             for(int i = 0; i < this.listaPedidos.Count; i++)
             {
+                if (listaPedidos[i].tipo_entrega == entrega.normal)
+                    listaPedidos[i].tipo_entrega = entrega.express;
+
+                if (listaPedidos[i].tipo_entrega == entrega.diferido)
+                    listaPedidos[i].tipo_entrega = entrega.normal;
 
             }
         }
