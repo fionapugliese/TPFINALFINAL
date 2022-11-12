@@ -285,7 +285,8 @@ namespace TPFINALFINAL
                 foreach (var pedidos in pedido_a_entregar) {
 
                     Nodo_padre.Nodes.Add(new TreeNode(pedidos.nombre.ToString()));
- 
+                    Nodo_padre.Nodes.Add(new TreeNode(pedidos.tipo_entrega.ToString()));
+
                 }
                 treeView1.Nodes.Add(Nodo_padre);
 
