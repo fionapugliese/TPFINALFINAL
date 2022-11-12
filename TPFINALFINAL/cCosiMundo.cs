@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TPFINALFINAL
 {
@@ -34,8 +35,9 @@ namespace TPFINALFINAL
             
         }
 
-        public int max_viajes_por_dia()
+        public int max_viajes_por_dia(DateTime fecha)
         {
+            camiones_disponibles(fecha);
             int viajes = 4;  //la camioneta siemrpe sale por lo que siempre voy a tener 4 viajes minimo
             if (this.lista_camiones.Count == 2) //si solo sale el furgon o la furgoneta mas la camioneta
                 viajes++;
@@ -120,10 +122,10 @@ namespace TPFINALFINAL
             int cont = 0;
             bool flag = false;
 
-            for (int i = 0; i < lista_pedido.Count; i++)
+            for (int i = 0; i < aux.Count; i++)
             {
                 flag = false;
-                for (int h = i; h < lista_pedido.Count; h++)
+                for (int h = i; h < aux.Count; h++)
                 {//cuento solo una vez (con ayuda del flag) al barrio y todos los clientes que encuentre que van al mismo barrio los elimino de la lista auxiliar
                  //notar que la lista original no se modifica, solo la auxiliar
                     if (flag == false)
@@ -190,7 +192,7 @@ namespace TPFINALFINAL
                 verificacion_barrios[i] = true; //ya recorridomo
                 orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
             }
-            if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio a liniers, para que vuelva el camion
+            else if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio a liniers, para que vuelva el camion
             {
                 for (int h = 0; h < barrios; h++)
                 {
@@ -668,10 +670,10 @@ namespace TPFINALFINAL
             }
 
             //ahora saco los repetidos
-            for (int i = 0; i < pedidos_del_dia_tipo_de_pedido.Count; i++)
+            for (int i = 0; i < aux.Count; i++)
             {
 
-                for (int j = 1; j < pedidos_del_dia_tipo_de_pedido.Count; j++)
+                for (int j = 1; j < aux.Count; j++)
                 {
                     if (aux.ElementAt(i) == aux.ElementAt(j) && i != j)
                         aux.RemoveAt(j);
@@ -710,6 +712,7 @@ namespace TPFINALFINAL
             {
                 verificacion_barrios[j] = false;
             }
+
             //para calcular el camino -> el mejor camino ¡¡en el momento!! -> algortimo de djkistra
             while (chequeo_verificacion_barrios(verificacion_barrios) != 1) //funcion que me devuelve si ya todos los barrios fueron recorridos o no -> 1 si llegaste al final, 0 si no llegaste al final y -1 si falta un barrio
             {
@@ -905,19 +908,19 @@ namespace TPFINALFINAL
 
             int i, w;
             int acumvolumen = 0;
-            int[,] K = new int[pedidos_del_dia.Count + 1, 1000 + 1];
+            int[,] K = new int[pedidos_del_dia.Count + 1, camion.peso_max + 1];
 
             bool flag;
             for (i = 0; i <= pedidos_del_dia.Count; i++)
             {
                 flag = false;
 
-                for (w = 0; w <= 1000; w++)
+                for (w = 0; w <= camion.peso_max; w++)
                 {
 
                     if (i == 0 || w == 0)
                         K[i, w] = 0;
-                    else if (pedidos_del_dia[i - 1].peso_pedido <= w && acumvolumen + pedidos_del_dia[i - 1].volumen <= 2000)
+                    else if (pedidos_del_dia[i - 1].peso_pedido <= w && acumvolumen + pedidos_del_dia[i - 1].volumen <= camion.volumen_max)
                     {
                         if (flag == false)
                         {
@@ -933,9 +936,9 @@ namespace TPFINALFINAL
                 }
             }
 
-            int res = K[pedidos_del_dia.Count, 1000];
+            int res = K[pedidos_del_dia.Count, camion.peso_max];
             i = pedidos_del_dia.Count;
-            int j = 1000;
+            int j = camion.peso_max;
 
             while (i > 0 && j > 0)
             {
@@ -965,53 +968,54 @@ namespace TPFINALFINAL
                 acumvolumen = acumvolumen + pedido_a_entregar[i].volumen;
             }
 
-            if (acum_peso < 660 && acumvolumen < camion.volumen_max)
+            if (acum_peso < camion.peso_max && acumvolumen < camion.volumen_max)
             {
-                List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
-
+                List<cPedido_por_Cliente> lista = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
                 if (camion.GetType() == typeof(cCamioneta))
-                    EliminarLineaBlanca(listanormal);
+                {
+                    lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.express);
+                    RellenadoDinamico(camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen-Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
 
-                if (listanormal.Count == 0)
-                    listanormal = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.diferido);
+                }
+                else
+                {
+                    lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
+                    RellenadoDinamico(camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
+                    
 
-                if (listanormal.Count == 0)
-                    return;
-
-                RellenadoDinamico(camion.peso_max - acum_peso, camion.volumen_max - acum_volumen,pedidos_del_dia_completa, listanormal, pedido_a_entregar);
+                }
             }
         }
 
 
 
 
-        public void RellenadoDinamico(int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
+        public void RellenadoDinamico(cVehiculo camion,int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             int[] valor = ValorDeCadaPedido(pedido);
-            List<cPedido_por_Cliente> pedidonormal = Filtrar_por_pedido(pedido, entrega.normal);
             int i, w;
             int acumvolumen = 0;
-            int[,] K = new int[pedidonormal.Count + 1, 1000 + 1];
+            int[,] K = new int[pedido.Count + 1, peso + 1];
 
             bool flag;
-            for (i = 0; i <= pedidonormal.Count; i++)
+            for (i = 0; i <= pedido.Count; i++)
             {
                 flag = false;
 
-                for (w = 0; w <= 1000; w++)
+                for (w = 0; w <= peso; w++)
                 {
 
                     if (i == 0 || w == 0)
                         K[i, w] = 0;
-                    else if (pedidonormal[i - 1].peso_pedido <= w && acumvolumen + pedidonormal[i - 1].volumen <= 2000)
+                    else if (pedido[i - 1].peso_pedido <= w && acumvolumen + pedido[i - 1].volumen <= volumen)
                     {
                         if (flag == false)
                         {
-                            acumvolumen = acumvolumen + pedidonormal[i - 1].volumen;
+                            acumvolumen = acumvolumen + pedido[i - 1].volumen;
                             flag = true;
                         }
 
-                        K[i, w] = Math.Max(valor[i - 1] + K[i - 1, w - pedidonormal[i - 1].peso_pedido], K[i - 1, w]);
+                        K[i, w] = Math.Max(valor[i - 1] + K[i - 1, w - pedido[i - 1].peso_pedido], K[i - 1, w]);
 
                     }
                     else
@@ -1019,9 +1023,9 @@ namespace TPFINALFINAL
                 }
             }
 
-            int res = K[pedidonormal.Count, 1000];
-            i = pedidonormal.Count;
-            int j = 1000;
+            int res = K[pedido.Count, peso];
+            i = pedido.Count;
+            int j = peso;
 
             while (i > 0 && j > 0)
             {
@@ -1033,14 +1037,185 @@ namespace TPFINALFINAL
                 }
                 else
                 {
-                    pedido_a_entregar.Add(pedidonormal[i - 1]);
-                    j = j - pedidonormal[i - 1].peso_pedido;
-                    Eliminarpedido(pedidostotal, pedidonormal[i - 1]);
+                    pedido_a_entregar.Add(pedido[i - 1]);
+                    j = j - pedido[i - 1].peso_pedido;
+                    Eliminarpedido(pedidostotal, pedido[i - 1]);
                     i--;
                 }
             }
 
+            int acumpeso = 0;
+            int acumvol = 0;
+            for(int f = 0; f < pedido_a_entregar.Count; f++)
+            {
+                acumpeso = acumpeso + pedido_a_entregar[i].peso_pedido;
+                acumvol = acumvol + pedido_a_entregar[i].volumen;
+            }
+
+            if(acumpeso < peso && acumvol < volumen)
+            {
+                List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidostotal, entrega.normal);
+                if (camion.GetType() == typeof(cCamioneta))
+                {
+                    EliminarLineaBlanca(listanormal);
+                }
+                    if (listanormal.Count == 0)
+                    listanormal = Filtrar_por_pedido(pedidostotal, entrega.diferido);
+
+                if (listanormal.Count == 0)
+                    return;
+
+                RellenadoDinamicoNormales(camion,peso - acumpeso, volumen - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+
+            }
+
+
+
+
         }
+        public void RellenadoDinamicoNormales(cVehiculo camion,int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
+        {
+            int[] valor = ValorDeCadaPedido(pedido);
+
+            int i, w;
+            int acumvolumen = 0;
+            int[,] K = new int[pedido.Count + 1, peso + 1];
+
+            bool flag;
+            for (i = 0; i <= pedido.Count; i++)
+            {
+                flag = false;
+
+                for (w = 0; w <= peso; w++)
+                {
+
+                    if (i == 0 || w == 0)
+                        K[i, w] = 0;
+                    else if (pedido[i - 1].peso_pedido <= w && acumvolumen + pedido[i - 1].volumen <= volumen)
+                    {
+                        if (flag == false)
+                        {
+                            acumvolumen = acumvolumen + pedido[i - 1].volumen;
+                            flag = true;
+                        }
+
+                        K[i, w] = Math.Max(valor[i - 1] + K[i - 1, w - pedido[i - 1].peso_pedido], K[i - 1, w]);
+
+                    }
+                    else
+                        K[i, w] = K[i - 1, w];
+                }
+            }
+
+            int res = K[pedido.Count, peso];
+            i = pedido.Count;
+            int j = peso;
+
+            while (i > 0 && j > 0)
+            {
+                if (K[i, j] == K[i - 1, j])
+                {
+                    i--;
+                    continue;
+
+                }
+                else
+                {
+                    pedido_a_entregar.Add(pedido[i - 1]);
+                    j = j - pedido[i - 1].peso_pedido;
+                    Eliminarpedido(pedidostotal, pedido[i - 1]);
+                    i--;
+                }
+            }
+
+            int acumpeso = 0;
+            int acumvol = 0;
+            for (int f = 0; f < pedido_a_entregar.Count; f++)
+            {
+                acumpeso = acumpeso + pedido_a_entregar[i].peso_pedido;
+                acumvol = acumvol + pedido_a_entregar[i].volumen;
+            }
+
+            if (acumpeso < peso && acumvol < volumen)
+            {
+                List<cPedido_por_Cliente> listadif = Filtrar_por_pedido(pedidostotal, entrega.diferido);
+                if (camion.GetType() == typeof(cCamioneta))
+                {
+                    EliminarLineaBlanca(listadif);
+                }
+                
+                if (listadif.Count == 0)
+                    return;
+
+                RellenadoDinamicoDiferidos( peso - acumpeso, volumen - acumvol, pedidostotal, listadif, pedido_a_entregar);
+
+            }
+
+        }
+
+
+        public void RellenadoDinamicoDiferidos(int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
+        {
+            int[] valor = ValorDeCadaPedido(pedido);
+            
+            int i, w;
+            int acumvolumen = 0;
+            int[,] K = new int[pedido.Count + 1, peso + 1];
+
+            bool flag;
+            for (i = 0; i <= pedido.Count; i++)
+            {
+                flag = false;
+
+                for (w = 0; w <= peso; w++)
+                {
+
+                    if (i == 0 || w == 0)
+                        K[i, w] = 0;
+                    else if (pedido[i - 1].peso_pedido <= w && acumvolumen + pedido[i - 1].volumen <= volumen)
+                    {
+                        if (flag == false)
+                        {
+                            acumvolumen = acumvolumen + pedido[i - 1].volumen;
+                            flag = true;
+                        }
+
+                        K[i, w] = Math.Max(valor[i - 1] + K[i - 1, w - pedido[i - 1].peso_pedido], K[i - 1, w]);
+
+                    }
+                    else
+                        K[i, w] = K[i - 1, w];
+                }
+            }
+
+            int res = K[pedido.Count, peso];
+            i = pedido.Count;
+            int j = peso;
+
+            while (i > 0 && j > 0)
+            {
+                if (K[i, j] == K[i - 1, j])
+                {
+                    i--;
+                    continue;
+
+                }
+                else
+                {
+                    pedido_a_entregar.Add(pedido[i - 1]);
+                    j = j - pedido[i - 1].peso_pedido;
+                    Eliminarpedido(pedidostotal, pedido[i - 1]);
+                    i--;
+                }
+            }
+
+           
+
+        }
+
+
+
+
         public void Eliminarpedido(List<cPedido_por_Cliente> pedido, cPedido_por_Cliente pedidobuscado)
         {
             for (int i = 0; i < pedido.Count; i++)
@@ -1065,8 +1240,8 @@ namespace TPFINALFINAL
         public void camiones_disponibles(DateTime dia_hoy)
         {
             List<cVehiculo> vector_camiones = new List<cVehiculo>();
-            byte dia = (byte)dia_hoy.DayOfWeek;
-            switch (dia)
+           
+            switch (dia_hoy.Day)
             {
                 case 1: //lunes
                     vector_camiones.Add(this.listaCamiones.ElementAt(0)); //la camioneta

@@ -13,7 +13,7 @@ namespace TPFINALFINAL
         public cCamioneta(int nafta_, int meses, float precio) : base(meses, nafta_, precio)
         {
 
-            peso = 0;
+            peso = 3500;
             volumen = 1441;
         }
         ~cCamioneta() { }

@@ -19,14 +19,9 @@ namespace TPFINALFINAL
         List<cVehiculo> lista_camiones;
         DateTime fecha;
 
-        
-
         cElectrodomesticos licuadora ;
-        cElectrodomesticos licuadora2;
-        cElectrodomesticos licuadora3;
         cElectrodomesticos rallador ;
         cElectrodomesticos exprimidor ;
-        cElectrodomesticos exprimidor2;
         cElectrodomesticos cafetera ;
         cElectrodomesticos tostadora ;
         cElectrodomesticos cocina ;
@@ -106,11 +101,8 @@ namespace TPFINALFINAL
              lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
              licuadora = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
-            licuadora2 = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
-            licuadora3 = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
             rallador = new cPequeños_electrodomesticos(10, 1, 2, objetos.rallador);
              exprimidor = new cPequeños_electrodomesticos(10, 3, 2, objetos.exprimidor);
-            exprimidor2 = new cPequeños_electrodomesticos(10, 3, 2, objetos.exprimidor);
             cafetera = new cPequeños_electrodomesticos(50, 4, 2, objetos.cafetera);
              tostadora = new cPequeños_electrodomesticos(60, 5, 2, objetos.tostadora);
              cocina = new cLineaBlanca(70, 40, 4, objetos.cocinas);
@@ -274,29 +266,20 @@ namespace TPFINALFINAL
         {
             fecha = dia.Value;
             
-            cosimundo.camiones_disponibles(fecha); List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
+            cosimundo.camiones_disponibles(fecha);
+            List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
 
 
             camion = this.lista_camiones.ElementAt(0); //siempre empezamos con la camioneta
              cont_camiones = 0;
-            int max_viajes = cosimundo.max_viajes_por_dia();
+            int max_viajes = cosimundo.max_viajes_por_dia(fecha);
             while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
             {//hasta que no haya mas camiones o haya despachado todos los productos
                 caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
                 cont_camiones++;//se lleno el camion anterior, uso el siguiente
-                if (cont_camiones == 4) //seguimos con el furgon
-                {
-                    camion = this.lista_camiones.ElementAt(1);
-                    cosimundo.CambiarVolumenTelevisoresFurgon();
-                }
-                if (cont_camiones == 5)//seguimos con la furgoneta
-                {
-                    camion = this.lista_camiones.ElementAt(2);
-                    cosimundo.CambiarVolumenTelevisoresFurgoneta();
-                }
-
-                
                
+                
+              
                 TreeNode Nodo_padre = new TreeNode(camion.ToString());
 
                 foreach (var pedidos in pedido_a_entregar) {
@@ -313,7 +296,19 @@ namespace TPFINALFINAL
                     Nodo_padre2.Nodes.Add(new TreeNode(camino.ToString()));
                 }
                 treeView2.Nodes.Add(Nodo_padre2);
-                
+
+
+                if (cont_camiones == 4) //seguimos con el furgon
+                {
+                    camion = this.lista_camiones.ElementAt(1);
+                    cosimundo.CambiarVolumenTelevisoresFurgon();
+                }
+                if (cont_camiones == 5)//seguimos con la furgoneta
+                {
+                    camion = this.lista_camiones.ElementAt(2);
+                    cosimundo.CambiarVolumenTelevisoresFurgoneta();
+                }
+
                 pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
 
             }
