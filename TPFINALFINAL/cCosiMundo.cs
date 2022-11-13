@@ -802,10 +802,6 @@ namespace TPFINALFINAL
 
                 if (lista[i].tipo_entrega == entrega.express)
                     valores[i] = lista[i].volumen / lista[i].peso_pedido;
-                else if (lista[i].tipo_entrega == entrega.express)
-                    valores[i] = valores[i] = lista[i].volumen / lista[i].peso_pedido;
-                else
-                    valores[i] = lista[i].volumen / lista[i].peso_pedido;
 
                 if (valores[i] == 0)
                     valores[i] = 1;
