@@ -121,24 +121,24 @@ namespace TPFINALFINAL
             
              lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
-             licuadora = new cPequeños_electrodomesticos(30, 4, 2, objetos.licuadora);
-            rallador = new cPequeños_electrodomesticos(10, 1, 2, objetos.rallador);
-             exprimidor = new cPequeños_electrodomesticos(10, 3, 2, objetos.exprimidor);
-            cafetera = new cPequeños_electrodomesticos(50, 4, 2, objetos.cafetera);
-             tostadora = new cPequeños_electrodomesticos(60, 5, 2, objetos.tostadora);
-             cocina = new cLineaBlanca(70, 40, 4, objetos.cocinas);
-             calefon = new cLineaBlanca(90, 30, 2, objetos.calefon);
-             termotanque = new cLineaBlanca(80, 20, 3, objetos.termotanque);
-            termotanque2 = new cLineaBlanca(80, 20, 3, objetos.termotanque);
-            termotanque3 = new cLineaBlanca(80, 20, 3, objetos.termotanque);
+             licuadora = new cPequeños_electrodomesticos(30, 20, 2, objetos.licuadora);
+            rallador = new cPequeños_electrodomesticos(10, 30, 2, objetos.rallador);
+             exprimidor = new cPequeños_electrodomesticos(10, 10, 2, objetos.exprimidor);
+            cafetera = new cPequeños_electrodomesticos(50, 50, 2, objetos.cafetera);
+             tostadora = new cPequeños_electrodomesticos(60, 20, 2, objetos.tostadora);
+             cocina = new cLineaBlanca(70, 80, 4, objetos.cocinas);
+             calefon = new cLineaBlanca(90, 50, 2, objetos.calefon);
+             termotanque = new cLineaBlanca(80, 100, 3, objetos.termotanque);
+            termotanque2 = new cLineaBlanca(80, 70, 3, objetos.termotanque);
+            termotanque3 = new cLineaBlanca(80, 80, 3, objetos.termotanque);
             lavarropas = new cLineaBlanca(40, 60, 1, objetos.lavarropas);
-             secarropas = new cLineaBlanca(30, 60, 2, objetos.lavarropas);
-             comptadora = new cElectronicos(10, 10, 2, objetos.computadoras);
-             impresora = new cElectronicos(20, 20, 3, objetos.impresoras);
-            impresora2 = new cElectronicos(20, 20, 3, objetos.impresoras);
-            impresora3 = new cElectronicos(20, 20, 3, objetos.impresoras);
-            accesorios = new cElectronicos(10, 5, 1, objetos.accesorios);
-             televisor = new cTelevisores(10, 30, 2, objetos.telvisores);
+             secarropas = new cLineaBlanca(30, 90, 2, objetos.lavarropas);
+             comptadora = new cElectronicos(10, 20, 2, objetos.computadoras);
+             impresora = new cElectronicos(20, 60, 3, objetos.impresoras);
+            impresora2 = new cElectronicos(20, 30, 3, objetos.impresoras);
+            impresora3 = new cElectronicos(20, 40, 3, objetos.impresoras);
+            accesorios = new cElectronicos(10, 20, 1, objetos.accesorios);
+             televisor = new cTelevisores(10, 60, 2, objetos.telvisores);
 
             lista_taylor = new List<cElectrodomesticos>();
             lista_taylor.Add(licuadora);
@@ -374,9 +374,14 @@ namespace TPFINALFINAL
             camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
              cont_camiones = 0;
             int cantvolumen = 0;
+            int cantpeso = 0;
             while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
             {//hasta que no haya mas camiones o haya despachado todos los productos
+                if(camion.GetType()==typeof(cCamioneta))
+                camion.elevador = false;
+
                 cantvolumen = 0;
+                cantpeso = 0;
                 caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
                 cont_camiones++;//se lleno el camion anterior, uso el siguiente
                
@@ -390,6 +395,16 @@ namespace TPFINALFINAL
                 Nodo_padre.Nodes.Add( camion.volumen_max.ToString());
                 Nodo_padre.Nodes.Add("Volumen De Cargado: ");
                 Nodo_padre.Nodes.Add(cantvolumen.ToString());
+
+                for (int i = 0; i < pedido_a_entregar.Count; i++)
+                {
+                    cantpeso = cantpeso + pedido_a_entregar[i].peso_pedido;
+                }
+
+                Nodo_padre.Nodes.Add("Peso Maximo Camion: ");
+                Nodo_padre.Nodes.Add(camion.peso_max.ToString());
+                Nodo_padre.Nodes.Add("Peso De Cargado: ");
+                Nodo_padre.Nodes.Add(cantpeso.ToString());
 
                 foreach (var pedidos in pedido_a_entregar) {
 

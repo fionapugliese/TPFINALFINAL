@@ -64,7 +64,10 @@ namespace TPFINALFINAL
         {
             this.meses_uso = this.meses_uso + 1;
         }
-
+        public void setelevador(bool estado)
+        {
+            this.elevador = estado;
+        }
         public void Devaluacion()
         {
             this.precio_actualventa = (float)(this.precio_actualventa * 0.75);

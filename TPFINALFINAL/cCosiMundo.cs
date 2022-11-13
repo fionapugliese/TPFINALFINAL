@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -865,48 +866,54 @@ namespace TPFINALFINAL
         public void LlenadoCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             List<cPedido_por_Cliente> listaexpress = Filtrar_por_pedido(pedidos_del_dia, entrega.express);
-            List<cPedido_por_Cliente> listanormal;
+            List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
+            
             if (camion.GetType() == typeof(cCamioneta) && listaexpress.Count != 0)
             {
+                
                 EliminarLineaBlanca(listaexpress);
+
                 if (listaexpress.Count != 0)
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                 else
+                else
                 {
-                    listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
-                    EliminarLineaBlanca(listanormal);
                     if (listanormal.Count != 0)
-                        RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                    else
                     {
-                        listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
+                        EliminarLineaBlanca(listanormal);
                         if (listanormal.Count != 0)
+                            LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
+                        else
+                        {
+                            listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
+
                             RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                        else {
-                            listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
-                            EliminarLineaBlanca(listanormal);
-                            RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                           }
+                        }
+
+                    }
+                    else 
+                    {
+                        listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
+                        RellenadoDinamicoDiferidos(camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listanormal, pedido_a_entregar);
+
                     }
 
-
-                    if (listanormal.Count == 0)
-                        return;
-
-                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
                 }
+                
 
-            }
-            else if (listaexpress.Count == 0)
+            }else
             {
-                listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
-                if (listanormal.Count == 0)
+                if(listaexpress.Count!=0)
+                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
+
+                if (listanormal.Count!=0)
+                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
+                else
+                {
                     listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
-                LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
-            }
-            else
-            {
-                LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
+                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
+
+
+                }
 
             }
         }
@@ -983,23 +990,46 @@ namespace TPFINALFINAL
                 List<cPedido_por_Cliente> lista;
                 if (camion.GetType() == typeof(cCamioneta))
                 {
-                    lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.express);
-                    if (lista.Count == 0)
+                    lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.express); //mando a los express que necesitaban linea blanca
+                    
+                    if (lista.Count == 0)//si ya no hay mas express
                     {
                         lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
-                        RellenadoDinamicoNormales(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen - Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
+
+                        if (lista.Count !=0)
+                        {
+                            EliminarLineaBlanca(lista);
+
+                            if (lista.Count == 0) //si no hay normales sin linea blanca, pongo a loslinea blanca y pongo el elevador
+                            {
+                                lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
+                                RellenadoDinamicoNormales(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen - Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
+                            }
+                            else
+                                RellenadoDinamicoNormales(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen , pedidos_del_dia_completa, lista, pedido_a_entregar);
+
+                        }
+                        else if (lista.Count==0)
+                        {
+                            lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.diferido);
+                            if(lista.Count!=0)
+                            RellenadoDinamicoDiferidos( camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
+                            
+                        }
+                        else
+                        RellenadoDinamicoNormales( camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
                     }
                     else
                     RellenadoDinamico(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen - Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
-
-
-
                 }
                 else
                 {
                     lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
-                    RellenadoDinamico(camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
-                    
+                    if(lista.Count!=0)
+                    RellenadoDinamicoNormales(camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
+                    else
+                        RellenadoDinamicoDiferidos(camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
+
 
                 }
             }
@@ -1070,20 +1100,38 @@ namespace TPFINALFINAL
             if(acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidostotal, entrega.normal);
-                if (camion.GetType() == typeof(cCamioneta))
+                
+                if (listanormal.Count!=0 && camion.GetType() == typeof(cCamioneta) )
                 {
                     EliminarLineaBlanca(listanormal);
-                }
+
                     if (listanormal.Count == 0)
+                    {
+                        listanormal = Filtrar_por_pedido(pedidostotal, entrega.normal);
+                        RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol-Constants.volumen_elevador, pedidostotal, listanormal, pedido_a_entregar);
+
+                    }else
+                        RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+
+                }
+                else if (listanormal.Count == 0 && camion.GetType() == typeof(cCamioneta))
                 {
                     listanormal = Filtrar_por_pedido(pedidostotal, entrega.diferido);
-                    
-                }
 
-                if (listanormal.Count == 0)
-                    return;
+                        EliminarLineaBlanca(listanormal);
+                        if (listanormal.Count != 0)
+                        {
+                            RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
 
-                RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+                        }
+                        else
+                        {
+                            listanormal = Filtrar_por_pedido(pedidostotal, entrega.diferido);
+                            RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol - Constants.volumen_elevador, pedidostotal, listanormal, pedido_a_entregar);
+
+                        }
+                }else
+                     RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
 
             }
 
@@ -1091,6 +1139,7 @@ namespace TPFINALFINAL
 
 
         }
+        
         public void RellenadoDinamicoNormales(cVehiculo camion,int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             int[] valor = ValorDeCadaPedido(pedido);
@@ -1157,12 +1206,14 @@ namespace TPFINALFINAL
             if (acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> listadif = Filtrar_por_pedido(pedidostotal, entrega.diferido);
-                
-                
-                if (listadif.Count == 0)
-                    return;
 
-                RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
+                if (listadif.Count != 0 && camion.GetType() == typeof(cCamioneta))
+                {
+                       RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol-Constants.volumen_elevador, pedidostotal, listadif, pedido_a_entregar);
+                }
+                else 
+                    RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
+
 
             }
 
@@ -1235,6 +1286,7 @@ namespace TPFINALFINAL
                     pedido.RemoveAt(i);
             }
         }
+       
         public void verificar_devaluacion_camiones()
         {
             //sabemos en el pos0 esta la camioneta, en la pos1 el furgon y en la pos2 la furgoneta
@@ -1278,6 +1330,11 @@ namespace TPFINALFINAL
                     break;
                 case (DayOfWeek)6: //sabado
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    break;
+                case (DayOfWeek)0:
+                    vector_camiones.Add(this.listaCamiones.ElementAt(0));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
             }
             for(int i = 0; i < vector_camiones.Count; i++)
