@@ -865,32 +865,37 @@ namespace TPFINALFINAL
 
         public void LlenadoCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
         {
+            //filtramos las listas por express y normal
             List<cPedido_por_Cliente> listaexpress = Filtrar_por_pedido(pedidos_del_dia, entrega.express);
             List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
             
             if (camion.GetType() == typeof(cCamioneta) && listaexpress.Count != 0)
-            {
-                
+            {//si estamos en el caso de una camioenta y hay express que entregar
+                //primero eliminamos a los linea blanca
                 EliminarLineaBlanca(listaexpress);
 
+                //si hay pedidos NO linea balnca que entregar vamos con esos
                 if (listaexpress.Count != 0)
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                else
+                else //si no hay pedidos que no sean linea blanca
                 {
-                    if (listanormal.Count != 0)
-                    {
-                        EliminarLineaBlanca(listanormal);
-                        if (listanormal.Count != 0)
-                            LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
-                        else
-                        {
-                            listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
 
+                    listaexpress = Filtrar_por_pedido(pedidos_del_dia, entrega.express);
+                    if(listaexpress.Count!=0)//si hay pedidos, en este caso de linea blanca, en el express entregamos esos
+                        RellenadoDinamico(camion,camion.peso_max,camion.volumen_max-Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
+                    else if (listanormal.Count != 0) //si ya no hay express, verifico que si haya normales
+                    {
+                        EliminarLineaBlanca(listanormal);//intentantamos llenar con los no linea blanca
+                        if (listanormal.Count != 0)
+                            RellenadoDinamicoNormales(camion,camion.peso_max,camion.volumen_max, pedidos_del_dia, listanormal, pedido_a_entregar);
+                        else
+                        { //no hay normales que no sean linea blanca, mandamos esos
+                            listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
                             RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
                         }
 
                     }
-                    else 
+                    else //si los express y normales ambos ya se entregaron todos, voy con los diferidos, ahora no me importa si hay linea blanca o no, porque no son prioridad
                     {
                         listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
                         RellenadoDinamicoDiferidos(camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listanormal, pedido_a_entregar);
@@ -1036,7 +1041,7 @@ namespace TPFINALFINAL
         }
 
         public void RellenadoDinamico(cVehiculo camion,int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
-        {
+        { //cuando llego a rellenado es porque podia meter en la camioneta pedidos express que sean de linea blanca
             int[] valor = ValorDeCadaPedido(pedido);
             int i, w;
             int acumvolumen = 0;
@@ -1096,47 +1101,28 @@ namespace TPFINALFINAL
                 acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
                 acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
-
+            //si aun agregando los linea blanca express me queda lugar en el camion, sigo con los normales
             if(acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> listanormal = Filtrar_por_pedido(pedidostotal, entrega.normal);
-                
+                //si es una camioneta y hay normales para repartir, entro
                 if (listanormal.Count!=0 && camion.GetType() == typeof(cCamioneta) )
                 {
-                    EliminarLineaBlanca(listanormal);
-
-                    if (listanormal.Count == 0)
-                    {
-                        listanormal = Filtrar_por_pedido(pedidostotal, entrega.normal);
-                        RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol-Constants.volumen_elevador, pedidostotal, listanormal, pedido_a_entregar);
-
-                    }else
-                        RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+                   //si llegue hasta aca, es porque ya meti los express linea blanca, asique ya esta tomado en cuenta el elevador 
+                  RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
 
                 }
                 else if (listanormal.Count == 0 && camion.GetType() == typeof(cCamioneta))
-                {
+                {//si no hay normales,sigo con los diferidos
                     listanormal = Filtrar_por_pedido(pedidostotal, entrega.diferido);
 
-                        EliminarLineaBlanca(listanormal);
-                        if (listanormal.Count != 0)
-                        {
-                            RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
-
-                        }
-                        else
-                        {
-                            listanormal = Filtrar_por_pedido(pedidostotal, entrega.diferido);
-                            RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol - Constants.volumen_elevador, pedidostotal, listanormal, pedido_a_entregar);
-
-                        }
-                }else
-                     RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
-
+                    //si los diferidos tamb son 0, salgo 
+                    if (listanormal.Count != 0)
+                        RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+                    else
+                        return;
+                }
             }
-
-
-
 
         }
         
@@ -1202,17 +1188,12 @@ namespace TPFINALFINAL
                 acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
                 acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
-
+            //si llegue hasta aca es porque ya meti los express
             if (acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> listadif = Filtrar_por_pedido(pedidostotal, entrega.diferido);
-
-                if (listadif.Count != 0 && camion.GetType() == typeof(cCamioneta))
-                {
-                       RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol-Constants.volumen_elevador, pedidostotal, listadif, pedido_a_entregar);
-                }
-                else 
-                    RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
+                
+                RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
 
 
             }

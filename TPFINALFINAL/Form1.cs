@@ -449,7 +449,7 @@ namespace TPFINALFINAL
             pedido16 = new cPedido_por_Cliente("Patrik Hazelwood", eLocalidad.Flores, lista_patrik, entrega.normal);
             pedido17 = new cPedido_por_Cliente("David Dawson", eLocalidad.VelezSarsfield, lista_david, entrega.normal);
             pedido18 = new cPedido_por_Cliente("Emma Corin", eLocalidad.Avellaneda, lista_emma, entrega.normal);
-            pedido19 = new cPedido_por_Cliente("Florence Pugh", eLocalidad.LaMatanza, lista_florence, entrega.normal);
+            pedido19 = new cPedido_por_Cliente("Florence Pugh", eLocalidad.Palermo, lista_florence, entrega.normal);
             pedido20 = new cPedido_por_Cliente("Jack Chambers", eLocalidad.MonteCastro, lista_jack, entrega.normal);
             pedido21 = new cPedido_por_Cliente("Alice Chambers", eLocalidad.Mataderos, lista_alice, entrega.normal);
             pedido22 = new cPedido_por_Cliente("Hermione Granger", eLocalidad.VelezSarsfield, lista_hermione, entrega.express);
@@ -459,13 +459,13 @@ namespace TPFINALFINAL
             pedido26 = new cPedido_por_Cliente("Dobby", eLocalidad.Mataderos, lista_dobby, entrega.express);
             pedido27 = new cPedido_por_Cliente("Homero Simpson", eLocalidad.VelezSarsfield, lista_Homero, entrega.express);
             pedido28 = new cPedido_por_Cliente("Bart Simpson", eLocalidad.Avellaneda, lista_lisa, entrega.express);
-            pedido29 = new cPedido_por_Cliente("Lisa Simpson", eLocalidad.LaMatanza, lista_bart, entrega.normal);
+            pedido29 = new cPedido_por_Cliente("Lisa Simpson", eLocalidad.MonteCastro, lista_bart, entrega.normal);
             pedido30 = new cPedido_por_Cliente("Magui Simpson", eLocalidad.MonteCastro, lista_magui, entrega.express);
             pedido31 = new cPedido_por_Cliente("Marge Simpson", eLocalidad.Mataderos, lista_marge, entrega.express);
             pedido32 = new cPedido_por_Cliente("Meredith Grey", eLocalidad.ParqueAvellaneda, lista_meredith, entrega.diferido);
             pedido33 = new cPedido_por_Cliente("Derek Shephard", eLocalidad.TresdeFebrero, lista_derek, entrega.diferido);
             pedido34 = new cPedido_por_Cliente("Cristina Yang", eLocalidad.ParqueAvellaneda, lista_cristina, entrega.normal);
-            pedido35 = new cPedido_por_Cliente("Izzie Stevens", eLocalidad.LaMatanza, lista_izzie, entrega.normal);
+            pedido35 = new cPedido_por_Cliente("Izzie Stevens", eLocalidad.VicenteLopez, lista_izzie, entrega.normal);
             pedido36 = new cPedido_por_Cliente("Jackson Avery", eLocalidad.Chacarita, lista_jackson, entrega.express);
             pedido37 = new cPedido_por_Cliente("Alex Karev", eLocalidad.ParqueAvellaneda, lista_alex, entrega.normal);
             pedido38 = new cPedido_por_Cliente("Miranda Bailey", eLocalidad.Palermo, lista_miranda, entrega.normal);
