@@ -265,14 +265,19 @@ namespace TPFINALFINAL
         private void button1_Click(object sender, EventArgs e)
         {
             fecha = dia.Value;
-            
             cosimundo.camiones_disponibles(fecha);
+
             List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
 
-
-            camion = this.lista_camiones.ElementAt(0); //siempre empezamos con la camioneta
+            int max_viajes = cosimundo.max_viajes_por_dia();
+            listView1.Items.Add("Camiones");
+            listView1.Items.Add("Disponibles");
+            listView1.Items.Add("Hoy: ");
+            listView1.Items.Add(cosimundo.camionesdisponibles.Count.ToString());
+           
+            camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
              cont_camiones = 0;
-            int max_viajes = cosimundo.max_viajes_por_dia(fecha);
+        
             while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
             {//hasta que no haya mas camiones o haya despachado todos los productos
                 caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
@@ -345,6 +350,16 @@ namespace TPFINALFINAL
         private void button2_Click(object sender, EventArgs e)
         {
             cosimundo.modificarPedidos();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            }
+
+        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+         
+
         }
     }
 }

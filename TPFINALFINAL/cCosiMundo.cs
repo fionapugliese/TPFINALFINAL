@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
@@ -9,6 +10,12 @@ namespace TPFINALFINAL
 {
     internal class cCosiMundo
     {
+        public List<cVehiculo> camionesdisponibles;
+        public List<cVehiculo> camionesdisponibleshoy
+        {
+            get { return camionesdisponibles; }
+            set { }
+        }
         private List<cPedido_por_Cliente> lista_pedidos;
         public List<cPedido_por_Cliente> listaPedidos
         {
@@ -27,16 +34,16 @@ namespace TPFINALFINAL
         {
             this.lista_pedidos = listpedidos;
             this.lista_camiones = listcamiones;
+            this.camionesdisponibles = new List<cVehiculo>();
         }
 
-
-        public int max_viajes_por_dia(DateTime fecha)
+        
+        public int max_viajes_por_dia()
         {
-            camiones_disponibles(fecha);
             int viajes = 4;  //la camioneta siemrpe sale por lo que siempre voy a tener 4 viajes minimo
-            if (this.lista_camiones.Count == 2) //si solo sale el furgon o la furgoneta mas la camioneta
+            if (this.camionesdisponibles.Count == 2) //si solo sale el furgon o la furgoneta mas la camioneta
                 viajes++;
-            if (this.lista_camiones.Count == 3) //si salen los 3 vehiculos
+            if (this.camionesdisponibles.Count == 3) //si salen los 3 vehiculos
                 viajes = viajes + 2;
             return viajes;
         }
@@ -1237,35 +1244,38 @@ namespace TPFINALFINAL
         {
             List<cVehiculo> vector_camiones = new List<cVehiculo>();
            
-            switch (dia_hoy.Day)
+            switch (dia_hoy.DayOfWeek)
             {
-                case 1: //lunes
+                case (DayOfWeek)1: //lunes
                     vector_camiones.Add(this.listaCamiones.ElementAt(0)); //la camioneta
                     vector_camiones.Add(this.listaCamiones.ElementAt(1)); //el furgon
                     vector_camiones.Add(this.listaCamiones.ElementAt(2)); //la furgoneta
                     break;
-                case 2: //martes
+                case (DayOfWeek)2: //martes
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     break;
-                case 3: //miercoles
+                case (DayOfWeek)3: //miercoles
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
-                case 4: //jueves
+                case (DayOfWeek)4: //jueves
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     break;
-                case 5: //viernes
+                case (DayOfWeek)5: //viernes
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
-                case 6: //sabado
+                case (DayOfWeek)6: //sabado
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
                     break;
             }
-            this.listaCamiones= vector_camiones;
+            for(int i = 0; i < vector_camiones.Count; i++)
+            {
+                this.camionesdisponibleshoy.Add(vector_camiones[i]);
+            }
         }
 
         public void sumar_mes_camiones()
