@@ -59,6 +59,17 @@ namespace TPFINALFINAL
         List<cElectrodomesticos> lista_patrik;
         List<cElectrodomesticos> lista_jack;
         List<cElectrodomesticos> lista_alice;
+        List<cElectrodomesticos> lista_hermione;
+        List<cElectrodomesticos> lista_draco;
+        List<cElectrodomesticos> lista_harrypotter;
+        List<cElectrodomesticos> lista_ron;
+        List<cElectrodomesticos> lista_dobby;
+        List<cElectrodomesticos> lista_Homero;
+        List<cElectrodomesticos> lista_bart;
+        List<cElectrodomesticos> lista_lisa;
+        List<cElectrodomesticos> lista_magui;
+        List<cElectrodomesticos> lista_marge;
+
 
 
         cPedido_por_Cliente pedido1;
@@ -82,6 +93,16 @@ namespace TPFINALFINAL
         cPedido_por_Cliente pedido19;
         cPedido_por_Cliente pedido20;
         cPedido_por_Cliente pedido21;
+        cPedido_por_Cliente pedido22;
+        cPedido_por_Cliente pedido23;
+        cPedido_por_Cliente pedido24;
+        cPedido_por_Cliente pedido25;
+        cPedido_por_Cliente pedido26;
+        cPedido_por_Cliente pedido27;
+        cPedido_por_Cliente pedido28;
+        cPedido_por_Cliente pedido29;
+        cPedido_por_Cliente pedido30;
+        cPedido_por_Cliente pedido31;
 
         List<cPedido_por_Cliente> lista_pedidos;
 
@@ -212,6 +233,61 @@ namespace TPFINALFINAL
             lista_jack = new List<cElectrodomesticos>();
             lista_jack.Add(licuadora);
 
+            lista_hermione = new List<cElectrodomesticos>();
+            lista_hermione.Add(licuadora);
+            lista_hermione.Add(televisor);
+            lista_hermione.Add(exprimidor);
+
+            lista_draco = new List<cElectrodomesticos>();
+            lista_draco.Add(rallador);
+            lista_draco.Add(cafetera);
+
+            lista_harrypotter = new List<cElectrodomesticos>();
+            lista_harrypotter.Add(exprimidor);
+            lista_harrypotter.Add(comptadora);
+            lista_harrypotter.Add(secarropas);
+
+            lista_ron = new List<cElectrodomesticos>();
+            lista_ron.Add(licuadora);
+            lista_ron.Add(cocina);
+            lista_ron.Add(tostadora);
+
+            lista_dobby = new List<cElectrodomesticos>();
+            lista_dobby.Add(lavarropas);
+            lista_dobby.Add(calefon);
+            lista_dobby.Add(impresora);
+
+            lista_Homero = new List<cElectrodomesticos>();
+            lista_Homero.Add(cocina);
+            lista_Homero.Add(termotanque);
+            lista_Homero.Add(comptadora);
+            lista_Homero.Add(impresora);
+            lista_Homero.Add(calefon);
+            lista_Homero.Add(lavarropas);
+
+            lista_bart = new List<cElectrodomesticos>();
+            lista_bart.Add(secarropas);
+            lista_bart.Add(accesorios);
+
+            lista_lisa = new List<cElectrodomesticos>();
+            lista_lisa.Add(rallador);
+            lista_lisa.Add(calefon);
+            lista_lisa.Add(impresora);
+            lista_lisa.Add(cocina);
+            lista_lisa.Add(tostadora);
+
+            lista_magui = new List<cElectrodomesticos>();
+            lista_magui.Add(exprimidor);
+            lista_magui.Add(comptadora);
+            lista_magui.Add(secarropas);
+            lista_magui.Add(licuadora);
+            lista_magui.Add(cocina);
+            lista_magui.Add(tostadora);
+
+            lista_marge = new List<cElectrodomesticos>();
+            lista_marge.Add(rallador);
+            lista_marge.Add(cafetera);
+
             pedido1 = new cPedido_por_Cliente("Taylor Swift", eLocalidad.VicenteLopez, lista_taylor, entrega.express);
             pedido2 = new cPedido_por_Cliente("Sabrina Carpenter", eLocalidad.LaBoca, lista_sabrina, entrega.express);
             pedido3 = new cPedido_por_Cliente("Olivia Rodrigo", eLocalidad.Palermo, lista_olivia, entrega.express);
@@ -220,7 +296,7 @@ namespace TPFINALFINAL
             pedido6 = new cPedido_por_Cliente("Niall Horan", eLocalidad.Belgrano, lista_niall, entrega.diferido);
             pedido7 = new cPedido_por_Cliente("Joshua Basset", eLocalidad.Lanus, lista_joshua, entrega.diferido);
             pedido8 = new cPedido_por_Cliente("Dove Cameron", eLocalidad.Liniers, lista_dove, entrega.diferido);
-            pedido9 = new cPedido_por_Cliente("Luke Hemings", eLocalidad.VillaLugano, lista_luke, entrega.diferido);
+            pedido9 = new cPedido_por_Cliente("Luke Hemmings", eLocalidad.VillaLugano, lista_luke, entrega.diferido);
             pedido10 = new cPedido_por_Cliente("Isaac Anderson", eLocalidad.Versalles, lista_isaac, entrega.diferido);
             pedido11 = new cPedido_por_Cliente("Mitch Rowland", eLocalidad.VillaDevoto, lista_mitch, entrega.diferido);
             pedido12 = new cPedido_por_Cliente("Sarah Jones", eLocalidad.TresdeFebrero, lista_sarah, entrega.diferido);
@@ -233,6 +309,16 @@ namespace TPFINALFINAL
             pedido19 = new cPedido_por_Cliente("Florence Pugh", eLocalidad.LaMatanza, lista_florence, entrega.normal);
             pedido20 = new cPedido_por_Cliente("Jack Chambers", eLocalidad.MonteCastro, lista_jack, entrega.normal);
             pedido21 = new cPedido_por_Cliente("Alice Chambers", eLocalidad.Mataderos, lista_alice, entrega.normal);
+            pedido22 = new cPedido_por_Cliente("Hermione Granger", eLocalidad.VelezSarsfield, lista_hermione, entrega.express);
+            pedido23 = new cPedido_por_Cliente("Draco Malfoy", eLocalidad.Avellaneda, lista_draco, entrega.express);
+            pedido24 = new cPedido_por_Cliente("Harry Potter", eLocalidad.LaMatanza, lista_harrypotter, entrega.normal);
+            pedido25 = new cPedido_por_Cliente("Ron Weasley", eLocalidad.MonteCastro, lista_ron, entrega.express);
+            pedido26 = new cPedido_por_Cliente("Dobby", eLocalidad.Mataderos, lista_dobby, entrega.express);
+            pedido27 = new cPedido_por_Cliente("Homero Simpson", eLocalidad.VelezSarsfield, lista_Homero, entrega.express);
+            pedido28 = new cPedido_por_Cliente("Bart Simpson", eLocalidad.Avellaneda, lista_lisa, entrega.express);
+            pedido29 = new cPedido_por_Cliente("Lisa Simpson", eLocalidad.LaMatanza, lista_bart, entrega.normal);
+            pedido30 = new cPedido_por_Cliente("Magui Simpson", eLocalidad.MonteCastro, lista_magui, entrega.express);
+            pedido31 = new cPedido_por_Cliente("Marge Simpson", eLocalidad.Mataderos, lista_marge, entrega.express);
 
 
             lista_pedidos = new List<cPedido_por_Cliente>();
@@ -257,6 +343,16 @@ namespace TPFINALFINAL
             lista_pedidos.Add(pedido19);
             lista_pedidos.Add(pedido20);
             lista_pedidos.Add(pedido21);
+            lista_pedidos.Add(pedido22);
+            lista_pedidos.Add(pedido23);
+            lista_pedidos.Add(pedido24);
+            lista_pedidos.Add(pedido25);
+            lista_pedidos.Add(pedido26);
+            lista_pedidos.Add(pedido27);
+            lista_pedidos.Add(pedido28);
+            lista_pedidos.Add(pedido29);
+            lista_pedidos.Add(pedido30);
+            lista_pedidos.Add(pedido31);
 
             cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
             InitializeComponent();
@@ -277,15 +373,23 @@ namespace TPFINALFINAL
            
             camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
              cont_camiones = 0;
-        
+            int cantvolumen = 0;
             while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
             {//hasta que no haya mas camiones o haya despachado todos los productos
+                cantvolumen = 0;
                 caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
                 cont_camiones++;//se lleno el camion anterior, uso el siguiente
                
-                
+                for(int i = 0; i < pedido_a_entregar.Count; i++)
+                {
+                    cantvolumen = cantvolumen + pedido_a_entregar[i].volumen;
+                }
               
                 TreeNode Nodo_padre = new TreeNode(camion.ToString());
+                Nodo_padre.Nodes.Add("Volumen Maximo Camion: ");
+                Nodo_padre.Nodes.Add( camion.volumen_max.ToString());
+                Nodo_padre.Nodes.Add("Volumen De Cargado: ");
+                Nodo_padre.Nodes.Add(cantvolumen.ToString());
 
                 foreach (var pedidos in pedido_a_entregar) {
 

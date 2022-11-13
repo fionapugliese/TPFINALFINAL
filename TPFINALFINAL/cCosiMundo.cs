@@ -798,6 +798,7 @@ namespace TPFINALFINAL
             int[] valores = new int[lista.Count];
             for (int i = 0; i < lista.Count; i++)
             {
+
                 if (lista[i].tipo_entrega == entrega.express)
                     valores[i] = lista[i].volumen / lista[i].peso_pedido;
                 else if (lista[i].tipo_entrega == entrega.express)
@@ -870,15 +871,22 @@ namespace TPFINALFINAL
                 EliminarLineaBlanca(listaexpress);
                 if (listaexpress.Count != 0)
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                else
+                 else
                 {
                     listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
                     EliminarLineaBlanca(listanormal);
-
-                    if (listanormal.Count == 0)
+                    if (listanormal.Count != 0)
+                        RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max, pedidos_del_dia, listaexpress, pedido_a_entregar);
+                    else
                     {
-                        listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
-                        EliminarLineaBlanca(listanormal);
+                        listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
+                        if (listanormal.Count != 0)
+                            RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
+                        else {
+                            listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
+                            EliminarLineaBlanca(listanormal);
+                            RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max, pedidos_del_dia, listaexpress, pedido_a_entregar);
+                           }
                     }
 
 
@@ -966,11 +974,11 @@ namespace TPFINALFINAL
 
             for (int h = 0; h < pedido_a_entregar.Count; h++)
             {
-                acum_peso = acum_peso + pedido_a_entregar[i].peso_pedido;
-                acumvolumen = acumvolumen + pedido_a_entregar[i].volumen;
+                acum_peso = acum_peso + pedido_a_entregar[h].peso_pedido;
+                acum_volumen = acum_volumen + pedido_a_entregar[h].volumen;
             }
 
-            if (acum_peso < camion.peso_max && acumvolumen < camion.volumen_max)
+            if (acum_peso < camion.peso_max && acum_volumen < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> lista;
                 if (camion.GetType() == typeof(cCamioneta))
@@ -1055,8 +1063,8 @@ namespace TPFINALFINAL
             int acumvol = 0;
             for(int f = 0; f < pedido_a_entregar.Count; f++)
             {
-                acumpeso = acumpeso + pedido_a_entregar[i].peso_pedido;
-                acumvol = acumvol + pedido_a_entregar[i].volumen;
+                acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
+                acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
 
             if(acumpeso < camion.peso_max && acumvol < camion.volumen_max)
@@ -1075,7 +1083,7 @@ namespace TPFINALFINAL
                 if (listanormal.Count == 0)
                     return;
 
-                RellenadoDinamicoNormales(camion,peso - acumpeso, volumen - acumvol, pedidostotal, listanormal, pedido_a_entregar);
+                RellenadoDinamicoNormales(camion, camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listanormal, pedido_a_entregar);
 
             }
 
@@ -1142,8 +1150,8 @@ namespace TPFINALFINAL
             int acumvol = 0;
             for (int f = 0; f < pedido_a_entregar.Count; f++)
             {
-                acumpeso = acumpeso + pedido_a_entregar[i].peso_pedido;
-                acumvol = acumvol + pedido_a_entregar[i].volumen;
+                acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
+                acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
 
             if (acumpeso < camion.peso_max && acumvol < camion.volumen_max)
@@ -1154,7 +1162,7 @@ namespace TPFINALFINAL
                 if (listadif.Count == 0)
                     return;
 
-                RellenadoDinamicoDiferidos( peso - acumpeso, volumen - acumvol, pedidostotal, listadif, pedido_a_entregar);
+                RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
 
             }
 
