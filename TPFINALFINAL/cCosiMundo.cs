@@ -800,7 +800,6 @@ namespace TPFINALFINAL
             for (int i = 0; i < lista.Count; i++)
             {
 
-                if (lista[i].tipo_entrega == entrega.express)
                     valores[i] = lista[i].volumen / lista[i].peso_pedido;
 
                 if (valores[i] == 0)
