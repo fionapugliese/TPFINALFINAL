@@ -13,8 +13,8 @@ namespace TPFINALFINAL
     public partial class Form1 : Form
     {
         cVehiculo camioneta;
-        cVehiculo furgon ;
-        cVehiculo furgoneta ;
+        cVehiculo furgon;
+        cVehiculo furgoneta;
 
         List<cVehiculo> lista_camiones;
         DateTime fecha;
@@ -32,14 +32,16 @@ namespace TPFINALFINAL
         cElectrodomesticos termotanque3;
         cElectrodomesticos lavarropas;
         cElectrodomesticos secarropas;
-        cElectrodomesticos comptadora ;
-        cElectrodomesticos impresora ;
+        cElectrodomesticos comptadora;
+        cElectrodomesticos impresora;
         cElectrodomesticos impresora2;
         cElectrodomesticos impresora3;
         cElectrodomesticos accesorios ;
         cElectrodomesticos accesorios2;
         cElectrodomesticos televisor;
-
+        
+        
+    
         List<cElectrodomesticos> lista_taylor;
         List<cElectrodomesticos> lista_sabrina;
         List<cElectrodomesticos> lista_olivia;
@@ -238,23 +240,23 @@ namespace TPFINALFINAL
 
         public Form1()
         {
-           
-             camioneta = new cCamioneta(2, 80, 5770000);
-             furgon = new cFurgon(4, 90, 3950000);
-             furgoneta = new cFurgoneta(9, 60, 2800000);
 
-            
-             lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
+            camioneta = new cCamioneta(2, 80, 5770000);
+            furgon = new cFurgon(4, 90, 3950000);
+            furgoneta = new cFurgoneta(9, 60, 2800000);
+
+
+            lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
              licuadora = new cPequeños_electrodomesticos(30, 20, 2, objetos.licuadora);
             licuadora2 = new cPequeños_electrodomesticos(10, 4, 2, objetos.licuadora);
             rallador = new cPequeños_electrodomesticos(10, 30, 2, objetos.rallador);
-             exprimidor = new cPequeños_electrodomesticos(10, 10, 2, objetos.exprimidor);
+            exprimidor = new cPequeños_electrodomesticos(10, 10, 2, objetos.exprimidor);
             cafetera = new cPequeños_electrodomesticos(50, 50, 2, objetos.cafetera);
-             tostadora = new cPequeños_electrodomesticos(60, 20, 2, objetos.tostadora);
-             cocina = new cLineaBlanca(70, 80, 4, objetos.cocinas);
-             calefon = new cLineaBlanca(90, 50, 2, objetos.calefon);
-             termotanque = new cLineaBlanca(80, 100, 3, objetos.termotanque);
+            tostadora = new cPequeños_electrodomesticos(60, 20, 2, objetos.tostadora);
+            cocina = new cLineaBlanca(70, 80, 4, objetos.cocinas);
+            calefon = new cLineaBlanca(90, 50, 2, objetos.calefon);
+            termotanque = new cLineaBlanca(80, 100, 3, objetos.termotanque);
             termotanque2 = new cLineaBlanca(80, 70, 3, objetos.termotanque);
             termotanque3 = new cLineaBlanca(80, 80, 3, objetos.termotanque);
             lavarropas = new cLineaBlanca(40, 60, 1, objetos.lavarropas);
@@ -267,25 +269,25 @@ namespace TPFINALFINAL
             accesorios2 = new cElectronicos(50, 3, 1, objetos.accesorios);
             televisor = new cTelevisores(10, 60, 2, objetos.telvisores);
 
-            lista_taylor = new List<cElectrodomesticos>();
-            lista_taylor.Add(licuadora);
-            lista_taylor.Add(televisor);
-            lista_taylor.Add(exprimidor);
+                lista_taylor = new List<cElectrodomesticos>();
+                lista_taylor.Add(licuadora);
+                lista_taylor.Add(televisor);
+                lista_taylor.Add(exprimidor);
 
-            lista_sabrina = new List<cElectrodomesticos>();
-            lista_sabrina.Add(rallador);
-            lista_sabrina.Add(cafetera);
+                lista_sabrina = new List<cElectrodomesticos>();
+                lista_sabrina.Add(rallador);
+                lista_sabrina.Add(cafetera);
 
 
-            lista_olivia = new List<cElectrodomesticos>();
-            lista_olivia.Add(cocina);
-            lista_olivia.Add(termotanque);
-            lista_olivia.Add(comptadora);
-            lista_olivia.Add(impresora);
+                lista_olivia = new List<cElectrodomesticos>();
+                lista_olivia.Add(cocina);
+                lista_olivia.Add(termotanque);
+                lista_olivia.Add(comptadora);
+                lista_olivia.Add(impresora);
 
-            lista_harry = new List<cElectrodomesticos>();
-            lista_harry.Add(calefon);
-            lista_harry.Add(lavarropas);
+                lista_harry = new List<cElectrodomesticos>();
+                lista_harry.Add(calefon);
+                lista_harry.Add(lavarropas);
 
             lista_louis = new List<cElectrodomesticos>();
             lista_louis.Add(secarropas);
@@ -294,10 +296,10 @@ namespace TPFINALFINAL
             lista_niall.Add(rallador);
             lista_niall.Add(impresora);
 
-            lista_joshua = new List<cElectrodomesticos>();
-            lista_joshua.Add(exprimidor);
-            lista_joshua.Add(tostadora);
-            lista_joshua.Add(secarropas);
+                lista_joshua = new List<cElectrodomesticos>();
+                lista_joshua.Add(exprimidor);
+                lista_joshua.Add(tostadora);
+                lista_joshua.Add(secarropas);
 
             lista_dove = new List<cElectrodomesticos>();
             lista_dove.Add(cafetera);
@@ -324,84 +326,84 @@ namespace TPFINALFINAL
             lista_larry.Add(lavarropas);
             lista_larry.Add(termotanque);
 
-            lista_zayn = new List<cElectrodomesticos>();
-            lista_zayn.Add(lavarropas);
+                lista_zayn = new List<cElectrodomesticos>();
+                lista_zayn.Add(lavarropas);
 
-            lista_tom = new List<cElectrodomesticos>();
-            lista_tom.Add(calefon);
-            lista_tom.Add(exprimidor);
+                lista_tom = new List<cElectrodomesticos>();
+                lista_tom.Add(calefon);
+                lista_tom.Add(exprimidor);
 
-            lista_patrik = new List<cElectrodomesticos>();
-            lista_patrik.Add(tostadora);
-            lista_patrik.Add(accesorios);
+                lista_patrik = new List<cElectrodomesticos>();
+                lista_patrik.Add(tostadora);
+                lista_patrik.Add(accesorios);
 
-            lista_emma = new List<cElectrodomesticos>();
-            lista_emma.Add(lavarropas);
-            lista_emma.Add(calefon);
-            lista_emma.Add(impresora);
+                lista_emma = new List<cElectrodomesticos>();
+                lista_emma.Add(lavarropas);
+                lista_emma.Add(calefon);
+                lista_emma.Add(impresora);
 
-            lista_david = new List<cElectrodomesticos>();
-            lista_david.Add(exprimidor);
-            lista_david.Add(comptadora);
-            lista_david.Add(secarropas);
+                lista_david = new List<cElectrodomesticos>();
+                lista_david.Add(exprimidor);
+                lista_david.Add(comptadora);
+                lista_david.Add(secarropas);
 
-            lista_florence = new List<cElectrodomesticos>();
-            lista_florence.Add(licuadora);
-            lista_florence.Add(cocina);
-            lista_florence.Add(tostadora);
+                lista_florence = new List<cElectrodomesticos>();
+                lista_florence.Add(licuadora);
+                lista_florence.Add(cocina);
+                lista_florence.Add(tostadora);
 
-            lista_alice = new List<cElectrodomesticos>();
-            lista_alice.Add(lavarropas);
+                lista_alice = new List<cElectrodomesticos>();
+                lista_alice.Add(lavarropas);
 
-            lista_jack = new List<cElectrodomesticos>();
-            lista_jack.Add(licuadora);
+                lista_jack = new List<cElectrodomesticos>();
+                lista_jack.Add(licuadora);
 
-            lista_hermione = new List<cElectrodomesticos>();
-            lista_hermione.Add(licuadora);
-            lista_hermione.Add(televisor);
-            lista_hermione.Add(exprimidor);
+                lista_hermione = new List<cElectrodomesticos>();
+                lista_hermione.Add(licuadora);
+                lista_hermione.Add(televisor);
+                lista_hermione.Add(exprimidor);
 
-            lista_draco = new List<cElectrodomesticos>();
-            lista_draco.Add(rallador);
-            lista_draco.Add(cafetera);
+                lista_draco = new List<cElectrodomesticos>();
+                lista_draco.Add(rallador);
+                lista_draco.Add(cafetera);
 
-            lista_harrypotter = new List<cElectrodomesticos>();
-            lista_harrypotter.Add(exprimidor);
-            lista_harrypotter.Add(comptadora);
-            lista_harrypotter.Add(secarropas);
+                lista_harrypotter = new List<cElectrodomesticos>();
+                lista_harrypotter.Add(exprimidor);
+                lista_harrypotter.Add(comptadora);
+                lista_harrypotter.Add(secarropas);
 
             lista_ron = new List<cElectrodomesticos>();
             lista_ron.Add(licuadora);
             lista_ron.Add(tostadora);
             lista_ron.Add(lavarropas);
 
-            lista_dobby = new List<cElectrodomesticos>();
-            lista_dobby.Add(lavarropas);
-            lista_dobby.Add(calefon);
-            lista_dobby.Add(impresora);
+                lista_dobby = new List<cElectrodomesticos>();
+                lista_dobby.Add(lavarropas);
+                lista_dobby.Add(calefon);
+                lista_dobby.Add(impresora);
 
             lista_Homero = new List<cElectrodomesticos>();
             lista_Homero.Add(cocina);
             lista_Homero.Add(comptadora);
 
-            lista_bart = new List<cElectrodomesticos>();
-            lista_bart.Add(secarropas);
-            lista_bart.Add(accesorios);
+                lista_bart = new List<cElectrodomesticos>();
+                lista_bart.Add(secarropas);
+                lista_bart.Add(accesorios);
 
-            lista_lisa = new List<cElectrodomesticos>();
-            lista_lisa.Add(rallador);
-            lista_lisa.Add(calefon);
-            lista_lisa.Add(impresora);
-            lista_lisa.Add(cocina);
-            lista_lisa.Add(tostadora);
+                lista_lisa = new List<cElectrodomesticos>();
+                lista_lisa.Add(rallador);
+                lista_lisa.Add(calefon);
+                lista_lisa.Add(impresora);
+                lista_lisa.Add(cocina);
+                lista_lisa.Add(tostadora);
 
             lista_magui = new List<cElectrodomesticos>();
             lista_magui.Add(exprimidor);
             lista_magui.Add(comptadora);
 
-            lista_marge = new List<cElectrodomesticos>();
-            lista_marge.Add(rallador);
-            lista_marge.Add(cafetera);
+                lista_marge = new List<cElectrodomesticos>();
+                lista_marge.Add(rallador);
+                lista_marge.Add(cafetera);
 
 
 
@@ -415,38 +417,38 @@ namespace TPFINALFINAL
             lista_marge.Add(cafetera);
             lista_meredith.Add(rallador);
 
-            lista_cristina = new List<cElectrodomesticos>();
-            lista_cristina.Add(cocina);
-            lista_cristina.Add(accesorios);
+                lista_cristina = new List<cElectrodomesticos>();
+                lista_cristina.Add(cocina);
+                lista_cristina.Add(accesorios);
 
-            lista_izzie = new List<cElectrodomesticos>();
-            lista_izzie.Add(termotanque);
-            lista_izzie.Add(secarropas);
-            lista_izzie.Add(lavarropas);
+                lista_izzie = new List<cElectrodomesticos>();
+                lista_izzie.Add(termotanque);
+                lista_izzie.Add(secarropas);
+                lista_izzie.Add(lavarropas);
 
             lista_jackson = new List<cElectrodomesticos>();
             lista_jackson.Add(comptadora);
             lista_jackson.Add(accesorios);
             lista_jackson.Add(lavarropas);
 
-            lista_alex = new List<cElectrodomesticos>();
-            lista_alex.Add(lavarropas);
-            lista_alex.Add(cocina);
-            lista_alex.Add(termotanque);
+                lista_alex = new List<cElectrodomesticos>();
+                lista_alex.Add(lavarropas);
+                lista_alex.Add(cocina);
+                lista_alex.Add(termotanque);
 
-            lista_miranda = new List<cElectrodomesticos>();
-            lista_miranda.Add(accesorios);
+                lista_miranda = new List<cElectrodomesticos>();
+                lista_miranda.Add(accesorios);
 
 
-            lista_richard = new List<cElectrodomesticos>();
-            lista_richard.Add(impresora);
-            lista_richard.Add(tostadora);
+                lista_richard = new List<cElectrodomesticos>();
+                lista_richard.Add(impresora);
+                lista_richard.Add(tostadora);
 
-            lista_amelia = new List<cElectrodomesticos>();
-            lista_amelia.Add(rallador);
-            lista_amelia.Add(licuadora);
-            lista_amelia.Add(impresora);
-            lista_amelia.Add(accesorios);
+                lista_amelia = new List<cElectrodomesticos>();
+                lista_amelia.Add(rallador);
+                lista_amelia.Add(licuadora);
+                lista_amelia.Add(impresora);
+                lista_amelia.Add(accesorios);
 
 
 
@@ -454,46 +456,46 @@ namespace TPFINALFINAL
             lista_lottie.Add(impresora);
             lista_lottie.Add(lavarropas);
 
-            lista_lucky = new List<cElectrodomesticos>();
-            lista_lucky.Add(lavarropas);
-            lista_lucky.Add(secarropas);
+                lista_lucky = new List<cElectrodomesticos>();
+                lista_lucky.Add(lavarropas);
+                lista_lucky.Add(secarropas);
 
             lista_gemma = new List<cElectrodomesticos>();
             lista_gemma.Add(cocina);
             lista_gemma.Add(calefon);
 
-            lista_anne = new List<cElectrodomesticos>();
-            lista_anne.Add(lavarropas);
-            lista_anne.Add(cocina);
-            lista_anne.Add(secarropas);
+                lista_anne = new List<cElectrodomesticos>();
+                lista_anne.Add(lavarropas);
+                lista_anne.Add(cocina);
+                lista_anne.Add(secarropas);
 
-            lista_sheldon = new List<cElectrodomesticos>();
-            lista_sheldon.Add(secarropas);
-            lista_sheldon.Add(cocina);
-            lista_sheldon.Add(lavarropas);
+                lista_sheldon = new List<cElectrodomesticos>();
+                lista_sheldon.Add(secarropas);
+                lista_sheldon.Add(cocina);
+                lista_sheldon.Add(lavarropas);
 
 
 
             lista_rachel = new List<cElectrodomesticos>();
             lista_rachel.Add(calefon);
 
-            lista_phoebe = new List<cElectrodomesticos>();
-            lista_phoebe.Add(lavarropas);
-            lista_phoebe.Add(secarropas);
+                lista_phoebe = new List<cElectrodomesticos>();
+                lista_phoebe.Add(lavarropas);
+                lista_phoebe.Add(secarropas);
 
             lista_ross = new List<cElectrodomesticos>();
             lista_ross.Add(calefon);
             lista_ross.Add(licuadora);
 
-            lista_chandler = new List<cElectrodomesticos>();
-            lista_chandler.Add(lavarropas);
-            lista_chandler.Add(cocina);
-            lista_chandler.Add(secarropas);
+                lista_chandler = new List<cElectrodomesticos>();
+                lista_chandler.Add(lavarropas);
+                lista_chandler.Add(cocina);
+                lista_chandler.Add(secarropas);
 
-            lista_monica = new List<cElectrodomesticos>();
-            lista_monica.Add(secarropas);
-            lista_monica.Add(cocina);
-            lista_monica.Add(lavarropas);
+                lista_monica = new List<cElectrodomesticos>();
+                lista_monica.Add(secarropas);
+                lista_monica.Add(cocina);
+                lista_monica.Add(lavarropas);
 
 
 
@@ -502,24 +504,24 @@ namespace TPFINALFINAL
             lista_kit.Add(rallador);
             lista_kit.Add(accesorios);
 
-            lista_joe = new List<cElectrodomesticos>();
-            lista_joe.Add(impresora);
-            lista_joe.Add(accesorios);
+                lista_joe = new List<cElectrodomesticos>();
+                lista_joe.Add(impresora);
+                lista_joe.Add(accesorios);
 
-            lista_nick = new List<cElectrodomesticos>();
-            lista_nick.Add(exprimidor);
-            lista_nick.Add(comptadora);
-            lista_nick.Add(impresora);
+                lista_nick = new List<cElectrodomesticos>();
+                lista_nick.Add(exprimidor);
+                lista_nick.Add(comptadora);
+                lista_nick.Add(impresora);
 
-            lista_charlie = new List<cElectrodomesticos>();
-            lista_charlie.Add(licuadora);
-            lista_charlie.Add(rallador);
-            lista_charlie.Add(tostadora);
+                lista_charlie = new List<cElectrodomesticos>();
+                lista_charlie.Add(licuadora);
+                lista_charlie.Add(rallador);
+                lista_charlie.Add(tostadora);
 
-            lista_omar = new List<cElectrodomesticos>();
-            lista_omar.Add(accesorios);
-            lista_omar.Add(accesorios);
-            lista_omar.Add(accesorios);
+                lista_omar = new List<cElectrodomesticos>();
+                lista_omar.Add(accesorios);
+                lista_omar.Add(accesorios);
+                lista_omar.Add(accesorios);
 
             lista_edvin = new List<cElectrodomesticos>();
             lista_edvin.Add(accesorios);
@@ -528,15 +530,15 @@ namespace TPFINALFINAL
            // lista_edvin.Add(accesorios);
 
 
-            lista_jenn = new List<cElectrodomesticos>();
-            lista_jenn.Add(licuadora);
-            lista_jenn.Add(rallador);
-            lista_jenn.Add(tostadora);
+                lista_jenn = new List<cElectrodomesticos>();
+                lista_jenn.Add(licuadora);
+                lista_jenn.Add(rallador);
+                lista_jenn.Add(tostadora);
 
-            lista_marisa = new List<cElectrodomesticos>();
-            lista_marisa.Add(accesorios);
-           // lista_marisa.Add(accesorios);
-            lista_marisa.Add(accesorios);
+                lista_marisa = new List<cElectrodomesticos>();
+                lista_marisa.Add(accesorios);
+                // lista_marisa.Add(accesorios);
+                lista_marisa.Add(accesorios);
 
             lista_alicek = new List<cElectrodomesticos>();
             lista_alicek.Add(accesorios);
@@ -550,48 +552,49 @@ namespace TPFINALFINAL
             // lista_aliceo.Add(rallador);
             // lista_aliceo.Add(licuadora)
 
-            //
-            lista_elena = new List<cElectrodomesticos>();
-            lista_elena.Add(licuadora);
-            lista_elena.Add(rallador);
-            lista_elena.Add(accesorios);
+                //
+                lista_elena = new List<cElectrodomesticos>();
+                lista_elena.Add(licuadora);
+                lista_elena.Add(rallador);
+                lista_elena.Add(accesorios);
 
-            lista_stefan = new List<cElectrodomesticos>();
-            lista_stefan.Add(impresora);
-            lista_stefan.Add(accesorios);
+                lista_stefan = new List<cElectrodomesticos>();
+                lista_stefan.Add(impresora);
+                lista_stefan.Add(accesorios);
 
-            lista_damon = new List<cElectrodomesticos>();
-            lista_damon.Add(exprimidor);
-            lista_damon.Add(comptadora);
-            lista_damon.Add(impresora);
+                lista_damon = new List<cElectrodomesticos>();
+                lista_damon.Add(exprimidor);
+                lista_damon.Add(comptadora);
+                lista_damon.Add(impresora);
 
-            lista_katherine = new List<cElectrodomesticos>();
-            lista_katherine.Add(licuadora);
-            lista_katherine.Add(rallador);
-            lista_katherine.Add(tostadora);
+                lista_katherine = new List<cElectrodomesticos>();
+                lista_katherine.Add(licuadora);
+                lista_katherine.Add(rallador);
+                lista_katherine.Add(tostadora);
 
-            lista_klauss = new List<cElectrodomesticos>();
-            lista_klauss.Add(accesorios);
-            lista_klauss.Add(accesorios);
-            lista_klauss.Add(accesorios);
+                lista_klauss = new List<cElectrodomesticos>();
+                lista_klauss.Add(accesorios);
+                lista_klauss.Add(accesorios);
+                lista_klauss.Add(accesorios);
 
-            lista_matt = new List<cElectrodomesticos>();
-            lista_matt.Add(accesorios);
-          
-            lista_bonnie = new List<cElectrodomesticos>();
-            lista_bonnie.Add(licuadora);
-            lista_bonnie.Add(rallador);
-            lista_bonnie.Add(tostadora);
+                lista_matt = new List<cElectrodomesticos>();
+                lista_matt.Add(accesorios);
 
-            lista_caroline = new List<cElectrodomesticos>();
-            lista_caroline.Add(accesorios);
-            lista_caroline.Add(accesorios);
+                lista_bonnie = new List<cElectrodomesticos>();
+                lista_bonnie.Add(licuadora);
+                lista_bonnie.Add(rallador);
+                lista_bonnie.Add(tostadora);
 
-            lista_jeremy = new List<cElectrodomesticos>();
-            lista_jeremy.Add(accesorios);
-            
-            lista_alarik = new List<cElectrodomesticos>();
-            lista_alarik.Add(accesorios);
+                lista_caroline = new List<cElectrodomesticos>();
+                lista_caroline.Add(accesorios);
+                lista_caroline.Add(accesorios);
+
+                lista_jeremy = new List<cElectrodomesticos>();
+                lista_jeremy.Add(accesorios);
+
+                lista_alarik = new List<cElectrodomesticos>();
+                lista_alarik.Add(accesorios);
+            }
 
             lista_ricky = new List<cElectrodomesticos>();
             lista_ricky.Add(licuadora);
@@ -760,6 +763,7 @@ namespace TPFINALFINAL
 
 
 
+            {
 
             lista_pedidos = new List<cPedido_por_Cliente>();
             lista_pedidos.Add(pedido1);
