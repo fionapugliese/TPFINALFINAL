@@ -857,7 +857,6 @@ namespace TPFINALFINAL
             }
         }
 
-
         public void LlenadoCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
         {
             //filtramos las listas por express y normal
@@ -917,7 +916,6 @@ namespace TPFINALFINAL
 
             }
         }
-
 
         public void LLenadoDinamicoDelCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia_completa, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
         {
