@@ -19,15 +19,15 @@ namespace TPFINALFINAL
         List<cVehiculo> lista_camiones;
         DateTime fecha;
 
-        cElectrodomesticos licuadora ;
+        cElectrodomesticos licuadora;
         cElectrodomesticos licuadora2;
-        cElectrodomesticos rallador ;
-        cElectrodomesticos exprimidor ;
-        cElectrodomesticos cafetera ;
-        cElectrodomesticos tostadora ;
-        cElectrodomesticos cocina ;
-        cElectrodomesticos calefon ;
-        cElectrodomesticos termotanque ;
+        cElectrodomesticos rallador;
+        cElectrodomesticos exprimidor;
+        cElectrodomesticos cafetera;
+        cElectrodomesticos tostadora;
+        cElectrodomesticos cocina;
+        cElectrodomesticos calefon;
+        cElectrodomesticos termotanque;
         cElectrodomesticos termotanque2;
         cElectrodomesticos termotanque3;
         cElectrodomesticos lavarropas;
@@ -36,12 +36,12 @@ namespace TPFINALFINAL
         cElectrodomesticos impresora;
         cElectrodomesticos impresora2;
         cElectrodomesticos impresora3;
-        cElectrodomesticos accesorios ;
+        cElectrodomesticos accesorios;
         cElectrodomesticos accesorios2;
         cElectrodomesticos televisor;
-        
-        
-    
+
+
+
         List<cElectrodomesticos> lista_taylor;
         List<cElectrodomesticos> lista_sabrina;
         List<cElectrodomesticos> lista_olivia;
@@ -132,7 +132,7 @@ namespace TPFINALFINAL
         List<cElectrodomesticos> lista_tessa;
         List<cElectrodomesticos> lista_will;
         List<cElectrodomesticos> lista_james;
-        List<cElectrodomesticos> lista_emmacas; 
+        List<cElectrodomesticos> lista_emmacas;
 
 
 
@@ -233,7 +233,7 @@ namespace TPFINALFINAL
 
         List<cPedido_por_Cliente> lista_pedidos;
 
-        cCosiMundo cosimundo ;
+        cCosiMundo cosimundo;
         int cont_camiones;
         cVehiculo camion;
         List<eLocalidad> caminomascorto;
@@ -248,7 +248,7 @@ namespace TPFINALFINAL
 
             lista_camiones = new List<cVehiculo>() { camioneta, furgon, furgoneta };
 
-             licuadora = new cPequeños_electrodomesticos(30, 20, 2, objetos.licuadora);
+            licuadora = new cPequeños_electrodomesticos(30, 20, 2, objetos.licuadora);
             licuadora2 = new cPequeños_electrodomesticos(10, 4, 2, objetos.licuadora);
             rallador = new cPequeños_electrodomesticos(10, 30, 2, objetos.rallador);
             exprimidor = new cPequeños_electrodomesticos(10, 10, 2, objetos.exprimidor);
@@ -260,34 +260,34 @@ namespace TPFINALFINAL
             termotanque2 = new cLineaBlanca(80, 70, 3, objetos.termotanque);
             termotanque3 = new cLineaBlanca(80, 80, 3, objetos.termotanque);
             lavarropas = new cLineaBlanca(40, 60, 1, objetos.lavarropas);
-             secarropas = new cLineaBlanca(30, 90, 2, objetos.lavarropas);
-             comptadora = new cElectronicos(10, 20, 2, objetos.computadoras);
-             impresora = new cElectronicos(20, 60, 3, objetos.impresoras);
+            secarropas = new cLineaBlanca(30, 90, 2, objetos.lavarropas);
+            comptadora = new cElectronicos(10, 20, 2, objetos.computadoras);
+            impresora = new cElectronicos(20, 60, 3, objetos.impresoras);
             impresora2 = new cElectronicos(10, 3, 3, objetos.impresoras);
             impresora3 = new cElectronicos(30, 9, 3, objetos.impresoras);
             accesorios = new cElectronicos(10, 20, 1, objetos.accesorios);
             accesorios2 = new cElectronicos(50, 3, 1, objetos.accesorios);
             televisor = new cTelevisores(10, 60, 2, objetos.telvisores);
 
-                lista_taylor = new List<cElectrodomesticos>();
-                lista_taylor.Add(licuadora);
-                lista_taylor.Add(televisor);
-                lista_taylor.Add(exprimidor);
+            lista_taylor = new List<cElectrodomesticos>();
+            lista_taylor.Add(licuadora);
+            lista_taylor.Add(televisor);
+            lista_taylor.Add(exprimidor);
 
-                lista_sabrina = new List<cElectrodomesticos>();
-                lista_sabrina.Add(rallador);
-                lista_sabrina.Add(cafetera);
+            lista_sabrina = new List<cElectrodomesticos>();
+            lista_sabrina.Add(rallador);
+            lista_sabrina.Add(cafetera);
 
 
-                lista_olivia = new List<cElectrodomesticos>();
-                lista_olivia.Add(cocina);
-                lista_olivia.Add(termotanque);
-                lista_olivia.Add(comptadora);
-                lista_olivia.Add(impresora);
+            lista_olivia = new List<cElectrodomesticos>();
+            lista_olivia.Add(cocina);
+            lista_olivia.Add(termotanque);
+            lista_olivia.Add(comptadora);
+            lista_olivia.Add(impresora);
 
-                lista_harry = new List<cElectrodomesticos>();
-                lista_harry.Add(calefon);
-                lista_harry.Add(lavarropas);
+            lista_harry = new List<cElectrodomesticos>();
+            lista_harry.Add(calefon);
+            lista_harry.Add(lavarropas);
 
             lista_louis = new List<cElectrodomesticos>();
             lista_louis.Add(secarropas);
@@ -296,10 +296,10 @@ namespace TPFINALFINAL
             lista_niall.Add(rallador);
             lista_niall.Add(impresora);
 
-                lista_joshua = new List<cElectrodomesticos>();
-                lista_joshua.Add(exprimidor);
-                lista_joshua.Add(tostadora);
-                lista_joshua.Add(secarropas);
+            lista_joshua = new List<cElectrodomesticos>();
+            lista_joshua.Add(exprimidor);
+            lista_joshua.Add(tostadora);
+            lista_joshua.Add(secarropas);
 
             lista_dove = new List<cElectrodomesticos>();
             lista_dove.Add(cafetera);
@@ -326,84 +326,84 @@ namespace TPFINALFINAL
             lista_larry.Add(lavarropas);
             lista_larry.Add(termotanque);
 
-                lista_zayn = new List<cElectrodomesticos>();
-                lista_zayn.Add(lavarropas);
+            lista_zayn = new List<cElectrodomesticos>();
+            lista_zayn.Add(lavarropas);
 
-                lista_tom = new List<cElectrodomesticos>();
-                lista_tom.Add(calefon);
-                lista_tom.Add(exprimidor);
+            lista_tom = new List<cElectrodomesticos>();
+            lista_tom.Add(calefon);
+            lista_tom.Add(exprimidor);
 
-                lista_patrik = new List<cElectrodomesticos>();
-                lista_patrik.Add(tostadora);
-                lista_patrik.Add(accesorios);
+            lista_patrik = new List<cElectrodomesticos>();
+            lista_patrik.Add(tostadora);
+            lista_patrik.Add(accesorios);
 
-                lista_emma = new List<cElectrodomesticos>();
-                lista_emma.Add(lavarropas);
-                lista_emma.Add(calefon);
-                lista_emma.Add(impresora);
+            lista_emma = new List<cElectrodomesticos>();
+            lista_emma.Add(lavarropas);
+            lista_emma.Add(calefon);
+            lista_emma.Add(impresora);
 
-                lista_david = new List<cElectrodomesticos>();
-                lista_david.Add(exprimidor);
-                lista_david.Add(comptadora);
-                lista_david.Add(secarropas);
+            lista_david = new List<cElectrodomesticos>();
+            lista_david.Add(exprimidor);
+            lista_david.Add(comptadora);
+            lista_david.Add(secarropas);
 
-                lista_florence = new List<cElectrodomesticos>();
-                lista_florence.Add(licuadora);
-                lista_florence.Add(cocina);
-                lista_florence.Add(tostadora);
+            lista_florence = new List<cElectrodomesticos>();
+            lista_florence.Add(licuadora);
+            lista_florence.Add(cocina);
+            lista_florence.Add(tostadora);
 
-                lista_alice = new List<cElectrodomesticos>();
-                lista_alice.Add(lavarropas);
+            lista_alice = new List<cElectrodomesticos>();
+            lista_alice.Add(lavarropas);
 
-                lista_jack = new List<cElectrodomesticos>();
-                lista_jack.Add(licuadora);
+            lista_jack = new List<cElectrodomesticos>();
+            lista_jack.Add(licuadora);
 
-                lista_hermione = new List<cElectrodomesticos>();
-                lista_hermione.Add(licuadora);
-                lista_hermione.Add(televisor);
-                lista_hermione.Add(exprimidor);
+            lista_hermione = new List<cElectrodomesticos>();
+            lista_hermione.Add(licuadora);
+            lista_hermione.Add(televisor);
+            lista_hermione.Add(exprimidor);
 
-                lista_draco = new List<cElectrodomesticos>();
-                lista_draco.Add(rallador);
-                lista_draco.Add(cafetera);
+            lista_draco = new List<cElectrodomesticos>();
+            lista_draco.Add(rallador);
+            lista_draco.Add(cafetera);
 
-                lista_harrypotter = new List<cElectrodomesticos>();
-                lista_harrypotter.Add(exprimidor);
-                lista_harrypotter.Add(comptadora);
-                lista_harrypotter.Add(secarropas);
+            lista_harrypotter = new List<cElectrodomesticos>();
+            lista_harrypotter.Add(exprimidor);
+            lista_harrypotter.Add(comptadora);
+            lista_harrypotter.Add(secarropas);
 
             lista_ron = new List<cElectrodomesticos>();
             lista_ron.Add(licuadora);
             lista_ron.Add(tostadora);
             lista_ron.Add(lavarropas);
 
-                lista_dobby = new List<cElectrodomesticos>();
-                lista_dobby.Add(lavarropas);
-                lista_dobby.Add(calefon);
-                lista_dobby.Add(impresora);
+            lista_dobby = new List<cElectrodomesticos>();
+            lista_dobby.Add(lavarropas);
+            lista_dobby.Add(calefon);
+            lista_dobby.Add(impresora);
 
             lista_Homero = new List<cElectrodomesticos>();
             lista_Homero.Add(cocina);
             lista_Homero.Add(comptadora);
 
-                lista_bart = new List<cElectrodomesticos>();
-                lista_bart.Add(secarropas);
-                lista_bart.Add(accesorios);
+            lista_bart = new List<cElectrodomesticos>();
+            lista_bart.Add(secarropas);
+            lista_bart.Add(accesorios);
 
-                lista_lisa = new List<cElectrodomesticos>();
-                lista_lisa.Add(rallador);
-                lista_lisa.Add(calefon);
-                lista_lisa.Add(impresora);
-                lista_lisa.Add(cocina);
-                lista_lisa.Add(tostadora);
+            lista_lisa = new List<cElectrodomesticos>();
+            lista_lisa.Add(rallador);
+            lista_lisa.Add(calefon);
+            lista_lisa.Add(impresora);
+            lista_lisa.Add(cocina);
+            lista_lisa.Add(tostadora);
 
             lista_magui = new List<cElectrodomesticos>();
             lista_magui.Add(exprimidor);
             lista_magui.Add(comptadora);
 
-                lista_marge = new List<cElectrodomesticos>();
-                lista_marge.Add(rallador);
-                lista_marge.Add(cafetera);
+            lista_marge = new List<cElectrodomesticos>();
+            lista_marge.Add(rallador);
+            lista_marge.Add(cafetera);
 
 
 
@@ -417,38 +417,38 @@ namespace TPFINALFINAL
             lista_marge.Add(cafetera);
             lista_meredith.Add(rallador);
 
-                lista_cristina = new List<cElectrodomesticos>();
-                lista_cristina.Add(cocina);
-                lista_cristina.Add(accesorios);
+            lista_cristina = new List<cElectrodomesticos>();
+            lista_cristina.Add(cocina);
+            lista_cristina.Add(accesorios);
 
-                lista_izzie = new List<cElectrodomesticos>();
-                lista_izzie.Add(termotanque);
-                lista_izzie.Add(secarropas);
-                lista_izzie.Add(lavarropas);
+            lista_izzie = new List<cElectrodomesticos>();
+            lista_izzie.Add(termotanque);
+            lista_izzie.Add(secarropas);
+            lista_izzie.Add(lavarropas);
 
             lista_jackson = new List<cElectrodomesticos>();
             lista_jackson.Add(comptadora);
             lista_jackson.Add(accesorios);
             lista_jackson.Add(lavarropas);
 
-                lista_alex = new List<cElectrodomesticos>();
-                lista_alex.Add(lavarropas);
-                lista_alex.Add(cocina);
-                lista_alex.Add(termotanque);
+            lista_alex = new List<cElectrodomesticos>();
+            lista_alex.Add(lavarropas);
+            lista_alex.Add(cocina);
+            lista_alex.Add(termotanque);
 
-                lista_miranda = new List<cElectrodomesticos>();
-                lista_miranda.Add(accesorios);
+            lista_miranda = new List<cElectrodomesticos>();
+            lista_miranda.Add(accesorios);
 
 
-                lista_richard = new List<cElectrodomesticos>();
-                lista_richard.Add(impresora);
-                lista_richard.Add(tostadora);
+            lista_richard = new List<cElectrodomesticos>();
+            lista_richard.Add(impresora);
+            lista_richard.Add(tostadora);
 
-                lista_amelia = new List<cElectrodomesticos>();
-                lista_amelia.Add(rallador);
-                lista_amelia.Add(licuadora);
-                lista_amelia.Add(impresora);
-                lista_amelia.Add(accesorios);
+            lista_amelia = new List<cElectrodomesticos>();
+            lista_amelia.Add(rallador);
+            lista_amelia.Add(licuadora);
+            lista_amelia.Add(impresora);
+            lista_amelia.Add(accesorios);
 
 
 
@@ -456,46 +456,46 @@ namespace TPFINALFINAL
             lista_lottie.Add(impresora);
             lista_lottie.Add(lavarropas);
 
-                lista_lucky = new List<cElectrodomesticos>();
-                lista_lucky.Add(lavarropas);
-                lista_lucky.Add(secarropas);
+            lista_lucky = new List<cElectrodomesticos>();
+            lista_lucky.Add(lavarropas);
+            lista_lucky.Add(secarropas);
 
             lista_gemma = new List<cElectrodomesticos>();
             lista_gemma.Add(cocina);
             lista_gemma.Add(calefon);
 
-                lista_anne = new List<cElectrodomesticos>();
-                lista_anne.Add(lavarropas);
-                lista_anne.Add(cocina);
-                lista_anne.Add(secarropas);
+            lista_anne = new List<cElectrodomesticos>();
+            lista_anne.Add(lavarropas);
+            lista_anne.Add(cocina);
+            lista_anne.Add(secarropas);
 
-                lista_sheldon = new List<cElectrodomesticos>();
-                lista_sheldon.Add(secarropas);
-                lista_sheldon.Add(cocina);
-                lista_sheldon.Add(lavarropas);
+            lista_sheldon = new List<cElectrodomesticos>();
+            lista_sheldon.Add(secarropas);
+            lista_sheldon.Add(cocina);
+            lista_sheldon.Add(lavarropas);
 
 
 
             lista_rachel = new List<cElectrodomesticos>();
             lista_rachel.Add(calefon);
 
-                lista_phoebe = new List<cElectrodomesticos>();
-                lista_phoebe.Add(lavarropas);
-                lista_phoebe.Add(secarropas);
+            lista_phoebe = new List<cElectrodomesticos>();
+            lista_phoebe.Add(lavarropas);
+            lista_phoebe.Add(secarropas);
 
             lista_ross = new List<cElectrodomesticos>();
             lista_ross.Add(calefon);
             lista_ross.Add(licuadora);
 
-                lista_chandler = new List<cElectrodomesticos>();
-                lista_chandler.Add(lavarropas);
-                lista_chandler.Add(cocina);
-                lista_chandler.Add(secarropas);
+            lista_chandler = new List<cElectrodomesticos>();
+            lista_chandler.Add(lavarropas);
+            lista_chandler.Add(cocina);
+            lista_chandler.Add(secarropas);
 
-                lista_monica = new List<cElectrodomesticos>();
-                lista_monica.Add(secarropas);
-                lista_monica.Add(cocina);
-                lista_monica.Add(lavarropas);
+            lista_monica = new List<cElectrodomesticos>();
+            lista_monica.Add(secarropas);
+            lista_monica.Add(cocina);
+            lista_monica.Add(lavarropas);
 
 
 
@@ -504,41 +504,41 @@ namespace TPFINALFINAL
             lista_kit.Add(rallador);
             lista_kit.Add(accesorios);
 
-                lista_joe = new List<cElectrodomesticos>();
-                lista_joe.Add(impresora);
-                lista_joe.Add(accesorios);
+            lista_joe = new List<cElectrodomesticos>();
+            lista_joe.Add(impresora);
+            lista_joe.Add(accesorios);
 
-                lista_nick = new List<cElectrodomesticos>();
-                lista_nick.Add(exprimidor);
-                lista_nick.Add(comptadora);
-                lista_nick.Add(impresora);
+            lista_nick = new List<cElectrodomesticos>();
+            lista_nick.Add(exprimidor);
+            lista_nick.Add(comptadora);
+            lista_nick.Add(impresora);
 
-                lista_charlie = new List<cElectrodomesticos>();
-                lista_charlie.Add(licuadora);
-                lista_charlie.Add(rallador);
-                lista_charlie.Add(tostadora);
+            lista_charlie = new List<cElectrodomesticos>();
+            lista_charlie.Add(licuadora);
+            lista_charlie.Add(rallador);
+            lista_charlie.Add(tostadora);
 
-                lista_omar = new List<cElectrodomesticos>();
-                lista_omar.Add(accesorios);
-                lista_omar.Add(accesorios);
-                lista_omar.Add(accesorios);
+            lista_omar = new List<cElectrodomesticos>();
+            lista_omar.Add(accesorios);
+            lista_omar.Add(accesorios);
+            lista_omar.Add(accesorios);
 
             lista_edvin = new List<cElectrodomesticos>();
             lista_edvin.Add(accesorios);
             lista_edvin.Add(impresora);
-           // lista_edvin.Add(exprimidor);
-           // lista_edvin.Add(accesorios);
+            // lista_edvin.Add(exprimidor);
+            // lista_edvin.Add(accesorios);
 
 
-                lista_jenn = new List<cElectrodomesticos>();
-                lista_jenn.Add(licuadora);
-                lista_jenn.Add(rallador);
-                lista_jenn.Add(tostadora);
+            lista_jenn = new List<cElectrodomesticos>();
+            lista_jenn.Add(licuadora);
+            lista_jenn.Add(rallador);
+            lista_jenn.Add(tostadora);
 
-                lista_marisa = new List<cElectrodomesticos>();
-                lista_marisa.Add(accesorios);
-                // lista_marisa.Add(accesorios);
-                lista_marisa.Add(accesorios);
+            lista_marisa = new List<cElectrodomesticos>();
+            lista_marisa.Add(accesorios);
+            // lista_marisa.Add(accesorios);
+            lista_marisa.Add(accesorios);
 
             lista_alicek = new List<cElectrodomesticos>();
             lista_alicek.Add(accesorios);
@@ -552,49 +552,49 @@ namespace TPFINALFINAL
             // lista_aliceo.Add(rallador);
             // lista_aliceo.Add(licuadora)
 
-                //
-                lista_elena = new List<cElectrodomesticos>();
-                lista_elena.Add(licuadora);
-                lista_elena.Add(rallador);
-                lista_elena.Add(accesorios);
+            //
+            lista_elena = new List<cElectrodomesticos>();
+            lista_elena.Add(licuadora);
+            lista_elena.Add(rallador);
+            lista_elena.Add(accesorios);
 
-                lista_stefan = new List<cElectrodomesticos>();
-                lista_stefan.Add(impresora);
-                lista_stefan.Add(accesorios);
+            lista_stefan = new List<cElectrodomesticos>();
+            lista_stefan.Add(impresora);
+            lista_stefan.Add(accesorios);
 
-                lista_damon = new List<cElectrodomesticos>();
-                lista_damon.Add(exprimidor);
-                lista_damon.Add(comptadora);
-                lista_damon.Add(impresora);
+            lista_damon = new List<cElectrodomesticos>();
+            lista_damon.Add(exprimidor);
+            lista_damon.Add(comptadora);
+            lista_damon.Add(impresora);
 
-                lista_katherine = new List<cElectrodomesticos>();
-                lista_katherine.Add(licuadora);
-                lista_katherine.Add(rallador);
-                lista_katherine.Add(tostadora);
+            lista_katherine = new List<cElectrodomesticos>();
+            lista_katherine.Add(licuadora);
+            lista_katherine.Add(rallador);
+            lista_katherine.Add(tostadora);
 
-                lista_klauss = new List<cElectrodomesticos>();
-                lista_klauss.Add(accesorios);
-                lista_klauss.Add(accesorios);
-                lista_klauss.Add(accesorios);
+            lista_klauss = new List<cElectrodomesticos>();
+            lista_klauss.Add(accesorios);
+            lista_klauss.Add(accesorios);
+            lista_klauss.Add(accesorios);
 
-                lista_matt = new List<cElectrodomesticos>();
-                lista_matt.Add(accesorios);
+            lista_matt = new List<cElectrodomesticos>();
+            lista_matt.Add(accesorios);
 
-                lista_bonnie = new List<cElectrodomesticos>();
-                lista_bonnie.Add(licuadora);
-                lista_bonnie.Add(rallador);
-                lista_bonnie.Add(tostadora);
+            lista_bonnie = new List<cElectrodomesticos>();
+            lista_bonnie.Add(licuadora);
+            lista_bonnie.Add(rallador);
+            lista_bonnie.Add(tostadora);
 
-                lista_caroline = new List<cElectrodomesticos>();
-                lista_caroline.Add(accesorios);
-                lista_caroline.Add(accesorios);
+            lista_caroline = new List<cElectrodomesticos>();
+            lista_caroline.Add(accesorios);
+            lista_caroline.Add(accesorios);
 
-                lista_jeremy = new List<cElectrodomesticos>();
-                lista_jeremy.Add(accesorios);
+            lista_jeremy = new List<cElectrodomesticos>();
+            lista_jeremy.Add(accesorios);
 
-                lista_alarik = new List<cElectrodomesticos>();
-                lista_alarik.Add(accesorios);
-            }
+            lista_alarik = new List<cElectrodomesticos>();
+            lista_alarik.Add(accesorios);
+
 
             lista_ricky = new List<cElectrodomesticos>();
             lista_ricky.Add(licuadora);
@@ -632,7 +632,7 @@ namespace TPFINALFINAL
             lista_mariaelena = new List<cElectrodomesticos>();
             lista_mariaelena.Add(licuadora2);
 
-            lista_dardo= new List<cElectrodomesticos>();
+            lista_dardo = new List<cElectrodomesticos>();
             lista_dardo.Add(accesorios2);
 
 
@@ -765,224 +765,224 @@ namespace TPFINALFINAL
 
             {
 
-            lista_pedidos = new List<cPedido_por_Cliente>();
-            lista_pedidos.Add(pedido1);
-            lista_pedidos.Add(pedido2);
-            lista_pedidos.Add(pedido3);
-            lista_pedidos.Add(pedido4);
-            lista_pedidos.Add(pedido5);
-            lista_pedidos.Add(pedido6);
-            lista_pedidos.Add(pedido7);
-            lista_pedidos.Add(pedido8);
-            lista_pedidos.Add(pedido9);
-            lista_pedidos.Add(pedido10);
-            lista_pedidos.Add(pedido11);
-            lista_pedidos.Add(pedido12);
-            lista_pedidos.Add(pedido13);
-            lista_pedidos.Add(pedido14);
-            lista_pedidos.Add(pedido15);
-            lista_pedidos.Add(pedido16);
-            lista_pedidos.Add(pedido17);
-            lista_pedidos.Add(pedido18);
-            lista_pedidos.Add(pedido19);
-            lista_pedidos.Add(pedido20);
-            lista_pedidos.Add(pedido21);
-            lista_pedidos.Add(pedido22);
-            lista_pedidos.Add(pedido23);
-            lista_pedidos.Add(pedido24);
-            lista_pedidos.Add(pedido25);
-            lista_pedidos.Add(pedido26);
-            lista_pedidos.Add(pedido27);
-            lista_pedidos.Add(pedido28);
-            lista_pedidos.Add(pedido29);
-            lista_pedidos.Add(pedido30);
-            lista_pedidos.Add(pedido31);
-            lista_pedidos.Add(pedido32);
-            lista_pedidos.Add(pedido33);
-            lista_pedidos.Add(pedido34);
-            lista_pedidos.Add(pedido35);
-            lista_pedidos.Add(pedido36);
-            lista_pedidos.Add(pedido37);
-            lista_pedidos.Add(pedido38);
-            lista_pedidos.Add(pedido39);
-            lista_pedidos.Add(pedido40);
-            lista_pedidos.Add(pedido41);
-            lista_pedidos.Add(pedido42);
-            lista_pedidos.Add(pedido43);
-            lista_pedidos.Add(pedido44);
-            lista_pedidos.Add(pedido45);
-            lista_pedidos.Add(pedido46);
-            lista_pedidos.Add(pedido47);
-            lista_pedidos.Add(pedido48);
-            lista_pedidos.Add(pedido49);
-            lista_pedidos.Add(pedido50);
-            lista_pedidos.Add(pedido51);
-            lista_pedidos.Add(pedido52);
-            lista_pedidos.Add(pedido53);
-            lista_pedidos.Add(pedido54);
-            lista_pedidos.Add(pedido55);
-            lista_pedidos.Add(pedido56);
-            lista_pedidos.Add(pedido57);
-            lista_pedidos.Add(pedido58);
-            lista_pedidos.Add(pedido59);
-            lista_pedidos.Add(pedido60);
-            lista_pedidos.Add(pedido61);
-            lista_pedidos.Add(pedido62);
-            lista_pedidos.Add(pedido63);
-            lista_pedidos.Add(pedido64);
-            lista_pedidos.Add(pedido65);
-            lista_pedidos.Add(pedido66);
-            lista_pedidos.Add(pedido67);
-            lista_pedidos.Add(pedido68);
-            lista_pedidos.Add(pedido69);
-            lista_pedidos.Add(pedido70);
-            lista_pedidos.Add(pedido71);
-            lista_pedidos.Add(pedido72);
-            lista_pedidos.Add(pedido73);
-            lista_pedidos.Add(pedido74);
-            lista_pedidos.Add(pedido75);
-            lista_pedidos.Add(pedido76);
-            lista_pedidos.Add(pedido77);
-            lista_pedidos.Add(pedido78);
-            lista_pedidos.Add(pedido79);
-            lista_pedidos.Add(pedido80);
-            lista_pedidos.Add(pedido81);
-            lista_pedidos.Add(pedido82);
-            lista_pedidos.Add(pedido83);
-            lista_pedidos.Add(pedido84);
-            lista_pedidos.Add(pedido85);
-            lista_pedidos.Add(pedido86);
-            lista_pedidos.Add(pedido87);
-            lista_pedidos.Add(pedido88);
-            lista_pedidos.Add(pedido89);
-            lista_pedidos.Add(pedido90);
-            lista_pedidos.Add(pedido91);
+                lista_pedidos = new List<cPedido_por_Cliente>();
+                lista_pedidos.Add(pedido1);
+                lista_pedidos.Add(pedido2);
+                lista_pedidos.Add(pedido3);
+                lista_pedidos.Add(pedido4);
+                lista_pedidos.Add(pedido5);
+                lista_pedidos.Add(pedido6);
+                lista_pedidos.Add(pedido7);
+                lista_pedidos.Add(pedido8);
+                lista_pedidos.Add(pedido9);
+                lista_pedidos.Add(pedido10);
+                lista_pedidos.Add(pedido11);
+                lista_pedidos.Add(pedido12);
+                lista_pedidos.Add(pedido13);
+                lista_pedidos.Add(pedido14);
+                lista_pedidos.Add(pedido15);
+                lista_pedidos.Add(pedido16);
+                lista_pedidos.Add(pedido17);
+                lista_pedidos.Add(pedido18);
+                lista_pedidos.Add(pedido19);
+                lista_pedidos.Add(pedido20);
+                lista_pedidos.Add(pedido21);
+                lista_pedidos.Add(pedido22);
+                lista_pedidos.Add(pedido23);
+                lista_pedidos.Add(pedido24);
+                lista_pedidos.Add(pedido25);
+                lista_pedidos.Add(pedido26);
+                lista_pedidos.Add(pedido27);
+                lista_pedidos.Add(pedido28);
+                lista_pedidos.Add(pedido29);
+                lista_pedidos.Add(pedido30);
+                lista_pedidos.Add(pedido31);
+                lista_pedidos.Add(pedido32);
+                lista_pedidos.Add(pedido33);
+                lista_pedidos.Add(pedido34);
+                lista_pedidos.Add(pedido35);
+                lista_pedidos.Add(pedido36);
+                lista_pedidos.Add(pedido37);
+                lista_pedidos.Add(pedido38);
+                lista_pedidos.Add(pedido39);
+                lista_pedidos.Add(pedido40);
+                lista_pedidos.Add(pedido41);
+                lista_pedidos.Add(pedido42);
+                lista_pedidos.Add(pedido43);
+                lista_pedidos.Add(pedido44);
+                lista_pedidos.Add(pedido45);
+                lista_pedidos.Add(pedido46);
+                lista_pedidos.Add(pedido47);
+                lista_pedidos.Add(pedido48);
+                lista_pedidos.Add(pedido49);
+                lista_pedidos.Add(pedido50);
+                lista_pedidos.Add(pedido51);
+                lista_pedidos.Add(pedido52);
+                lista_pedidos.Add(pedido53);
+                lista_pedidos.Add(pedido54);
+                lista_pedidos.Add(pedido55);
+                lista_pedidos.Add(pedido56);
+                lista_pedidos.Add(pedido57);
+                lista_pedidos.Add(pedido58);
+                lista_pedidos.Add(pedido59);
+                lista_pedidos.Add(pedido60);
+                lista_pedidos.Add(pedido61);
+                lista_pedidos.Add(pedido62);
+                lista_pedidos.Add(pedido63);
+                lista_pedidos.Add(pedido64);
+                lista_pedidos.Add(pedido65);
+                lista_pedidos.Add(pedido66);
+                lista_pedidos.Add(pedido67);
+                lista_pedidos.Add(pedido68);
+                lista_pedidos.Add(pedido69);
+                lista_pedidos.Add(pedido70);
+                lista_pedidos.Add(pedido71);
+                lista_pedidos.Add(pedido72);
+                lista_pedidos.Add(pedido73);
+                lista_pedidos.Add(pedido74);
+                lista_pedidos.Add(pedido75);
+                lista_pedidos.Add(pedido76);
+                lista_pedidos.Add(pedido77);
+                lista_pedidos.Add(pedido78);
+                lista_pedidos.Add(pedido79);
+                lista_pedidos.Add(pedido80);
+                lista_pedidos.Add(pedido81);
+                lista_pedidos.Add(pedido82);
+                lista_pedidos.Add(pedido83);
+                lista_pedidos.Add(pedido84);
+                lista_pedidos.Add(pedido85);
+                lista_pedidos.Add(pedido86);
+                lista_pedidos.Add(pedido87);
+                lista_pedidos.Add(pedido88);
+                lista_pedidos.Add(pedido89);
+                lista_pedidos.Add(pedido90);
+                lista_pedidos.Add(pedido91);
 
-            cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
-            InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            fecha = dia.Value;
-            cosimundo.camiones_disponibles(fecha);
-
-            List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
-
-            int max_viajes = cosimundo.max_viajes_por_dia();
-            listView1.Items.Add("Camiones");
-            listView1.Items.Add("Disponibles");
-            listView1.Items.Add("Hoy: ");
-            listView1.Items.Add(cosimundo.camionesdisponibles.Count.ToString());
-           
-            camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
-             cont_camiones = 0;
-            int cantvolumen = 0;
-            int cantpeso = 0;
-            while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
-            {//hasta que no haya mas camiones o haya despachado todos los productos
-                if(camion.GetType()==typeof(cCamioneta))
-                camion.elevador = false;
-
-                cantvolumen = 0;
-                cantpeso = 0;
-                caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
-                cont_camiones++;//se lleno el camion anterior, uso el siguiente
-               
-                for(int i = 0; i < pedido_a_entregar.Count; i++)
-                {
-                    cantvolumen = cantvolumen + pedido_a_entregar[i].volumen;
-                }
-              
-                TreeNode Nodo_padre = new TreeNode(camion.ToString());
-                Nodo_padre.Nodes.Add("Volumen Maximo Camion: ");
-                Nodo_padre.Nodes.Add( camion.volumen_max.ToString());
-                Nodo_padre.Nodes.Add("Volumen De Cargado: ");
-                Nodo_padre.Nodes.Add(cantvolumen.ToString());
-
-                for (int i = 0; i < pedido_a_entregar.Count; i++)
-                {
-                    cantpeso = cantpeso + pedido_a_entregar[i].peso_pedido;
-                }
-
-                Nodo_padre.Nodes.Add("Peso Maximo Camion: ");
-                Nodo_padre.Nodes.Add(camion.peso_max.ToString());
-                Nodo_padre.Nodes.Add("Peso De Cargado: ");
-                Nodo_padre.Nodes.Add(cantpeso.ToString());
-
-                foreach (var pedidos in pedido_a_entregar) {
-
-                    Nodo_padre.Nodes.Add(new TreeNode(pedidos.nombre.ToString()));
-                    Nodo_padre.Nodes.Add(new TreeNode(pedidos.tipo_entrega.ToString()));
-
-                }
-                treeView1.Nodes.Add(Nodo_padre);
-
-                TreeNode Nodo_padre2 = new TreeNode(camion.ToString());
-
-                foreach (var camino in caminomascorto)
-                {
-                    Nodo_padre2.Nodes.Add(new TreeNode(camino.ToString()));
-                }
-                treeView2.Nodes.Add(Nodo_padre2);
-
-
-                if (cont_camiones == 4) //seguimos con el furgon
-                {
-                    camion = this.lista_camiones.ElementAt(1);
-                    cosimundo.CambiarVolumenTelevisoresFurgon();
-                }
-                if (cont_camiones == 5)//seguimos con la furgoneta
-                {
-                    camion = this.lista_camiones.ElementAt(2);
-                    cosimundo.CambiarVolumenTelevisoresFurgoneta();
-                }
-
-                pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
-
+                cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
+                InitializeComponent();
             }
-
-            
         }
-
-        private void dia_ValueChanged(object sender, EventArgs e)
-        {
-            fecha = dia.Value;
-
-            if(fecha.Day==1)
+            private void button1_Click(object sender, EventArgs e)
             {
-                cosimundo.sumar_mes_camiones();
+                fecha = dia.Value;
+                cosimundo.camiones_disponibles(fecha);
+
+                List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
+
+                int max_viajes = cosimundo.max_viajes_por_dia();
+                listView1.Items.Add("Camiones");
+                listView1.Items.Add("Disponibles");
+                listView1.Items.Add("Hoy: ");
+                listView1.Items.Add(cosimundo.camionesdisponibles.Count.ToString());
+
+                camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
+                cont_camiones = 0;
+                int cantvolumen = 0;
+                int cantpeso = 0;
+                while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
+                {//hasta que no haya mas camiones o haya despachado todos los productos
+                    if (camion.GetType() == typeof(cCamioneta))
+                        camion.elevador = false;
+
+                    cantvolumen = 0;
+                    cantpeso = 0;
+                    caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
+                    cont_camiones++;//se lleno el camion anterior, uso el siguiente
+
+                    for (int i = 0; i < pedido_a_entregar.Count; i++)
+                    {
+                        cantvolumen = cantvolumen + pedido_a_entregar[i].volumen;
+                    }
+
+                    TreeNode Nodo_padre = new TreeNode(camion.ToString());
+                    Nodo_padre.Nodes.Add("Volumen Maximo Camion: ");
+                    Nodo_padre.Nodes.Add(camion.volumen_max.ToString());
+                    Nodo_padre.Nodes.Add("Volumen De Cargado: ");
+                    Nodo_padre.Nodes.Add(cantvolumen.ToString());
+
+                    for (int i = 0; i < pedido_a_entregar.Count; i++)
+                    {
+                        cantpeso = cantpeso + pedido_a_entregar[i].peso_pedido;
+                    }
+
+                    Nodo_padre.Nodes.Add("Peso Maximo Camion: ");
+                    Nodo_padre.Nodes.Add(camion.peso_max.ToString());
+                    Nodo_padre.Nodes.Add("Peso De Cargado: ");
+                    Nodo_padre.Nodes.Add(cantpeso.ToString());
+
+                    foreach (var pedidos in pedido_a_entregar) {
+
+                        Nodo_padre.Nodes.Add(new TreeNode(pedidos.nombre.ToString()));
+                        Nodo_padre.Nodes.Add(new TreeNode(pedidos.tipo_entrega.ToString()));
+
+                    }
+                    treeView1.Nodes.Add(Nodo_padre);
+
+                    TreeNode Nodo_padre2 = new TreeNode(camion.ToString());
+
+                    foreach (var camino in caminomascorto)
+                    {
+                        Nodo_padre2.Nodes.Add(new TreeNode(camino.ToString()));
+                    }
+                    treeView2.Nodes.Add(Nodo_padre2);
+
+
+                    if (cont_camiones == 4) //seguimos con el furgon
+                    {
+                        camion = this.lista_camiones.ElementAt(1);
+                        cosimundo.CambiarVolumenTelevisoresFurgon();
+                    }
+                    if (cont_camiones == 5)//seguimos con la furgoneta
+                    {
+                        camion = this.lista_camiones.ElementAt(2);
+                        cosimundo.CambiarVolumenTelevisoresFurgoneta();
+                    }
+
+                    pedido_a_entregar.RemoveRange(0, pedido_a_entregar.Count); //como los vamos entregando, borro la lista porque ya salio el camion
+
+                }
+
+
             }
-        }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            private void dia_ValueChanged(object sender, EventArgs e)
+            {
+                fecha = dia.Value;
 
-        }
-
-        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            cosimundo.modificarPedidos();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+                if (fecha.Day == 1)
+                {
+                    cosimundo.sumar_mes_camiones();
+                }
             }
 
-        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-         
+            private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+            {
 
-        }
-    }
-}
+            }
+
+            private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
+            {
+
+            }
+
+            private void label1_Click(object sender, EventArgs e)
+            {
+
+            }
+
+            private void button2_Click(object sender, EventArgs e)
+            {
+                cosimundo.modificarPedidos();
+            }
+
+            private void textBox1_TextChanged(object sender, EventArgs e)
+            {
+            }
+
+            private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+            {
+
+
+            }
+        } }
+    
