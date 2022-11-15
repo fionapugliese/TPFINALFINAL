@@ -116,31 +116,27 @@ namespace TPFINALFINAL
 
         public int Barrios_en_pedido_del_dia(List<cPedido_por_Cliente> lista_pedido)
         {
-            List<cPedido_por_Cliente> aux = new List<cPedido_por_Cliente>();
-            for (int i = 0; i < lista_pedido.Count; i++)
-            {
-                aux.Add(lista_pedido.ElementAt(i));
-            }
+            List<eLocalidad> aux = new List<eLocalidad>();
 
             int cont = 0;
-            bool flag = false;
 
-            for (int i = 0; i < aux.Count; i++)
+            for (int i = 0; i < lista_pedido.Count; i++)
             {
-                flag = false;
-                for (int h = i; h < aux.Count; h++)
-                {//cuento solo una vez (con ayuda del flag) al barrio y todos los clientes que encuentre que van al mismo barrio los elimino de la lista auxiliar
-                 //notar que la lista original no se modifica, solo la auxiliar
-                    if (flag == false)
+                cont = 0;
+                if (i == 0)
+                    aux.Add(lista_pedido[i].barrio);
+                else
+                {
+                    for (int h = 0; h < aux.Count; h++)
                     {
-                        flag = true;
-                        cont++;
+                        if (lista_pedido[i].barrio == aux[h])
+                            cont++;
                     }
-                    else if (aux[i].barrio == aux[h].barrio)
-                        aux.RemoveAt(h);
+                    if (cont == 0)
+                        aux.Add(lista_pedido[i].barrio);
                 }
             }
-            return cont;
+            return aux.Count;
         }
 
         public int calcular_distancia_barrio_a_liniers(eLocalidad barrioo)
@@ -799,11 +795,13 @@ namespace TPFINALFINAL
             int[] valores = new int[lista.Count];
             for (int i = 0; i < lista.Count; i++)
             {
-
+                
                     valores[i] = lista[i].volumen / lista[i].peso_pedido;
 
                 if (valores[i] == 0)
-                    valores[i] = 1;
+                    valores[i] = 10;
+
+
             }
             return valores;
         }

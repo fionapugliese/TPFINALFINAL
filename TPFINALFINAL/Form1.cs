@@ -133,7 +133,34 @@ namespace TPFINALFINAL
         List<cElectrodomesticos> lista_will;
         List<cElectrodomesticos> lista_james;
         List<cElectrodomesticos> lista_emmacas;
-
+        List<cElectrodomesticos> lista_elsa;
+        List<cElectrodomesticos> lista_blanca;
+        List<cElectrodomesticos> lista_cenicienta;
+        List<cElectrodomesticos> lista_rapunzel;
+        List<cElectrodomesticos> lista_tiana;
+        List<cElectrodomesticos> lista_bellad;
+        List<cElectrodomesticos> lista_byb;
+        List<cElectrodomesticos> lista_ariel;
+        List<cElectrodomesticos> lista_mulan;
+        List<cElectrodomesticos> lista_shrek;
+        List<cElectrodomesticos> lista_fiona;
+        List<cElectrodomesticos> lista_burro;
+        List<cElectrodomesticos> lista_bellahadid;
+        List<cElectrodomesticos> lista_gigihadid;
+        List<cElectrodomesticos> lista_jesus;
+        List<cElectrodomesticos> lista_maria;
+        List<cElectrodomesticos> lista_jose;
+        List<cElectrodomesticos> lista_selena;
+        List<cElectrodomesticos> lista_justin;
+        List<cElectrodomesticos> lista_hailey;
+        List<cElectrodomesticos> lista_calloom;
+        List<cElectrodomesticos> lista_ashton;
+        List<cElectrodomesticos> lista_michael;
+        List<cElectrodomesticos> lista_lorelai ;
+        List<cElectrodomesticos> lista_rory ;
+        List<cElectrodomesticos> lista_dean ;
+        List<cElectrodomesticos> lista_jess ;
+        List<cElectrodomesticos> lista_logan ;
 
 
 
@@ -228,7 +255,34 @@ namespace TPFINALFINAL
         cPedido_por_Cliente pedido89;
         cPedido_por_Cliente pedido90;
         cPedido_por_Cliente pedido91;
-
+        cPedido_por_Cliente pedido92;
+        cPedido_por_Cliente pedido93;
+        cPedido_por_Cliente pedido94;
+        cPedido_por_Cliente pedido95;
+        cPedido_por_Cliente pedido96;
+        cPedido_por_Cliente pedido97;
+        cPedido_por_Cliente pedido98;
+        cPedido_por_Cliente pedido99;
+        cPedido_por_Cliente pedido100;
+        cPedido_por_Cliente pedido101;
+        cPedido_por_Cliente pedido102;
+        cPedido_por_Cliente pedido103;
+        cPedido_por_Cliente pedido104;
+        cPedido_por_Cliente pedido105;
+        cPedido_por_Cliente pedido106;
+        cPedido_por_Cliente pedido107;
+        cPedido_por_Cliente pedido108;
+        cPedido_por_Cliente pedido109;
+        cPedido_por_Cliente pedido110;
+        cPedido_por_Cliente pedido111;
+        cPedido_por_Cliente pedido112;
+        cPedido_por_Cliente pedido113;
+        cPedido_por_Cliente pedido114;
+        cPedido_por_Cliente pedido115;
+        cPedido_por_Cliente pedido116;
+        cPedido_por_Cliente pedido117;
+        cPedido_por_Cliente pedido118;
+        cPedido_por_Cliente pedido119;
 
 
         List<cPedido_por_Cliente> lista_pedidos;
@@ -658,12 +712,154 @@ namespace TPFINALFINAL
 
             lista_will = new List<cElectrodomesticos>();
             lista_will.Add(impresora);
+            lista_will.Add(tostadora);
 
             lista_james = new List<cElectrodomesticos>();
             lista_james.Add(licuadora);
 
             lista_emmacas = new List<cElectrodomesticos>();
             lista_emmacas.Add(licuadora);
+            lista_emmacas.Add(impresora);
+
+            lista_cenicienta = new List<cElectrodomesticos>();
+            lista_cenicienta.Add(accesorios);
+            lista_cenicienta.Add(exprimidor);
+
+
+            lista_rapunzel = new List<cElectrodomesticos>();
+            lista_rapunzel.Add(licuadora);
+            lista_rapunzel.Add(rallador);
+            lista_rapunzel.Add(tostadora);
+
+            lista_tiana = new List<cElectrodomesticos>();
+            lista_tiana.Add(accesorios);
+            lista_tiana.Add(accesorios);
+            lista_tiana.Add(accesorios);
+
+            lista_blanca = new List<cElectrodomesticos>();
+            lista_blanca.Add(accesorios);
+            lista_blanca.Add(licuadora);
+            lista_blanca.Add(exprimidor);
+            lista_blanca.Add(accesorios);
+
+            lista_elsa = new List<cElectrodomesticos>();
+            lista_elsa.Add(accesorios);
+            lista_elsa.Add(impresora);
+            lista_elsa.Add(licuadora);
+            lista_elsa.Add(exprimidor);
+
+            //
+            lista_bellad = new List<cElectrodomesticos>();
+            lista_bellad.Add(licuadora);
+            lista_bellad.Add(rallador);
+            lista_bellad.Add(accesorios);
+
+            lista_byb = new List<cElectrodomesticos>();
+            lista_byb.Add(impresora);
+            lista_byb.Add(accesorios);
+
+            lista_mulan = new List<cElectrodomesticos>();
+            lista_mulan.Add(exprimidor);
+            lista_mulan.Add(comptadora);
+            lista_mulan.Add(accesorios);
+
+            lista_ariel = new List<cElectrodomesticos>();
+            lista_ariel.Add(licuadora);
+
+            lista_shrek = new List<cElectrodomesticos>();
+            lista_shrek.Add(cocina);
+            lista_shrek.Add(comptadora);
+
+            lista_fiona = new List<cElectrodomesticos>();
+            lista_fiona.Add(cocina);
+            lista_fiona.Add(comptadora);
+
+            lista_burro = new List<cElectrodomesticos>();
+            lista_burro.Add(cocina);
+            lista_burro.Add(comptadora);
+
+            lista_bellahadid = new List<cElectrodomesticos>();
+            lista_bellahadid.Add(cocina);
+            lista_bellahadid.Add(comptadora);
+
+            lista_gigihadid = new List<cElectrodomesticos>();
+            lista_gigihadid.Add(cocina);
+            lista_gigihadid.Add(comptadora);
+            lista_gigihadid.Add(impresora);
+            lista_gigihadid.Add(licuadora);
+
+
+
+
+            lista_jesus = new List<cElectrodomesticos>();
+            lista_jesus.Add(exprimidor);
+
+            lista_maria = new List<cElectrodomesticos>();
+            lista_maria.Add(impresora2);
+            lista_maria.Add(licuadora);
+
+            lista_jose = new List<cElectrodomesticos>();
+            lista_jose.Add(licuadora);
+            lista_jose.Add(comptadora);
+
+            lista_selena = new List<cElectrodomesticos>();
+            lista_selena.Add(licuadora);
+            lista_selena.Add(comptadora);
+
+            lista_justin = new List<cElectrodomesticos>();
+            lista_justin.Add(cocina);
+            lista_justin.Add(comptadora);
+
+            lista_hailey = new List<cElectrodomesticos>();
+            lista_hailey.Add(exprimidor);
+            lista_hailey.Add(exprimidor);
+            lista_hailey.Add(comptadora);
+
+            lista_calloom = new List<cElectrodomesticos>();
+            lista_calloom.Add(impresora2);
+
+            lista_ashton = new List<cElectrodomesticos>();
+            lista_ashton.Add(licuadora);
+            lista_ashton.Add(comptadora);
+
+            lista_michael = new List<cElectrodomesticos>();
+            lista_michael.Add(licuadora);
+            lista_michael.Add(exprimidor);
+            lista_michael.Add(comptadora);
+
+
+            lista_lorelai = new List<cElectrodomesticos>();
+            lista_lorelai.Add(cocina);
+            lista_lorelai.Add(comptadora);
+
+            lista_rory = new List<cElectrodomesticos>();
+            lista_rory.Add(exprimidor);
+            lista_rory.Add(exprimidor);
+            lista_rory.Add(comptadora);
+            lista_rory.Add(cocina);
+
+            lista_dean = new List<cElectrodomesticos>();
+            lista_dean.Add(impresora2);
+
+            lista_jess = new List<cElectrodomesticos>();
+            lista_jess.Add(licuadora);
+            lista_jess.Add(comptadora);
+            lista_jess.Add(impresora2);
+
+            lista_logan = new List<cElectrodomesticos>();
+            lista_logan.Add(licuadora);
+            lista_logan.Add(impresora2);
+            lista_logan.Add(exprimidor);
+            lista_logan.Add(comptadora);
+            lista_logan.Add(comptadora);
+
+
+
+
+
+
+
+
 
 
 
@@ -737,8 +933,8 @@ namespace TPFINALFINAL
             pedido66 = new cPedido_por_Cliente("Bonnie Benett", eLocalidad.Chacarita, lista_bonnie, entrega.diferido);
             pedido67 = new cPedido_por_Cliente("Caroline Forbes", eLocalidad.ParqueAvellaneda, lista_caroline, entrega.normal);
             pedido68 = new cPedido_por_Cliente("Klauss Mickelson", eLocalidad.Palermo, lista_klauss, entrega.diferido);
-            pedido69 = new cPedido_por_Cliente("Alarik Saltzman", eLocalidad.LomasdeZamora, lista_alarik, entrega.normal);
-            pedido70 = new cPedido_por_Cliente("Matt Donovan", eLocalidad.MonteCastro, lista_matt, entrega.normal);
+            pedido69 = new cPedido_por_Cliente("Alarik Saltzman", eLocalidad.LomasdeZamora, lista_alarik, entrega.diferido);
+            pedido70 = new cPedido_por_Cliente("Matt Donovan", eLocalidad.MonteCastro, lista_matt, entrega.diferido);
             pedido71 = new cPedido_por_Cliente("Ricardo Fort", eLocalidad.PuertoMadero, lista_ricky, entrega.express);
             pedido72 = new cPedido_por_Cliente("Moria Casan", eLocalidad.Retiro, lista_moria, entrega.normal);
             pedido73 = new cPedido_por_Cliente("Anibal Pachano", eLocalidad.VelezSarsfield, lista_pachano, entrega.express);
@@ -755,14 +951,39 @@ namespace TPFINALFINAL
             pedido84 = new cPedido_por_Cliente("Jace Herondale", eLocalidad.Mataderos, lista_jace, entrega.diferido);
             pedido85 = new cPedido_por_Cliente("Alec Lightwood", eLocalidad.Palermo, lista_alec, entrega.diferido);
             pedido86 = new cPedido_por_Cliente("Izzy Lightwood", eLocalidad.Belgrano, lista_izzy, entrega.diferido);
-            pedido87 = new cPedido_por_Cliente("Clary Fairchild", eLocalidad.SanMartin, lista_clary, entrega.diferido);
-            pedido88 = new cPedido_por_Cliente("Emma Castairs", eLocalidad.VillaLuro, lista_emmacas, entrega.diferido);
-            pedido89 = new cPedido_por_Cliente("James Castairs", eLocalidad.VillaUrquiza, lista_james, entrega.diferido);
+            pedido87 = new cPedido_por_Cliente("Clary Fairchild", eLocalidad.SanMartin, lista_clary, entrega.normal);
+            pedido88 = new cPedido_por_Cliente("Emma Castairs", eLocalidad.VillaLuro, lista_emmacas, entrega.normal);
+            pedido89 = new cPedido_por_Cliente("James Castairs", eLocalidad.VillaUrquiza, lista_james, entrega.normal);
             pedido90 = new cPedido_por_Cliente("Will Herondale", eLocalidad.VillaDevoto, lista_will, entrega.diferido);
             pedido91 = new cPedido_por_Cliente("Tessa Gray", eLocalidad.Caballito, lista_tessa, entrega.diferido);
-
-
-
+            pedido92 = new cPedido_por_Cliente("Rapunzel", eLocalidad.Retiro, lista_rapunzel, entrega.express);
+            pedido93 = new cPedido_por_Cliente("Cenicienta", eLocalidad.Mataderos, lista_cenicienta, entrega.express);
+            pedido94 = new cPedido_por_Cliente("Bella Durmiente", eLocalidad.VillaDevoto, lista_bellad, entrega.normal);
+            pedido95 = new cPedido_por_Cliente("Bella y Bestia", eLocalidad.Versalles, lista_byb, entrega.normal);
+            pedido96 = new cPedido_por_Cliente("Ariel", eLocalidad.Chacarita, lista_ariel, entrega.normal);
+            pedido97 = new cPedido_por_Cliente("Tiana", eLocalidad.ParqueAvellaneda, lista_tiana, entrega.express);
+            pedido98 = new cPedido_por_Cliente("Blanca Nieves", eLocalidad.Palermo, lista_blanca, entrega.express);
+            pedido99 = new cPedido_por_Cliente("Mulan", eLocalidad.LaBoca, lista_mulan, entrega.normal);
+            pedido100 = new cPedido_por_Cliente("Elsa", eLocalidad.Avellaneda, lista_elsa, entrega.normal);
+            pedido101 = new cPedido_por_Cliente("Shrek", eLocalidad.Liniers, lista_shrek, entrega.express);
+            pedido102 = new cPedido_por_Cliente("Fiona", eLocalidad.ParqueAvellaneda, lista_fiona, entrega.express);
+            pedido103 = new cPedido_por_Cliente("Burro", eLocalidad.MonteCastro, lista_burro, entrega.express);
+            pedido104 = new cPedido_por_Cliente("Bella Hadid", eLocalidad.Palermo, lista_bellahadid, entrega.express);
+            pedido105 = new cPedido_por_Cliente("Jesus", eLocalidad.PuertoMadero, lista_jesus, entrega.normal);
+            pedido106 = new cPedido_por_Cliente("Maria", eLocalidad.VillaUrquiza, lista_maria, entrega.normal);
+            pedido107 = new cPedido_por_Cliente("Jose", eLocalidad.Palermo, lista_jose, entrega.normal);
+            pedido108 = new cPedido_por_Cliente("Selena Gomez", eLocalidad.VicenteLopez, lista_selena, entrega.express);
+            pedido109 = new cPedido_por_Cliente("Justin Bieber", eLocalidad.VelezSarsfield, lista_justin, entrega.normal);
+            pedido110 = new cPedido_por_Cliente("Hailey Bieber", eLocalidad.Liniers, lista_hailey, entrega.express);
+            pedido111 = new cPedido_por_Cliente("Caloom Hood", eLocalidad.PuertoMadero, lista_calloom, entrega.normal);
+            pedido112 = new cPedido_por_Cliente("Ashton Irwin", eLocalidad.Chacarita, lista_ashton, entrega.express);
+            pedido113 = new cPedido_por_Cliente("Michael Clifford", eLocalidad.Belgrano, lista_michael, entrega.normal);
+            pedido114 = new cPedido_por_Cliente("Lorelai Gilmore", eLocalidad.VicenteLopez, lista_lorelai, entrega.normal);
+            pedido115 = new cPedido_por_Cliente("Rory Gilmore", eLocalidad.Caballito, lista_rory, entrega.normal);
+            pedido116 = new cPedido_por_Cliente("Dean", eLocalidad.LaMatanza, lista_dean, entrega.normal);
+            pedido117 = new cPedido_por_Cliente("Jess", eLocalidad.LaBoca, lista_jess, entrega.normal);
+            pedido118 = new cPedido_por_Cliente("Logan", eLocalidad.Belgrano, lista_logan, entrega.normal);
+           
             {
 
                 lista_pedidos = new List<cPedido_por_Cliente>();
@@ -857,6 +1078,33 @@ namespace TPFINALFINAL
                 lista_pedidos.Add(pedido89);
                 lista_pedidos.Add(pedido90);
                 lista_pedidos.Add(pedido91);
+                lista_pedidos.Add(pedido92);
+                lista_pedidos.Add(pedido93);
+                lista_pedidos.Add(pedido94);
+                lista_pedidos.Add(pedido95);
+                lista_pedidos.Add(pedido96);
+                lista_pedidos.Add(pedido97);
+                lista_pedidos.Add(pedido98);
+                lista_pedidos.Add(pedido99);
+                lista_pedidos.Add(pedido100);
+                lista_pedidos.Add(pedido101);
+                lista_pedidos.Add(pedido102);
+                lista_pedidos.Add(pedido103);
+                lista_pedidos.Add(pedido104);
+                lista_pedidos.Add(pedido105);
+                lista_pedidos.Add(pedido106);
+                lista_pedidos.Add(pedido107);
+                lista_pedidos.Add(pedido108);
+                lista_pedidos.Add(pedido109);
+                lista_pedidos.Add(pedido110);
+                lista_pedidos.Add(pedido111);
+                lista_pedidos.Add(pedido112);
+                lista_pedidos.Add(pedido113);
+                lista_pedidos.Add(pedido114);
+                lista_pedidos.Add(pedido115);
+                lista_pedidos.Add(pedido116);
+                lista_pedidos.Add(pedido117);
+                lista_pedidos.Add(pedido118);
 
                 cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
                 InitializeComponent();
