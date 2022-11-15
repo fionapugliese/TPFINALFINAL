@@ -282,8 +282,7 @@ namespace TPFINALFINAL
         cPedido_por_Cliente pedido116;
         cPedido_por_Cliente pedido117;
         cPedido_por_Cliente pedido118;
-        cPedido_por_Cliente pedido119;
-
+      
 
         List<cPedido_por_Cliente> lista_pedidos;
 
@@ -291,6 +290,7 @@ namespace TPFINALFINAL
         int cont_camiones;
         cVehiculo camion;
         List<eLocalidad> caminomascorto;
+        List<cPedido_por_Cliente> pedido_a_entregar;
 
         public Form1()
         {
@@ -459,9 +459,6 @@ namespace TPFINALFINAL
             lista_marge.Add(rallador);
             lista_marge.Add(cafetera);
 
-
-
-
             lista_meredith = new List<cElectrodomesticos>();
             lista_meredith.Add(rallador);
             lista_meredith.Add(lavarropas);
@@ -493,7 +490,6 @@ namespace TPFINALFINAL
             lista_miranda = new List<cElectrodomesticos>();
             lista_miranda.Add(accesorios);
 
-
             lista_richard = new List<cElectrodomesticos>();
             lista_richard.Add(impresora);
             lista_richard.Add(tostadora);
@@ -503,8 +499,6 @@ namespace TPFINALFINAL
             lista_amelia.Add(licuadora);
             lista_amelia.Add(impresora);
             lista_amelia.Add(accesorios);
-
-
 
             lista_lottie = new List<cElectrodomesticos>();
             lista_lottie.Add(impresora);
@@ -528,8 +522,6 @@ namespace TPFINALFINAL
             lista_sheldon.Add(cocina);
             lista_sheldon.Add(lavarropas);
 
-
-
             lista_rachel = new List<cElectrodomesticos>();
             lista_rachel.Add(calefon);
 
@@ -550,8 +542,6 @@ namespace TPFINALFINAL
             lista_monica.Add(secarropas);
             lista_monica.Add(cocina);
             lista_monica.Add(lavarropas);
-
-
 
             lista_kit = new List<cElectrodomesticos>();
             lista_kit.Add(licuadora);
@@ -787,9 +777,6 @@ namespace TPFINALFINAL
             lista_gigihadid.Add(comptadora);
             lista_gigihadid.Add(impresora);
             lista_gigihadid.Add(licuadora);
-
-
-
 
             lista_jesus = new List<cElectrodomesticos>();
             lista_jesus.Add(exprimidor);
@@ -1107,51 +1094,50 @@ namespace TPFINALFINAL
                 lista_pedidos.Add(pedido118);
 
                 cosimundo = new cCosiMundo(lista_pedidos, lista_camiones);
+                pedido_a_entregar = new List<cPedido_por_Cliente>();
+
                 InitializeComponent();
             }
         }
             private void button1_Click(object sender, EventArgs e)
             {
-                fecha = dia.Value;
-                cosimundo.camiones_disponibles(fecha);
+                fecha = dia.Value; //obtenemos la fecha de hoy
+                cosimundo.camiones_disponibles(fecha); //obtenemos los camiones que van a estar disponibles
+                int max_viajes = cosimundo.max_viajes_por_dia(); //obtenemosla cantidad de viajes que podemos hacer en el dia
+                cont_camiones = 0; //contador para ir fijandonos que camion usar
+               int cantvolumen = 0;
+                int cantpeso = 0;
 
-                List<cPedido_por_Cliente> pedido_a_entregar = new List<cPedido_por_Cliente>();
-
-                int max_viajes = cosimundo.max_viajes_por_dia();
+            //imprimimos la cantidad de camiones que tenemos disponibles
                 listView1.Items.Add("Camiones");
                 listView1.Items.Add("Disponibles");
                 listView1.Items.Add("Hoy: ");
                 listView1.Items.Add(cosimundo.camionesdisponibles.Count.ToString());
 
                 camion = cosimundo.camionesdisponibleshoy.ElementAt(0); //siempre empezamos con la camioneta
-                cont_camiones = 0;
-                int cantvolumen = 0;
-                int cantpeso = 0;
-                while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0)
-                {//hasta que no haya mas camiones o haya despachado todos los productos
-                    if (camion.GetType() == typeof(cCamioneta))
-                        camion.elevador = false;
-
+               
+                while (cont_camiones < max_viajes && this.lista_pedidos.Count != 0) //mientras que no hayamos hecho todos los viajes y queden pedidos que entregar
+                {
                     cantvolumen = 0;
                     cantpeso = 0;
+                      //lleno el camion y obtengo el camino a recorrer -> obteniendo la lista de localidades a recorrer y la lista de pedidos a entregar
                     caminomascorto = cosimundo.despacho_de_productos(this.lista_pedidos, pedido_a_entregar, camion); //calculo el mejor camino, y despacho todos los paquetes posibles, dandole prioridad a los express
+                    
                     cont_camiones++;//se lleno el camion anterior, uso el siguiente
 
+                     //cuento el peso y el volumen de la lista de pedidos a entregar
                     for (int i = 0; i < pedido_a_entregar.Count; i++)
                     {
-                        cantvolumen = cantvolumen + pedido_a_entregar[i].volumen;
-                    }
+                    cantvolumen = cantvolumen + pedido_a_entregar[i].volumen;
+                    cantpeso = cantpeso + pedido_a_entregar[i].peso_pedido;
+                      }
 
+                    //imprimo la informacion
                     TreeNode Nodo_padre = new TreeNode(camion.ToString());
                     Nodo_padre.Nodes.Add("Volumen Maximo Camion: ");
                     Nodo_padre.Nodes.Add(camion.volumen_max.ToString());
                     Nodo_padre.Nodes.Add("Volumen De Cargado: ");
                     Nodo_padre.Nodes.Add(cantvolumen.ToString());
-
-                    for (int i = 0; i < pedido_a_entregar.Count; i++)
-                    {
-                        cantpeso = cantpeso + pedido_a_entregar[i].peso_pedido;
-                    }
 
                     Nodo_padre.Nodes.Add("Peso Maximo Camion: ");
                     Nodo_padre.Nodes.Add(camion.peso_max.ToString());
@@ -1175,6 +1161,8 @@ namespace TPFINALFINAL
                     treeView2.Nodes.Add(Nodo_padre2);
 
 
+
+                      //me fijo si tengo que cambiar de camion o sigo con la camioneta
                     if (cont_camiones == 4) //seguimos con el furgon
                     {
                         camion = this.lista_camiones.ElementAt(1);
@@ -1197,7 +1185,7 @@ namespace TPFINALFINAL
             {
                 fecha = dia.Value;
 
-                if (fecha.Day == 1)
+                if (fecha.Day == 1) //si el dia del mes es 1, le sumo 1 a la cantidad de meses de uso delos vehiculos
                 {
                     cosimundo.sumar_mes_camiones();
                 }
@@ -1220,7 +1208,7 @@ namespace TPFINALFINAL
 
             private void button2_Click(object sender, EventArgs e)
             {
-                cosimundo.modificarPedidos();
+                cosimundo.modificarPedidos(); //cambio los pedidos de normal a express y de normalesa diferidos
             }
 
             private void textBox1_TextChanged(object sender, EventArgs e)

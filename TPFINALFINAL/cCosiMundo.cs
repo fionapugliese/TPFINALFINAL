@@ -38,19 +38,13 @@ namespace TPFINALFINAL
             this.camionesdisponibles = new List<cVehiculo>();
         }
 
-        
-        public int max_viajes_por_dia()
-        {
-            int viajes = 4;  //la camioneta siemrpe sale por lo que siempre voy a tener 4 viajes minimo
-            if (this.camionesdisponibles.Count == 2) //si solo sale el furgon o la furgoneta mas la camioneta
-                viajes++;
-            if (this.camionesdisponibles.Count == 3) //si salen los 3 vehiculos
-                viajes = viajes + 2;
-            return viajes;
-        }
+        //FUNCIONES EXTRA DEL PROGRAMA 
 
         public int Cantidad_Televisores(cPedido_por_Cliente pedido_del_dia)
         {
+            //retorna la cantidad de televisores que hay en el pedido, esto es para saber si el pedido tiene un televisor al que hay que cambiarle el volumen cuando
+           //se llega al furgon o furgoneta, ya que como no podemos ponernada arriba del televisor, hay que contar que su volumen aumento y su altura no es la de televisor sino
+           //la del alto del camion
             int cont = 0;
             for (int i = 0; i < pedido_del_dia.cantidad_objetos; i++)
             {
@@ -62,6 +56,7 @@ namespace TPFINALFINAL
 
         public void CambiarVolumenTelevisoresFurgoneta()
         {
+            //si hay un televisor en el pedido, le cambiamos el volumen por el volumen que se debe tomar de los televisores en el furgoneta
             for (int i = 0; i < this.listaPedidos.Count; i++)
             {
                 if (Cantidad_Televisores(this.listaPedidos[i]) > 0)
@@ -73,6 +68,7 @@ namespace TPFINALFINAL
 
         public void CambiarVolumenTelevisoresFurgon()
         {
+            //si hay un televisor en el pedido, le cambiamos el volumen por el volumen que se debe tomar de los televisores en el furgon
             for (int i = 0; i < this.listaPedidos.Count; i++)
             {
                 if (Cantidad_Televisores(this.listaPedidos[i]) > 0)
@@ -82,40 +78,65 @@ namespace TPFINALFINAL
 
             }
         }
-
-        static int numero_de_posicion_barrio(eLocalidad barrio_elegido, List<eLocalidad> lista_localidad)
+      
+        public void EliminarLineaBlanca(List<cPedido_por_Cliente> pedido)
         {
-            int pos = 0;
-            for (int i = 0; i < lista_localidad.Count; i++)
+            //Esta funcion se utiliza en el llenado dinamico, elimina a los linea blanca de la lista pasada como parametro
+            //esto es para llenar la camioneta no con pedidos de linea blanca
+            for (int i = 0; i < pedido.Count; i++)
             {
-                if (lista_localidad[i] == barrio_elegido)
-                    pos = i;
+                for (int h = 0; h < pedido[i].compra_objetos.Count; h++)
+                {
+                    if (pedido[i].compra_objetos[h].GetType() == typeof(cLineaBlanca))
+                    {
+                        pedido.RemoveAt(i);
+                        break;
+                    }
+                }
+
             }
-            return pos;
         }
 
-        public int chequeo_verificacion_barrios(bool[] verificacion_barrios)
+        public void Eliminarpedido(List<cPedido_por_Cliente> pedido, cPedido_por_Cliente pedidobuscado)
         {
-            // devuelve -> 1 si llegaste al final (todos los barrios fueron recorridos), 0 si no llegaste al final (falta mas de un barrio por recorrer) y -1 si falta un barrio (solo falta un barrio por recorrer), -2 si no se recorrio ningun barrio todavia
-
-            int cont = 0;
-            for (int i = 0; i < verificacion_barrios.Length; i++)
+            //cuando entregamos el pedido, lo eliminamos de la lista de pedidos
+            for (int i = 0; i < pedido.Count; i++)
             {
-                if (verificacion_barrios[i] == false)
-                    cont++;
+                if (pedido[i] == pedidobuscado)
+                    pedido.RemoveAt(i);
             }
-            if (cont == 0)
-                return 1; //todos los barrios fueron recorridos
-            else if (cont == 1)
-                return -1; //solo falta un barrio
-            else if (cont == verificacion_barrios.Length)
-                return -2;
-            else
-                return 0; //falta mas de un barrio por recorrer
+        }
+
+        public List<cPedido_por_Cliente> Filtrar_por_pedido(List<cPedido_por_Cliente> pedidos_del_dia_, entrega tipo_entrega)
+        {
+            //filtra a la lista de pedidos por el tipo de entrega que le pasemos como parametro
+            List<cPedido_por_Cliente> aux = new List<cPedido_por_Cliente>();
+
+            for (int i = 0; i < pedidos_del_dia_.Count; i++)
+            {
+                if (pedidos_del_dia_[i].tipo_entrega == tipo_entrega)
+                    aux.Add(pedidos_del_dia_[i]);
+            }
+            return aux;
+        }
+
+        public void modificarPedidos()
+        {
+            //caundo pasan 24h, nos aseguramos de poner a los normales como express y a los diferidos como normales, ya que si no fueron entregados, sus prioridades cambian
+            for (int i = 0; i < this.listaPedidos.Count; i++)
+            {
+                if (listaPedidos[i].tipo_entrega == entrega.normal)
+                    listaPedidos[i].tipo_entrega = entrega.express;
+
+                if (listaPedidos[i].tipo_entrega == entrega.diferido)
+                    listaPedidos[i].tipo_entrega = entrega.normal;
+
+            }
         }
 
         public int Barrios_en_pedido_del_dia(List<cPedido_por_Cliente> lista_pedido)
         {
+            //cuenta la cantidad de barrios que hay en un pedido (sin repetir, es decir si el barrio es el mismo para 2 localidades, se suma 1 vez)
             List<eLocalidad> aux = new List<eLocalidad>();
 
             int cont = 0;
@@ -129,10 +150,10 @@ namespace TPFINALFINAL
                 {
                     for (int h = 0; h < aux.Count; h++)
                     {
-                        if (lista_pedido[i].barrio == aux[h])
+                        if (lista_pedido[i].barrio == aux[h])//verificamos si el barrio del pedido a analizar es igual a algun barrio de la lista de barrios que vamos llenando
                             cont++;
                     }
-                    if (cont == 0)
+                    if (cont == 0)//si el barrio no se conto, es porque todavia no esta en la lista de barrios y todavia no es contado
                         aux.Add(lista_pedido[i].barrio);
                 }
             }
@@ -173,83 +194,67 @@ namespace TPFINALFINAL
             return dist;
         }
 
-        public int min_distancia(int[,] matriz, int pos, bool[] verificacion_barrios, int barrios, List<eLocalidad> orden_clientes, List<eLocalidad> lista_localidad)
+        public int chequeo_verificacion_barrios(bool[] verificacion_barrios)
         {
-            int min = Constants.max_index; //le pongo un valor muy alto, para que la primera vez que compare con la distancia de una localidad 
-            int i = 0;
+            // devuelve -> 1 si llegaste al final (todos los barrios fueron recorridos), 0 si no llegaste al final (falta mas de un barrio por recorrer) y -1 si falta un barrio (solo falta un barrio por recorrer), -2 si no se recorrio ningun barrio todavia
 
-            if (chequeo_verificacion_barrios(verificacion_barrios) == -2)//si todavia no se recorrio ningun barrio, voy al que mas cerca este de liniers primero
+            int cont = 0;
+            for (int i = 0; i < verificacion_barrios.Length; i++)
             {
-                for (int h = 0; h < barrios; h++)
-                {
-                    if (calcular_distancia_barrio_a_liniers(lista_localidad[h]) < min)
-                    {
-                        i = h;//i=barrio que fui
-                        min = calcular_distancia_barrio_a_liniers(lista_localidad[h]);
-                    }
-                }
-                verificacion_barrios[i] = true; //ya recorridomo
-                orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
+                if (verificacion_barrios[i] == false)
+                    cont++;
             }
-            else if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio a liniers, para que vuelva el camion
-            {
-                for (int h = 0; h < barrios; h++)
-                {
-                    if (verificacion_barrios[h] == false)//al primero que entre va a ser el unico que no recorri
-                    {
-                        orden_clientes.Add(lista_localidad[h]);
-                        min = calcular_distancia_barrio_a_liniers(lista_localidad[h]);
-                        verificacion_barrios[h] = true;
-                    }
-                }
-            }
+            if (cont == 0)
+                return 1; //todos los barrios fueron recorridos
+            else if (cont == 1)
+                return -1; //solo falta un barrio
+            else if (cont == verificacion_barrios.Length)
+                return -2;
             else
-            {
-
-                for (int v = 0; v < barrios; v++) //voy recorriendo todos los nodos
-                {
-                    if (verificacion_barrios[v] == false && matriz[pos, v] <= min && matriz[pos, v] != 0)//si el barrio no fue recorrido y es la pos minima de esa fila de la matriz, es decir, del camino que tengo desde ese barrio a los demas que tengo que ir, entro
-                    {
-                        i = v;//i=barrio que fui
-                        min = matriz[pos, v]; //distancia que recorri
-
-                    }
-
-                }
-
-
-                verificacion_barrios[i] = true; //ya recorridomo
-                orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
-            }
-            //explicacion conexion lista localidades y matriz, lista localidades esta ordenada de menor a mayor distancia con respecto a liniers. Ejemplo en la posicion 0 de la lista de localidades esta mataderos, entonces en la fila y columna 0 va a estar las distancia de mataderos con los otros barrios
-
-            return min;
+                return 0; //falta mas de un barrio por recorrer
         }
 
-        public List<eLocalidad> despacho_de_productos(List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar, cVehiculo camion)
-        {//las listas de localidades estan ordenadas por orden de menor distancia a liniers a mayor
+        public List<eLocalidad> Lista_Barrios_Ordenada(List<cPedido_por_Cliente> pedidos_del_dia_tipo_de_pedido)
+        {
 
+            List<eLocalidad> aux = new List<eLocalidad>();
+            //primero meto todos los barrios de todos los pedidos en una lista, no importa si ya puse ese barrio antes
+            for (int i = 0; i < pedidos_del_dia_tipo_de_pedido.Count; i++)
+            {
+                aux.Add(pedidos_del_dia_tipo_de_pedido[i].barrio);
+            }
 
-            List<eLocalidad> camino_mas_corto = new List<eLocalidad>();
-            LlenadoCamion(camion, pedidos_del_dia, pedido_a_entregar);
+            //ahora saco los repetidos
+            for (int i = 0; i < aux.Count; i++)
+            {
 
-            int barrios_a_recorrer = Barrios_en_pedido_del_dia(pedido_a_entregar);
-            int[,] matriz = new int[barrios_a_recorrer, barrios_a_recorrer];
-            List<eLocalidad> lista_localidades = Lista_Barrios_Ordenada(pedido_a_entregar);
-            matriz = llenar_matriz_con_distancias(lista_localidades, barrios_a_recorrer); //me va a llenar la matriz con las distancias entre cada pueblo que voy a recorrer
+                for (int j = 1; j < aux.Count; j++)
+                {
+                    if (aux.ElementAt(i) == aux.ElementAt(j) && i != j)
+                        aux.RemoveAt(j);
+                }
 
-            camino_mas_corto = encontrar_camino_mas_corto_greedy(matriz, barrios_a_recorrer, lista_localidades); //encontramos el camino mas corto para recorrer todos los barrios de los pedidos que entraron en el camion
+            }
 
+            //ahora aux tiene la lista de localidades 
 
-            //despues de pasar por los if, ya tengo la lista de pedidos a entregar y la lista de barrios a recorrer en orden 
-            //primero ordena por barrio, poniendo primero a los del primer barrio a recorrer y después los del último barrio. 
-            pedido_a_entregar = Ordenar_por_pedidio(camino_mas_corto, pedido_a_entregar);
+            for (int x = 0; x < aux.Count; x++)
+            {
 
+                for (int y = 0; y < aux.Count - 1; y++)
+                {
 
-            llenado_despacho_productos(camion, pedido_a_entregar); //esta funcion me va a llenar el camión que yo le pase por parámetro, con los pedidos de las localidades seleccionadas
-
-            return camino_mas_corto;
-
+                    // Si el actual es mayor que el que le sigue a la derecha...
+                    if (calcular_distancia_barrio_a_liniers(aux.ElementAt(y)) > calcular_distancia_barrio_a_liniers(aux.ElementAt(y + 1)))
+                    { //distancia liniers es una funcion que le pasas una localidad y te pasa la distancia de esa localidad a liniers
+                        eLocalidad temporal = aux.ElementAt(y);
+                        aux[y] = aux.ElementAt(y + 1);
+                        aux[y + 1] = temporal;
+                    }
+                }
+            }
+            //ahora aux esta ordenado, con el barrio con la distancia minima a liniers en la primer posicion y el barrio mas alejado en la ultima posicion
+            return aux;
         }
 
         public List<cPedido_por_Cliente> Ordenar_por_pedidio(List<eLocalidad> camino_mas_corto, List<cPedido_por_Cliente> pedido_a_entregar)
@@ -275,6 +280,132 @@ namespace TPFINALFINAL
             }
             return pedidos_ordenados;
 
+        }
+
+
+        //FUNCIONES RECORRIDO GREEDY
+        public List<eLocalidad> encontrar_camino_mas_corto_greedy(int[,] matriz, int barrios_a_recorrer, List<eLocalidad> localidades_en_orden_matriz)
+        {
+            List<eLocalidad> orden_clientes = new List<eLocalidad>(); //donde vamos a guardar la lista de los barios en orden de ls barrios que tenemos que recorrer
+            bool[] verificacion_barrios = new bool[barrios_a_recorrer]; //vector de bool que vamos a usar para saber si un barrio fue recorrido o no, si esta en true (ya lo recorrimos)
+            int h = 0; //para ir moviendome en la lista orden a clientes
+            int i = 0;
+            //ponemos a todos los barrios en false
+            for (int j = 0; j < barrios_a_recorrer; j++)
+            {
+                verificacion_barrios[j] = false;
+            }
+
+            //para calcular el camino -> el mejor camino ¡¡en el momento!! es decir,voy a el barrio que este a menor distancia de donde estoy
+            while (chequeo_verificacion_barrios(verificacion_barrios) != 1) //funcion que me devuelve si ya todos los barrios fueron recorridos o no -> 1 si llegaste al final, 0 si no llegaste al final, -1 si falta un barrio y -2 si todaviano recorriste ningun barrio, es decir partis de liniers
+            {
+                int min = min_distancia(matriz, i, verificacion_barrios, barrios_a_recorrer, orden_clientes, localidades_en_orden_matriz);//la funcion me devuelve la distancia minima que va a hacer el camion para ir de un barrio a otro (con este algoritmo va a ir eligiendo siempre la dist minima entre barrio y barrio)
+                                                                                                                                          // tambien la funcion min_distancia me llena la lista orden_clientes poniendome en la pos h el barrio a recorrer, asi ya los tenemos en orden. La primera localidad de la lista, el primer barrioa recorrer
+                i = numero_de_posicion_barrio(orden_clientes.ElementAt(h), localidades_en_orden_matriz); //ahora i va a ser de donde sale el camion, es por eso que apenas entramos al while, es 0, porque siempre sale de liniers, y por eso agarra la ult pos de la lista que va guardando los barrios en orden, pero como orden cliente es eLocalidad, la funcion numero de posicion barrrio te pasa en que posicion de la matriz esta el barrio que recien se recorrio
+               //es decir, como ahora tenemos que partir del barrio que recien recorridos, agarramos el numero que ese barrio esta en nuestra lista y esa es la posicion de la matriz que ahora tenemos que ir a buscar las distancias, ya que es del barrio en donde estoy parado y me tengo que ir
+                h++;
+            }
+            return orden_clientes; //retornamos la lista ordenada de barrios a recorrer
+        }
+
+        public int min_distancia(int[,] matriz, int pos, bool[] verificacion_barrios, int barrios, List<eLocalidad> orden_clientes, List<eLocalidad> lista_localidad)
+        {
+            int min = Constants.max_index; //le pongo un valor muy alto, para que la primera vez que compare con la distancia de una localidad siempre entre
+            int i = 0;
+
+            if (chequeo_verificacion_barrios(verificacion_barrios) == -2)//si todavia no se recorrio ningun barrio, voy al que mas cerca este de liniers primero (ya que salgo de liniers)
+            {
+                for (int h = 0; h < barrios; h++)
+                {
+                    if (calcular_distancia_barrio_a_liniers(lista_localidad[h]) < min) //comparo que localidad tiene la menor distancia a liniers
+                    {
+                        i = h;//i=barrio que fui
+                        min = calcular_distancia_barrio_a_liniers(lista_localidad[h]);
+                    }
+                }
+                verificacion_barrios[i] = true; //ya recorrimos ese barrio
+                orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
+            }
+            else if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio a liniers, para que vuelva el camion
+            {
+                for (int h = 0; h < barrios; h++)
+                {
+                    if (verificacion_barrios[h] == false)//al primero que entre va a ser el unico que no recorri
+                    {
+                        orden_clientes.Add(lista_localidad[h]); //lo agrego a la lista, como el unico barrio que no recorri
+                        min = calcular_distancia_barrio_a_liniers(lista_localidad[h]);
+                        verificacion_barrios[h] = true;
+                    }
+                }
+            }
+            else
+            { //no es el primer viaje que hago, ni va a ser el ultimo
+
+                for (int v = 0; v < barrios; v++) //voy recorriendo todos los nodos
+                {
+                    if (verificacion_barrios[v] == false && matriz[pos, v] <= min && matriz[pos, v] != 0)//si el barrio no fue recorrido y es la pos minima de esa fila de la matriz, es decir, del camino que tengo desde ese barrio a los demas que tengo que ir, lo cuento
+                    {//comaramos la distancia del barrio en la posicion con toda la fila de localidad que estan en false (no fueron recorridas) verificando que el numero no sea 0 porque si lo es, es porque estamos en el mismo barrio
+                        i = v;//i=barrio que fui
+                        min = matriz[pos, v]; //distancia que recorri
+
+                    }
+
+                }
+
+
+                verificacion_barrios[i] = true; //ya recorridomo
+                orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
+            }
+            //explicacion conexion lista localidades y matriz, lista localidades esta ordenada de menor a mayor distancia con respecto a liniers. Ejemplo en la posicion 0 de la lista de localidades esta mataderos, entonces en la fila y columna 0 va a estar las distancia de mataderos con los otros barrios
+
+            return min;
+        }
+
+        public int numero_de_posicion_barrio(eLocalidad barrio_elegido, List<eLocalidad> lista_localidad)
+        {
+            //le pasamos la posicion del barrio en la lista de localidades, que esta ordenada por distancia a liniers
+            int pos = 0;
+            for (int i = 0; i < lista_localidad.Count; i++)
+            {
+                if (lista_localidad[i] == barrio_elegido)
+                    pos = i;
+            }
+            return pos;
+        }
+
+        public int num_asignado_barrio(eLocalidad localidad)
+        {
+            //esta funcion la usamos para obtener la fila y columna que necesitamos de la matriz de distancias, para crear al grafo
+            //cada barrio tiene un numero asignado, que es el que se corresponde con el numero de posicion del enum
+            switch (localidad)
+            {
+                case eLocalidad.Liniers: return 0;
+                case eLocalidad.TresdeFebrero: return 1;
+                case eLocalidad.SanMartin: return 2;
+                case eLocalidad.VicenteLopez: return 3;
+                case eLocalidad.LaMatanza: return 4;
+                case eLocalidad.LomasdeZamora: return 5;
+                case eLocalidad.Lanus: return 6;
+                case eLocalidad.Avellaneda: return 7;
+                case eLocalidad.Versalles: return 8;
+                case eLocalidad.VillaLuro: return 9;
+                case eLocalidad.Mataderos: return 10;
+                case eLocalidad.MonteCastro: return 11;
+                case eLocalidad.VelezSarsfield: return 12;
+                case eLocalidad.ParqueAvellaneda: return 13;
+                case eLocalidad.VillaLugano: return 14;
+                case eLocalidad.VillaDevoto: return 15;
+                case eLocalidad.VillaUrquiza: return 16;
+                case eLocalidad.Belgrano: return 17;
+                case eLocalidad.Palermo: return 18;
+                case eLocalidad.Retiro: return 19;
+                case eLocalidad.Caballito: return 20;
+                case eLocalidad.Flores: return 21;
+                case eLocalidad.PuertoMadero: return 22;
+                case eLocalidad.LaBoca: return 23;
+                case eLocalidad.Chacarita: return 24;
+            }
+            return -1;
         }
 
         public int[,] llenar_matriz_con_distancias(List<eLocalidad> lista_localidades, int barrios)
@@ -306,7 +437,10 @@ namespace TPFINALFINAL
             List<int> list_puertomadero = new List<int>() { 10, 15, 8 };
             List<int> list_laboca = new List<int>() { 3, 13 };
             //charcarita ->14
+            
             int pos = 0;
+
+            //llenamos a la matriz definitiva
             for (int i = 0; i < 25; i++)
             {
                 matriz_definitiva[i, i] = 0;//pongo a la diagonal en 0
@@ -629,10 +763,8 @@ namespace TPFINALFINAL
                         break;
                 }
             }
-            //llenarla
-
-
-            //llenamos la matriz
+            
+            //llenamos la matriz que vamos a usar como grafo
             int[] num_barrios_en_matriz = new int[barrios];
             int[,] matriz_distancias = new int[barrios, barrios];
 
@@ -643,10 +775,10 @@ namespace TPFINALFINAL
                 barrio_fijo = num_asignado_barrio(lista_localidades.ElementAt(i));
                 num_barrios_en_matriz[i] = barrio_fijo;
             }
-            //tengo un vector con los numeros de los barrios que necesito correspondiente a la matriz ya definida
+            //tengo un vector con los numeros de los barrios que necesito correspondiente a la matriz ya definida, de esta manera me voy moviendo en mi matriz definitiva lenantando los valores que necesito y copiandolos en mi matriz que voy a usar para calcular el menor camino
 
 
-            for (int i = 0; i < lista_localidades.Count; i++)
+            for (int i = 0; i < lista_localidades.Count; i++) //voy por todas las localidades
             {
                 for (int pos_barrios = 0; pos_barrios < barrios; pos_barrios++)
                 {
@@ -655,204 +787,27 @@ namespace TPFINALFINAL
             }
 
 
-            return matriz_distancias;
+            return matriz_distancias; //devuelvo la matriz con las distancias de cada barrio a cada barrio 
         }
 
-        public List<eLocalidad> Lista_Barrios_Ordenada(List<cPedido_por_Cliente> pedidos_del_dia_tipo_de_pedido)
-        {
-
-            List<eLocalidad> aux = new List<eLocalidad>();
-            //primero meto todos los barrios de todos los pedidos en una lista, no importa si ya puse ese barrio antes
-            for (int i = 0; i < pedidos_del_dia_tipo_de_pedido.Count; i++)
-            {
-                aux.Add(pedidos_del_dia_tipo_de_pedido[i].barrio);
-            }
-
-            //ahora saco los repetidos
-            for (int i = 0; i < aux.Count; i++)
-            {
-
-                for (int j = 1; j < aux.Count; j++)
-                {
-                    if (aux.ElementAt(i) == aux.ElementAt(j) && i != j)
-                        aux.RemoveAt(j);
-                }
-
-            }
-
-            //ahora aux tiene la lista de localidades 
-
-            for (int x = 0; x < aux.Count; x++)
-            {
-
-                for (int y = 0; y < aux.Count - 1; y++)
-                {
-
-                    // Si el actual es mayor que el que le sigue a la derecha...
-                    if (calcular_distancia_barrio_a_liniers(aux.ElementAt(y)) > calcular_distancia_barrio_a_liniers(aux.ElementAt(y + 1)))
-                    { //distancia liniers es una funcion que le pasas una localidad y te pasa la distancia de esa localidad a liniers
-                        eLocalidad temporal = aux.ElementAt(y);
-                        aux[y] = aux.ElementAt(y + 1);
-                        aux[y + 1] = temporal;
-                    }
-                }
-            }
-            //ahora aux esta ordenado, con el barrio con la distancia minima a liniers en la primer posicion y el barrio mas alejado en la ultima posicion
-            return aux;
-        }
-
-        public List<eLocalidad> encontrar_camino_mas_corto_greedy(int[,] matriz, int barrios_a_recorrer, List<eLocalidad> localidades_en_orden_matriz)
-        {
-            List<eLocalidad> orden_clientes = new List<eLocalidad>(); //donde vamos a guardar la lista de los barios en orden de ls barrios que tenemos que recorrer
-            bool[] verificacion_barrios = new bool[barrios_a_recorrer]; //vector de bool que vamos a usar para saber si un barrio fue recorrido o no, si esta en true (ya lo recorrimos)
-            int h = 0; //para ir llenando orden a clientes
-            int i = 0;
-            for (int j = 0; j < barrios_a_recorrer; j++)
-            {
-                verificacion_barrios[j] = false;
-            }
-
-            //para calcular el camino -> el mejor camino ¡¡en el momento!! -> algortimo de djkistra
-            while (chequeo_verificacion_barrios(verificacion_barrios) != 1) //funcion que me devuelve si ya todos los barrios fueron recorridos o no -> 1 si llegaste al final, 0 si no llegaste al final y -1 si falta un barrio
-            {
-                int min = min_distancia(matriz, i, verificacion_barrios, barrios_a_recorrer, orden_clientes, localidades_en_orden_matriz);//la funcion me devuelve la distancia minima que va a hacer el camion para ir de un barrio a otro (con este algoritmo va a ir eligiendo siempre la dist minima entre barrio y barrio)
-                                                                                                                                          // tambien la funcion min_distancia me llena la lista orden_clientes poniendome en la pos h el barrio a recorrer, eLocalidad
-                i = numero_de_posicion_barrio(orden_clientes.ElementAt(h), localidades_en_orden_matriz); //ahora i va a ser de donde sale el camion, es por eso que apenas entramos al while, es 0, porque siempre sale de liniers, y por eso agarra la ult pos de la lista que va guardando los barrios en orden, pero como orden cliente es eLocalidad, la funcion numero de posicion barrrio te pasa en que posicion de la matriz esta el barrio que recien se recorrio
-                h++;
-            }
-            return orden_clientes;
-        }
-
-        public void llenado_despacho_productos(cVehiculo camion, List<cPedido_por_Cliente> lista_completa_pedidos)
-        {
-            //lista pedidos esta fltrada por solo las zonas que estan en el recorrido y primero estan puestos los del envio express, esto lo hacemos desde las funciones en donde llamamos a esta funcion, es por esto que siempre agarramos la posicion 0, porque vamos eliminando al primero despues de meterlo al camion -> siempre el primero de la lista es el que tenemos que meter primero
-            Queue<cPedido_por_Cliente> pedidos_a_entregar = new Queue<cPedido_por_Cliente>(); //cola donde vamos a ir poniendo los pedidos FIRST IN -> FIRST OUT
-            int volumen_aux = 0;
-            int peso_aux = 0;
-
-            if (camion.GetType() == typeof(cCamioneta))//si el camion seleccionado es la camioneta
-            {//las camionetas no tiene limite de peso, solo de volumen
-                while (volumen_aux < camion.volumen_max) //mientras que el volumen que tiene sea menor que el max de la camioneta
-                {
-                    if (lista_completa_pedidos.Count != 0 && volumen_aux + lista_completa_pedidos[0].volumen <= camion.volumen_max) //cheque que si le sumo el paquete siguiente no supere el volumen total.
-                    {
-                        pedidos_a_entregar.Enqueue(lista_completa_pedidos[0]); //lo agregamos a la cola
-                        volumen_aux = volumen_aux + lista_completa_pedidos[0].volumen; //sumamos el volumen
-                        lista_completa_pedidos.RemoveAt(0); //sacamos a ese pedido de la lista
-
-                    }
-                    else
-                        volumen_aux = camion.volumen_max;//si ya sumandole el prox paquete, supero el peso del camion, le impongo que el peso es el max para que salga del while
-
-                }
-            }
-            else if (camion.GetType() == typeof(cFurgon)) //el camion seleccionado es el furgon
-            {//en este caso chequeamos tanto el volumen total y el peso total 
-                while (volumen_aux < camion.volumen_max && peso_aux < camion.peso_max)
-                {
-                    if (lista_completa_pedidos.Count != 0 && volumen_aux + lista_completa_pedidos[0].volumen < camion.volumen_max && (peso_aux + lista_completa_pedidos[0].peso_pedido) < camion.peso_max)
-                    {
-                        pedidos_a_entregar.Enqueue(lista_completa_pedidos[0]);
-                        volumen_aux = volumen_aux + lista_completa_pedidos[0].volumen;
-                        peso_aux = peso_aux + lista_completa_pedidos[0].peso_pedido;
-                        lista_completa_pedidos.RemoveAt(0);
-
-                    }
-                    else
-                    {
-                        volumen_aux = camion.volumen_max;
-                        peso_aux = camion.peso_max;
-                    }
-
-
-                }
-            }
-            else //cont es igual a 5 -> furgoneta
-            {//en este caso chequeamos tanto el volumen total y el peso total
-                while (volumen_aux < camion.volumen_max && peso_aux < camion.peso_max)
-                {
-                    if (lista_completa_pedidos.Count != 0 && volumen_aux + lista_completa_pedidos[0].volumen < camion.volumen_max && (peso_aux + lista_completa_pedidos[0].peso_pedido) < camion.peso_max)
-                    {
-                        pedidos_a_entregar.Enqueue(lista_completa_pedidos[0]);
-                        volumen_aux = volumen_aux + lista_completa_pedidos[0].volumen;
-                        peso_aux = peso_aux + lista_completa_pedidos[0].peso_pedido;
-                        lista_completa_pedidos.RemoveAt(0);
-
-                    }
-                    else
-                    {
-                        volumen_aux = camion.volumen_max;
-                        peso_aux = camion.peso_max;
-                    }
-
-
-                }
-            }
-        }
-
+        
+       
+       //FUNCIONES LLENADO DINAMICO
+        
         public int[] ValorDeCadaPedido(List<cPedido_por_Cliente> lista)
         {
             int[] valores = new int[lista.Count];
             for (int i = 0; i < lista.Count; i++)
             {
                 
-                    valores[i] = lista[i].volumen / lista[i].peso_pedido;
+                valores[i] = lista[i].volumen / lista[i].peso_pedido; //el valor de cada pedido es el indicie entre volumen y peso, para maximizar este
 
-                if (valores[i] == 0)
+                if (valores[i] == 0)//por defecto, si el indicie es 0, le ponemos 10
                     valores[i] = 10;
 
 
             }
             return valores;
-        }
-
-        public int num_asignado_barrio(eLocalidad localidad)
-        {
-            switch (localidad)
-            {
-                case eLocalidad.Liniers: return 0;
-                case eLocalidad.TresdeFebrero: return 1;
-                case eLocalidad.SanMartin: return 2;
-                case eLocalidad.VicenteLopez: return 3;
-                case eLocalidad.LaMatanza: return 4;
-                case eLocalidad.LomasdeZamora: return 5;
-                case eLocalidad.Lanus: return 6;
-                case eLocalidad.Avellaneda: return 7;
-                case eLocalidad.Versalles: return 8;
-                case eLocalidad.VillaLuro: return 9;
-                case eLocalidad.Mataderos: return 10;
-                case eLocalidad.MonteCastro: return 11;
-                case eLocalidad.VelezSarsfield: return 12;
-                case eLocalidad.ParqueAvellaneda: return 13;
-                case eLocalidad.VillaLugano: return 14;
-                case eLocalidad.VillaDevoto: return 15;
-                case eLocalidad.VillaUrquiza: return 16;
-                case eLocalidad.Belgrano: return 17;
-                case eLocalidad.Palermo: return 18;
-                case eLocalidad.Retiro: return 19;
-                case eLocalidad.Caballito: return 20;
-                case eLocalidad.Flores: return 21;
-                case eLocalidad.PuertoMadero: return 22;
-                case eLocalidad.LaBoca: return 23;
-                case eLocalidad.Chacarita: return 24;
-            }
-            return -1;
-        }
-
-        public void EliminarLineaBlanca(List<cPedido_por_Cliente> pedido)
-        {
-            for (int i = 0; i < pedido.Count; i++)
-            {
-                for (int h = 0; h < pedido[i].compra_objetos.Count; h++)
-                {
-                    if (pedido[i].compra_objetos[h].GetType() == typeof(cLineaBlanca))
-                    {
-                        pedido.RemoveAt(i);
-                        break;
-                    }
-                }
-
-            }
         }
 
         public void LlenadoCamion(cVehiculo camion, List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar)
@@ -869,9 +824,9 @@ namespace TPFINALFINAL
                 //si hay pedidos NO linea balnca que entregar vamos con esos
                 if (listaexpress.Count != 0)
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
-                else //si no hay pedidos que no sean linea blanca
-                {
-
+                else //si no hay pedidos que no sean linea blanca express, mandamos a los linea blanca
+                { //Nosotras priorizamos entregar primero los express, despues los normales y despues los diferidos.
+                    
                     listaexpress = Filtrar_por_pedido(pedidos_del_dia, entrega.express);
                     if(listaexpress.Count!=0)//si hay pedidos, en este caso de linea blanca, en el express entregamos esos
                         RellenadoDinamico(camion,camion.peso_max,camion.volumen_max-Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
@@ -881,7 +836,7 @@ namespace TPFINALFINAL
                         if (listanormal.Count != 0)
                             RellenadoDinamicoNormales(camion,camion.peso_max,camion.volumen_max, pedidos_del_dia, listanormal, pedido_a_entregar);
                         else
-                        { //no hay normales que no sean linea blanca, mandamos esos
+                        { //no hay normales que no sean linea blanca, mandamos esos y tenemos en cuenta el peso del elevador
                             listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.normal);
                             RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max - Constants.volumen_elevador, pedidos_del_dia, listaexpress, pedido_a_entregar);
                         }
@@ -897,18 +852,16 @@ namespace TPFINALFINAL
                 }
                 
 
-            }else
+            }else //si no estamos en presencia de una camioneta, lleno el camion como: primero los express, despues los normales y despues los diferidos (esta vez sin tener en cuenta si hay linea blanca o no)
             {
-                if(listaexpress.Count!=0)
+                if(listaexpress.Count!=0)//si hay express que entregar, meto esos
                     LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listaexpress, pedido_a_entregar);
-
-                if (listanormal.Count!=0)
-                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
-                else
+               else if (listanormal.Count!=0)//si hay normales que entregar, meto esos
+                    RellenadoDinamicoNormales(camion, camion.peso_max, camion.volumen_max, pedidos_del_dia, listanormal, pedido_a_entregar);
+                else //si hay diferidos que entregar, meto esos
                 {
                     listanormal = Filtrar_por_pedido(pedidos_del_dia, entrega.diferido);
-                    LLenadoDinamicoDelCamion(camion, pedidos_del_dia, listanormal, pedido_a_entregar);
-
+                    RellenadoDinamicoDiferidos(camion.peso_max,camion.volumen_max, pedidos_del_dia, listanormal, pedido_a_entregar);
 
                 }
 
@@ -983,6 +936,7 @@ namespace TPFINALFINAL
 
             if (acum_peso < camion.peso_max && acum_volumen < camion.volumen_max)
             {
+                //como esta es la primera funcion que entramos para llenar el camion dinamicamente, cuando estemos en el caso de una camioneta, vamos a ir con los express con linea blanca ya que queremos priorizar que estos se entreguen primero
                 List<cPedido_por_Cliente> lista;
                 if (camion.GetType() == typeof(cCamioneta))
                 {
@@ -990,40 +944,38 @@ namespace TPFINALFINAL
                     
                     if (lista.Count == 0)//si ya no hay mas express
                     {
-                        lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
+                        lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal); //filtro los normales
 
-                        if (lista.Count !=0)
+                        if (lista.Count !=0) //si hay normales para mandar
                         {
-                            EliminarLineaBlanca(lista);
+                            EliminarLineaBlanca(lista); //elimino a los linea blanca
 
-                            if (lista.Count == 0) //si no hay normales sin linea blanca, pongo a loslinea blanca y pongo el elevador
+                            if (lista.Count == 0) //si no hay normales sin linea blanca, pongo a los linea blanca y pongo el elevador
                             {
                                 lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
                                 RellenadoDinamicoNormales(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen - Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
                             }
-                            else
+                            else //si si hay normales sin linea blanca, intento meter a esos
                                 RellenadoDinamicoNormales(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen , pedidos_del_dia_completa, lista, pedido_a_entregar);
 
                         }
-                        else if (lista.Count==0)
+                        else if (lista.Count==0) //si ya no hay mas normales (ni con ni sin linea blanca)
                         {
-                            lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.diferido);
+                            lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.diferido); //mando a los diferidos
                             if(lista.Count!=0)
                             RellenadoDinamicoDiferidos( camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
                             
                         }
-                        else
-                        RellenadoDinamicoNormales( camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
                     }
-                    else
+                    else //si si hay express con linea blanca, mando a esos
                     RellenadoDinamico(camion, camion.peso_max - acum_peso, camion.volumen_max - acum_volumen - Constants.volumen_elevador, pedidos_del_dia_completa, lista, pedido_a_entregar);
                 }
-                else
+                else //si no estamos en el caso de una camioneta, nunca separamos en linea blanca o no asique los express q no entraron, no entraron y punto, sigo con los normales
                 {
                     lista = Filtrar_por_pedido(pedidos_del_dia_completa, entrega.normal);
-                    if(lista.Count!=0)
+                    if(lista.Count!=0)//si hay normales que entregar
                     RellenadoDinamicoNormales(camion,camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
-                    else
+                    else //si no hay normales, sigo con los diferidos
                         RellenadoDinamicoDiferidos(camion.peso_max - acum_peso, camion.volumen_max - acum_volumen, pedidos_del_dia_completa, lista, pedido_a_entregar);
 
 
@@ -1032,7 +984,8 @@ namespace TPFINALFINAL
         }
 
         public void RellenadoDinamico(cVehiculo camion,int peso, int volumen, List<cPedido_por_Cliente> pedidostotal, List<cPedido_por_Cliente> pedido, List<cPedido_por_Cliente> pedido_a_entregar)
-        { //cuando llego a rellenado es porque podia meter en la camioneta pedidos express que sean de linea blanca
+        { 
+            //cuando llego a rellenado es porque podia meter en la camioneta pedidos express que sean de linea blanca (en la camioneta),asique los meto
             int[] valor = ValorDeCadaPedido(pedido);
             int i, w;
             int acumvolumen = 0;
@@ -1092,6 +1045,7 @@ namespace TPFINALFINAL
                 acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
                 acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
+
             //si aun agregando los linea blanca express me queda lugar en el camion, sigo con los normales
             if(acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
@@ -1179,11 +1133,11 @@ namespace TPFINALFINAL
                 acumpeso = acumpeso + pedido_a_entregar[f].peso_pedido;
                 acumvol = acumvol + pedido_a_entregar[f].volumen;
             }
-            //si llegue hasta aca es porque ya meti los express
+
+            //como acabo de meter a los normales que podia meter, ahora intento con los diferidos
             if (acumpeso < camion.peso_max && acumvol < camion.volumen_max)
             {
                 List<cPedido_por_Cliente> listadif = Filtrar_por_pedido(pedidostotal, entrega.diferido);
-                
                 RellenadoDinamicoDiferidos(camion.peso_max - acumpeso, camion.volumen_max - acumvol, pedidostotal, listadif, pedido_a_entregar);
 
 
@@ -1247,18 +1201,40 @@ namespace TPFINALFINAL
             }
 
            
-
+            //ya meti todos los productos que podia, tanto express como noramles y diferidos
         }
 
-        public void Eliminarpedido(List<cPedido_por_Cliente> pedido, cPedido_por_Cliente pedidobuscado)
+
+
+        //FUNCIONES DE DESPACHO 
+
+        public List<eLocalidad> despacho_de_productos(List<cPedido_por_Cliente> pedidos_del_dia, List<cPedido_por_Cliente> pedido_a_entregar, cVehiculo camion)
         {
-            for (int i = 0; i < pedido.Count; i++)
-            {
-                if (pedido[i] == pedidobuscado)
-                    pedido.RemoveAt(i);
-            }
+
+            List<eLocalidad> camino_mas_corto = new List<eLocalidad>();
+           
+            LlenadoCamion(camion, pedidos_del_dia, pedido_a_entregar); //lleno el camion, cuando vuelvo a esta funcion,en pedido a entregar tengo la lista de elementos a entregar
+
+            int barrios_a_recorrer = Barrios_en_pedido_del_dia(pedido_a_entregar); //obtengo la cantidad de barrios a recorrer
+            int[,] matriz = new int[barrios_a_recorrer, barrios_a_recorrer]; //me creo mi matriz de distancia, que voy a usar como "grafo"
+            List<eLocalidad> lista_localidades = Lista_Barrios_Ordenada(pedido_a_entregar);//obtengo la lista de localidades en orden de menor a mayor distancia de liniers
+            matriz = llenar_matriz_con_distancias(lista_localidades, barrios_a_recorrer); //me va a llenar la matriz con las distancias entre cada barrio a barrio que voy a recorrer 
+            
+            camino_mas_corto = encontrar_camino_mas_corto_greedy(matriz, barrios_a_recorrer, lista_localidades); //encontramos el camino greedy para recorrer todos los barrios de los pedidos que entraron en el camion
+
+
+            //ya tengo la lista de pedidos a entregar y la lista de barrios a recorrer en orden 
+            //primero ordena por barrio, poniendo primero a los del primer barrio a recorrer y después los del último barrio. 
+            pedido_a_entregar = Ordenar_por_pedidio(camino_mas_corto, pedido_a_entregar);
+
+
+            return camino_mas_corto; //retorno el camino a recorrer
+
         }
+
        
+        //FUNCIONES DE DEVALUACION Y DISPONIBILIDAD CAMIONES
+
         public void verificar_devaluacion_camiones()
         {
             //sabemos en el pos0 esta la camioneta, en la pos1 el furgon y en la pos2 la furgoneta
@@ -1267,7 +1243,7 @@ namespace TPFINALFINAL
                 //si el vehiculo tiene 1 año de uso, se desprecia un 25% de su precio
                 if (this.listaCamiones.ElementAt(i).meses_uso == 12)//si el vehiculo se uso por un año
                 {
-                    this.listaCamiones[i].Devaluacion();
+                    this.listaCamiones[i].Devaluacion();//devaluamos su precio
                 }
             }
         }
@@ -1275,7 +1251,8 @@ namespace TPFINALFINAL
         public void camiones_disponibles(DateTime dia_hoy)
         {
             List<cVehiculo> vector_camiones = new List<cVehiculo>();
-           
+           //dependiendo el dia de la semana que sea, salen distintos camiones
+           //a veces salen solo las camionetas y a veces los 3 camiones
             switch (dia_hoy.DayOfWeek)
             {
                 case (DayOfWeek)1: //lunes
@@ -1309,45 +1286,37 @@ namespace TPFINALFINAL
                     vector_camiones.Add(this.listaCamiones.ElementAt(2));
                     break;
             }
+            //cosimundo tiene una lista tanto de camiones definitivos y camiones disponibles
+            //los camiones disponibles son los que se pueden usar ese dia, y los definitivos son los que tiene disponibles para usar
             for(int i = 0; i < vector_camiones.Count; i++)
             {
+                //cargamos en la lista de camiones disponibles para usar hoy, la lista que se definio segun el dia que se podia usar
                 this.camionesdisponibleshoy.Add(vector_camiones[i]);
             }
         }
 
+        public int max_viajes_por_dia()
+        {
+            //dependiendo el camion que este disponible y la cantidad de camiones, vamos a tener una distinta cantidad de viajes max por dia
+            int viajes = 4;  //la camioneta siemrpe sale por lo que siempre voy a tener 4 viajes minimo
+            if (this.camionesdisponibles.Count == 2) //si solo sale el furgon o la furgoneta mas la camioneta
+                viajes++;
+            if (this.camionesdisponibles.Count == 3) //si salen los 3 vehiculos
+                viajes = viajes + 2;
+            return viajes;
+        }
+
         public void sumar_mes_camiones()
         {
+            //si el dia ingresado por windowsforms es un 1, entonces le suma un mes a los meses de uso de los camiones
             for (int i = 0; i < 3; i++)
             {
                 this.listaCamiones[i].sumarmesdeuso();
             }
+            //se fijan si tiene q devaluar al camion, es decir si ya llego al año de uso
             verificar_devaluacion_camiones();
         }
 
-        public List<cPedido_por_Cliente> Filtrar_por_pedido(List<cPedido_por_Cliente> pedidos_del_dia_, entrega tipo_entrega)
-        {
-            List<cPedido_por_Cliente> aux = new List<cPedido_por_Cliente>();
-
-            for (int i = 0; i < pedidos_del_dia_.Count; i++)
-            {
-                if (pedidos_del_dia_[i].tipo_entrega == tipo_entrega)
-                    aux.Add(pedidos_del_dia_[i]);
-            }
-            return aux;
-        }
-
-        public void modificarPedidos()
-        {
-            for(int i = 0; i < this.listaPedidos.Count; i++)
-            {
-                if (listaPedidos[i].tipo_entrega == entrega.normal)
-                    listaPedidos[i].tipo_entrega = entrega.express;
-
-                if (listaPedidos[i].tipo_entrega == entrega.diferido)
-                    listaPedidos[i].tipo_entrega = entrega.normal;
-
-            }
-        }
-
+     
     }
 }
