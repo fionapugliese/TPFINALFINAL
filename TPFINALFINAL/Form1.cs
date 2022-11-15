@@ -12,13 +12,14 @@ namespace TPFINALFINAL
 {
     public partial class Form1 : Form
     {
+
         cVehiculo camioneta;
         cVehiculo furgon;
         cVehiculo furgoneta;
 
         List<cVehiculo> lista_camiones;
         DateTime fecha;
-
+     
         cElectrodomesticos licuadora;
         cElectrodomesticos licuadora2;
         cElectrodomesticos rallador;
@@ -156,13 +157,13 @@ namespace TPFINALFINAL
         List<cElectrodomesticos> lista_calloom;
         List<cElectrodomesticos> lista_ashton;
         List<cElectrodomesticos> lista_michael;
-        List<cElectrodomesticos> lista_lorelai ;
-        List<cElectrodomesticos> lista_rory ;
-        List<cElectrodomesticos> lista_dean ;
-        List<cElectrodomesticos> lista_jess ;
-        List<cElectrodomesticos> lista_logan ;
+        List<cElectrodomesticos> lista_lorelai;
+        List<cElectrodomesticos> lista_rory;
+        List<cElectrodomesticos> lista_dean;
+        List<cElectrodomesticos> lista_jess;
+        List<cElectrodomesticos> lista_logan;
 
-
+    
 
         cPedido_por_Cliente pedido1;
         cPedido_por_Cliente pedido2;
@@ -282,7 +283,7 @@ namespace TPFINALFINAL
         cPedido_por_Cliente pedido116;
         cPedido_por_Cliente pedido117;
         cPedido_por_Cliente pedido118;
-      
+    
 
         List<cPedido_por_Cliente> lista_pedidos;
 
@@ -1090,11 +1091,11 @@ namespace TPFINALFINAL
         }
             private void button1_Click(object sender, EventArgs e)
             {
-                fecha = dia.Value; //obtenemos la fecha de hoy
+                fecha = dia.Value; //obtenemos la fecha de hoy del window
                 cosimundo.camiones_disponibles(fecha); //obtenemos los camiones que van a estar disponibles
                 int max_viajes = cosimundo.max_viajes_por_dia(); //obtenemosla cantidad de viajes que podemos hacer en el dia
                 cont_camiones = 0; //contador para ir fijandonos que camion usar
-               int cantvolumen = 0;
+               int cantvolumen = 0; 
                 int cantpeso = 0;
 
             //imprimimos la cantidad de camiones que tenemos disponibles
