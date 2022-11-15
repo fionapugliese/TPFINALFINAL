@@ -30,8 +30,8 @@ namespace TPFINALFINAL
             set { }
         }
 
-        protected int nafta;
-        public int cant_nafta
+        protected float nafta;
+        public float cant_nafta
         {
             get { return nafta; }
             set { }
@@ -51,7 +51,7 @@ namespace TPFINALFINAL
             set { }
         }
 
-        public cVehiculo(int meses_, int nafta, float precio)
+        public cVehiculo(int meses_, float nafta, float precio)
         {
             this.nafta = nafta;
             this.cant_meses_uso = meses_;
@@ -70,8 +70,14 @@ namespace TPFINALFINAL
         }
         public void Devaluacion()
         {
-            this.precio_actualventa = (float)(this.precio_actualventa * 0.75);
+            if (this.precio_actualventa > 0)
+                this.precio_actualventa = (float)(this.precio_actualventa * 0.75);
+
             this.meses_uso = 0;
+        }
+        public void CargarNafta(float litros)
+        {
+            this.nafta = this.nafta + litros;
         }
 
         ~cVehiculo() { }

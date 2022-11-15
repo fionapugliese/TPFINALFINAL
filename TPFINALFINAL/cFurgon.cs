@@ -14,7 +14,7 @@ namespace TPFINALFINAL
         {
             this.elevador = false;
             peso = 7000;
-            volumen = 3092;
+            volumen = 10000;
         }
         ~cFurgon() { }
     }

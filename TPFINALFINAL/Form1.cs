@@ -841,17 +841,6 @@ namespace TPFINALFINAL
             lista_logan.Add(comptadora);
 
 
-
-
-
-
-
-
-
-
-
-
-
             pedido1 = new cPedido_por_Cliente("Taylor Swift", eLocalidad.VicenteLopez, lista_taylor, entrega.express);
             pedido2 = new cPedido_por_Cliente("Sabrina Carpenter", eLocalidad.LaBoca, lista_sabrina, entrega.express);
             pedido3 = new cPedido_por_Cliente("Olivia Rodrigo", eLocalidad.Palermo, lista_olivia, entrega.express);
