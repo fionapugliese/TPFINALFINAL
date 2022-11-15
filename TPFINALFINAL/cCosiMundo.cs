@@ -1289,7 +1289,7 @@ namespace TPFINALFINAL
                     break;
                 case (DayOfWeek)3: //miercoles
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
-                    vector_camiones.Add(this.listaCamiones.ElementAt(2));
+                    vector_camiones.Add(this.listaCamiones.ElementAt(1));
                     break;
                 case (DayOfWeek)4: //jueves
                     vector_camiones.Add(this.listaCamiones.ElementAt(0));
