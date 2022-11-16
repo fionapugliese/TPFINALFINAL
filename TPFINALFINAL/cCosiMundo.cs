@@ -316,6 +316,7 @@ namespace TPFINALFINAL
                 h++;
             }
             dist = dist + calcular_distancia_barrio_a_liniers(orden_clientes.ElementAt(h-1)); //calculo el camino de vuelta de ese ultimo barrio a liniers
+            
             if (camion.GetType() == typeof(cCamioneta))
             {
                 //la camioneta gasta 9 litros cada 100 kilometros, calculo cuanta nafta necesito para hacer todo el recorrido
@@ -359,7 +360,7 @@ namespace TPFINALFINAL
                 verificacion_barrios[i] = true; //ya recorrimos ese barrio
                 orden_clientes.Add(lista_localidad[i]);//sumo el barrio a la lista
             }
-            else if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio a liniers, para que vuelva el camion
+            else if (chequeo_verificacion_barrios(verificacion_barrios) == -1)//solo falta un barrio, calculo la distancia de ese barrio desde el barrio donde estoy, para que vuelva el camion
             {
                 for (int h = 0; h < barrios; h++)
                 {
